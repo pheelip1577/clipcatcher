@@ -1,0 +1,1 @@
+# ClipCatcher app package

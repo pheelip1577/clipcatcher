@@ -1,0 +1,3169 @@
+"""
+World Cup 2026 — Comprehensive Static Data Module
+===================================================
+
+This module serves as the central knowledge base for the AI-powered World Cup
+content generation engine. It contains verified data for all 48 participating
+teams, 80+ notable players, 100+ historical facts, 80+ quiz questions,
+40+ controversies, 30+ top-10 list topics, and 30+ educational facts/rules.
+
+The 2026 FIFA World Cup is hosted jointly by the United States, Mexico, and
+Canada — the first edition with 48 teams in 12 groups (A–L). The tournament
+runs from June 11 to July 19, 2026.
+
+Data accuracy target: real names, real stats, real dates. Approximate figures
+(e.g. international goals) are noted where exact counts may shift.
+"""
+
+from __future__ import annotations
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. TEAMS — All 48 qualified nations
+# ═══════════════════════════════════════════════════════════════════════════════
+
+TEAMS: dict[str, dict] = {
+    # ── Group A ──────────────────────────────────────────────────────────────
+    "Mexico": {
+        "code": "MEX",
+        "flag": "🇲🇽",
+        "group": "A",
+        "key_players": ["Edson Álvarez", "Santiago Giménez", "Hirving Lozano", "César Montes", "Julián Quiñones"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (1970, 1986)",
+        "coach": "Javier Aguirre",
+        "fun_fact": "Mexico has appeared in more World Cups (18) than any non-European or South American team.",
+    },
+    "South Africa": {
+        "code": "RSA",
+        "flag": "🇿🇦",
+        "group": "A",
+        "key_players": ["Percy Tau", "Ronwen Williams", "Themba Zwane", "Teboho Mokoena"],
+        "titles": 0,
+        "best_finish": "Group stage (2010)",
+        "coach": "Hugo Broos",
+        "fun_fact": "South Africa became the first host nation to be eliminated in the group stage (2010).",
+    },
+    "South Korea": {
+        "code": "KOR",
+        "flag": "🇰🇷",
+        "group": "A",
+        "key_players": ["Son Heung-min", "Lee Kang-in", "Kim Min-jae", "Hwang Hee-chan", "Cho Gue-sung"],
+        "titles": 0,
+        "best_finish": "4th place (2002)",
+        "coach": "Hong Myung-bo",
+        "fun_fact": "South Korea's 2002 semi-final run remains the best finish by an Asian team at a World Cup.",
+    },
+    "Czechia": {
+        "code": "CZE",
+        "flag": "🇨🇿",
+        "group": "A",
+        "key_players": ["Patrik Schick", "Tomáš Souček", "Adam Hložek", "Vladimír Coufal"],
+        "titles": 0,
+        "best_finish": "Runners-up (1934, 1962 as Czechoslovakia)",
+        "coach": "Ivan Hašek",
+        "fun_fact": "As Czechoslovakia they reached two World Cup finals and won the 1976 European Championship.",
+    },
+
+    # ── Group B ──────────────────────────────────────────────────────────────
+    "Canada": {
+        "code": "CAN",
+        "flag": "🇨🇦",
+        "group": "B",
+        "key_players": ["Alphonso Davies", "Jonathan David", "Cyle Larin", "Tajon Buchanan", "Stephen Eustáquio"],
+        "titles": 0,
+        "best_finish": "Group stage (1986, 2022)",
+        "coach": "Jesse Marsch",
+        "fun_fact": "Canada scored their first-ever World Cup finals goal in 2022, 36 years after their debut.",
+    },
+    "Switzerland": {
+        "code": "SUI",
+        "flag": "🇨🇭",
+        "group": "B",
+        "key_players": ["Granit Xhaka", "Manuel Akanji", "Breel Embolo", "Dan Ndoye", "Gregor Kobel"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (1934, 1938, 1954)",
+        "coach": "Murat Yakın",
+        "fun_fact": "Switzerland went 555 minutes without conceding a World Cup goal between 2006 and 2010.",
+    },
+    "Qatar": {
+        "code": "QAT",
+        "flag": "🇶🇦",
+        "group": "B",
+        "key_players": ["Akram Afif", "Almoez Ali", "Hassan Al-Haydos", "Pedro Miguel"],
+        "titles": 0,
+        "best_finish": "Group stage (2022)",
+        "coach": "Luis García",
+        "fun_fact": "Qatar became the first World Cup host to lose all three group stage matches in 2022.",
+    },
+    "Bosnia and Herzegovina": {
+        "code": "BIH",
+        "flag": "🇧🇦",
+        "group": "B",
+        "key_players": ["Edin Džeko", "Miralem Pjanić", "Ermedin Demirović", "Sead Kolašinac"],
+        "titles": 0,
+        "best_finish": "Group stage (2014)",
+        "coach": "Sergej Barbarez",
+        "fun_fact": "Bosnia's first-ever World Cup goal was scored by Edin Džeko against Argentina in 2014.",
+    },
+
+    # ── Group C ──────────────────────────────────────────────────────────────
+    "Brazil": {
+        "code": "BRA",
+        "flag": "🇧🇷",
+        "group": "C",
+        "key_players": ["Vinícius Júnior", "Rodrygo", "Endrick", "Bruno Guimarães", "Marquinhos"],
+        "titles": 5,
+        "best_finish": "Winners (1958, 1962, 1970, 1994, 2002)",
+        "coach": "Dorival Júnior",
+        "fun_fact": "Brazil is the only team to have participated in every single World Cup edition since 1930.",
+    },
+    "Morocco": {
+        "code": "MAR",
+        "flag": "🇲🇦",
+        "group": "C",
+        "key_players": ["Achraf Hakimi", "Hakim Ziyech", "Youssef En-Nesyri", "Sofyan Amrabat", "Brahim Díaz"],
+        "titles": 0,
+        "best_finish": "Semi-finals (2022)",
+        "coach": "Walid Regragui",
+        "fun_fact": "Morocco became the first African and Arab nation to reach a World Cup semi-final in 2022.",
+    },
+    "Haiti": {
+        "code": "HAI",
+        "flag": "🇭🇹",
+        "group": "C",
+        "key_players": ["Frantzdy Pierrot", "Derrick Etienne Jr.", "Leverton Pierre", "Carlens Arcus"],
+        "titles": 0,
+        "best_finish": "Group stage (1974)",
+        "coach": "Patrick Music",
+        "fun_fact": "Haiti last appeared at the World Cup in 1974 — a 52-year gap before qualifying for 2026.",
+    },
+    "Scotland": {
+        "code": "SCO",
+        "flag": "🏴\U000e0067\U000e0062\U000e0073\U000e0063\U000e0074\U000e007f",
+        "group": "C",
+        "key_players": ["John McGinn", "Andrew Robertson", "Scott McTominay", "Billy Gilmour", "Che Adams"],
+        "titles": 0,
+        "best_finish": "Group stage (8 appearances)",
+        "coach": "Steve Clarke",
+        "fun_fact": "Scotland have appeared in 8 World Cup finals tournaments but have never advanced past the group stage.",
+    },
+
+    # ── Group D ──────────────────────────────────────────────────────────────
+    "USA": {
+        "code": "USA",
+        "flag": "🇺🇸",
+        "group": "D",
+        "key_players": ["Christian Pulisic", "Weston McKennie", "Tyler Adams", "Giovanni Reyna", "Folarin Balogun"],
+        "titles": 0,
+        "best_finish": "Semi-finals (1930)",
+        "coach": "Mauricio Pochettino",
+        "fun_fact": "The USA reached the semi-finals in the very first World Cup (1930) — their best-ever finish.",
+    },
+    "Paraguay": {
+        "code": "PAR",
+        "flag": "🇵🇾",
+        "group": "D",
+        "key_players": ["Miguel Almirón", "Julio Enciso", "Gustavo Gómez", "Mathías Villasanti"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (2010)",
+        "coach": "Alfaro Moreno",
+        "fun_fact": "Paraguay's José Luis Chilavert is the only goalkeeper to score a World Cup qualifying hat-trick.",
+    },
+    "Australia": {
+        "code": "AUS",
+        "flag": "🇦🇺",
+        "group": "D",
+        "key_players": ["Mathew Leckie", "Jackson Irvine", "Mitchell Duke", "Awer Mabil", "Aziz Behich"],
+        "titles": 0,
+        "best_finish": "Round of 16 (2022)",
+        "coach": "Tony Popovic",
+        "fun_fact": "Australia's 31-0 win over American Samoa in 2001 is the largest international football victory ever.",
+    },
+    "Türkiye": {
+        "code": "TUR",
+        "flag": "🇹🇷",
+        "group": "D",
+        "key_players": ["Hakan Çalhanoğlu", "Arda Güler", "Kenan Yıldız", "Ferdi Kadıoğlu", "Barış Alper Yılmaz"],
+        "titles": 0,
+        "best_finish": "3rd place (2002)",
+        "coach": "Vincenzo Montella",
+        "fun_fact": "Türkiye's Hakan Şükür scored the fastest World Cup goal ever — 11 seconds into the 2002 third-place match.",
+    },
+
+    # ── Group E ──────────────────────────────────────────────────────────────
+    "Germany": {
+        "code": "GER",
+        "flag": "🇩🇪",
+        "group": "E",
+        "key_players": ["Jamal Musiala", "Florian Wirtz", "Kai Havertz", "Antonio Rüdiger", "Joshua Kimmich"],
+        "titles": 4,
+        "best_finish": "Winners (1954, 1974, 1990, 2014)",
+        "coach": "Julian Nagelsmann",
+        "fun_fact": "Germany (including West Germany) have appeared in a record 8 World Cup finals.",
+    },
+    "Ecuador": {
+        "code": "ECU",
+        "flag": "🇪🇨",
+        "group": "E",
+        "key_players": ["Moisés Caicedo", "Piero Hincapié", "Kendry Páez", "Enner Valencia"],
+        "titles": 0,
+        "best_finish": "Round of 16 (2006)",
+        "coach": "Sebastián Beccacece",
+        "fun_fact": "Ecuador's Enner Valencia has scored in 3 consecutive World Cup tournaments (2014, 2018 was missed, 2022).",
+    },
+    "Côte d'Ivoire": {
+        "code": "CIV",
+        "flag": "🇨🇮",
+        "group": "E",
+        "key_players": ["Sébastien Haller", "Simon Adingra", "Franck Kessié", "Serge Aurier", "Ibrahim Sangaré"],
+        "titles": 0,
+        "best_finish": "Group stage (2006, 2010, 2014)",
+        "coach": "Emerse Faé",
+        "fun_fact": "Côte d'Ivoire won the 2024 Africa Cup of Nations on home soil, galvanizing their World Cup push.",
+    },
+    "Curaçao": {
+        "code": "CUW",
+        "flag": "🇨🇼",
+        "group": "E",
+        "key_players": ["Cuco Martina", "Kenji Gorré", "Juninho Bacuna", "Eloy Room"],
+        "titles": 0,
+        "best_finish": "Debut (2026)",
+        "coach": "Dick Advocaat",
+        "fun_fact": "Curaçao is making its first-ever World Cup appearance — the island has a population of just 150,000.",
+    },
+
+    # ── Group F ──────────────────────────────────────────────────────────────
+    "Netherlands": {
+        "code": "NED",
+        "flag": "🇳🇱",
+        "group": "F",
+        "key_players": ["Virgil van Dijk", "Cody Gakpo", "Ryan Gravenberch", "Xavi Simons", "Jeremie Frimpong"],
+        "titles": 0,
+        "best_finish": "Runners-up (1974, 1978, 2010)",
+        "coach": "Ronald Koeman",
+        "fun_fact": "The Netherlands have reached 3 World Cup finals but never won the trophy — the best team never to win it.",
+    },
+    "Japan": {
+        "code": "JPN",
+        "flag": "🇯🇵",
+        "group": "F",
+        "key_players": ["Takefusa Kubo", "Kaoru Mitoma", "Wataru Endō", "Takehiro Tomiyasu", "Ritsu Doan"],
+        "titles": 0,
+        "best_finish": "Round of 16 (2002, 2010, 2018, 2022)",
+        "coach": "Hajime Moriyasu",
+        "fun_fact": "Japanese fans are famous for cleaning up the stadium after every match, win or lose.",
+    },
+    "Tunisia": {
+        "code": "TUN",
+        "flag": "🇹🇳",
+        "group": "F",
+        "key_players": ["Aïssa Laïdouni", "Hannibal Mejbri", "Youssef Msakni", "Mohamed Ali Ben Romdhane"],
+        "titles": 0,
+        "best_finish": "Group stage (6 appearances)",
+        "coach": "Faouzi Benzarti",
+        "fun_fact": "Tunisia became the first African nation to win a World Cup match, beating Mexico 3-1 in 1978.",
+    },
+    "Sweden": {
+        "code": "SWE",
+        "flag": "🇸🇪",
+        "group": "F",
+        "key_players": ["Alexander Isak", "Dejan Kulusevski", "Viktor Gyökeres", "Anthony Elanga", "Hugo Larsson"],
+        "titles": 0,
+        "best_finish": "Runners-up (1958)",
+        "coach": "Jon Dahl Tomasson",
+        "fun_fact": "Sweden reached the 1958 World Cup final on home soil, losing 5-2 to a Pelé-inspired Brazil.",
+    },
+
+    # ── Group G ──────────────────────────────────────────────────────────────
+    "Belgium": {
+        "code": "BEL",
+        "flag": "🇧🇪",
+        "group": "G",
+        "key_players": ["Kevin De Bruyne", "Jérémy Doku", "Amadou Onana", "Loïs Openda", "Arthur Theate"],
+        "titles": 0,
+        "best_finish": "3rd place (2018)",
+        "coach": "Domenico Tedesco",
+        "fun_fact": "Belgium held the #1 FIFA ranking for a record stretch of nearly 4 years (2018-2022).",
+    },
+    "Iran": {
+        "code": "IRN",
+        "flag": "🇮🇷",
+        "group": "G",
+        "key_players": ["Mehdi Taremi", "Sardar Azmoun", "Alireza Jahanbakhsh", "Sadegh Moharrami"],
+        "titles": 0,
+        "best_finish": "Group stage (6 appearances)",
+        "coach": "Amir Ghalenoei",
+        "fun_fact": "Iran's 2-1 victory over the USA in 1998 is considered one of the most politically charged World Cup matches ever.",
+    },
+    "Egypt": {
+        "code": "EGY",
+        "flag": "🇪🇬",
+        "group": "G",
+        "key_players": ["Mohamed Salah", "Omar Marmoush", "Trezeguet", "Ahmed Hegazi", "Mohamed Elneny"],
+        "titles": 0,
+        "best_finish": "Group stage (1934, 2018)",
+        "coach": "Hossam Hassan",
+        "fun_fact": "Egypt hold the record for most Africa Cup of Nations titles (7) but have only appeared in 3 World Cups.",
+    },
+    "New Zealand": {
+        "code": "NZL",
+        "flag": "🇳🇿",
+        "group": "G",
+        "key_players": ["Chris Wood", "Sarpreet Singh", "Liberato Cacace", "Matt Garbett"],
+        "titles": 0,
+        "best_finish": "Group stage (1982, 2010)",
+        "coach": "Darren Bazeley",
+        "fun_fact": "New Zealand went unbeaten at the 2010 World Cup, drawing all three group matches.",
+    },
+
+    # ── Group H ──────────────────────────────────────────────────────────────
+    "Spain": {
+        "code": "ESP",
+        "flag": "🇪🇸",
+        "group": "H",
+        "key_players": ["Lamine Yamal", "Pedri", "Dani Olmo", "Rodri", "Nico Williams"],
+        "titles": 1,
+        "best_finish": "Winners (2010)",
+        "coach": "Luis de la Fuente",
+        "fun_fact": "Spain's tiki-taka style redefined football, with their 2010 World Cup team averaging 63% possession per match.",
+    },
+    "Uruguay": {
+        "code": "URU",
+        "flag": "🇺🇾",
+        "group": "H",
+        "key_players": ["Federico Valverde", "Darwin Núñez", "Ronald Araújo", "Nicolás De La Cruz", "Facundo Pellistri"],
+        "titles": 2,
+        "best_finish": "Winners (1930, 1950)",
+        "coach": "Marcelo Bielsa",
+        "fun_fact": "Uruguay won the first-ever World Cup in 1930 on home soil, and repeated in Brazil in 1950 in a shock final.",
+    },
+    "Saudi Arabia": {
+        "code": "KSA",
+        "flag": "🇸🇦",
+        "group": "H",
+        "key_players": ["Salem Al-Dawsari", "Firas Al-Buraikan", "Mohammed Al-Owais", "Ali Al-Bulayhi"],
+        "titles": 0,
+        "best_finish": "Round of 16 (1994)",
+        "coach": "Roberto Mancini",
+        "fun_fact": "Saudi Arabia stunned the world by beating eventual champions Argentina 2-1 in the 2022 World Cup opener.",
+    },
+    "Cabo Verde": {
+        "code": "CPV",
+        "flag": "🇨🇻",
+        "group": "H",
+        "key_players": ["Ryan Mendes", "Garry Rodrigues", "Kenny Rocha Santos", "Stopira"],
+        "titles": 0,
+        "best_finish": "Debut (2026)",
+        "coach": "Bubista",
+        "fun_fact": "Cabo Verde is the smallest nation by population (~590,000) to qualify for a World Cup since Trinidad & Tobago in 2006.",
+    },
+
+    # ── Group I ──────────────────────────────────────────────────────────────
+    "France": {
+        "code": "FRA",
+        "flag": "🇫🇷",
+        "group": "I",
+        "key_players": ["Kylian Mbappé", "Antoine Griezmann", "Aurélien Tchouaméni", "William Saliba", "Ousmane Dembélé"],
+        "titles": 2,
+        "best_finish": "Winners (1998, 2018)",
+        "coach": "Didier Deschamps",
+        "fun_fact": "France have reached 4 of the last 7 World Cup finals (1998, 2006, 2018, 2022).",
+    },
+    "Senegal": {
+        "code": "SEN",
+        "flag": "🇸🇳",
+        "group": "I",
+        "key_players": ["Sadio Mané", "Kalidou Koulibaly", "Ismaïla Sarr", "Abdoulaye Doucouré", "Iliman Ndiaye"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (2002)",
+        "coach": "Pape Thiaw",
+        "fun_fact": "Senegal shocked France 1-0 in the opening match of the 2002 World Cup on their tournament debut.",
+    },
+    "Iraq": {
+        "code": "IRQ",
+        "flag": "🇮🇶",
+        "group": "I",
+        "key_players": ["Mohanad Ali", "Aymen Hussein", "Ibrahim Bayesh", "Ali Adnan"],
+        "titles": 0,
+        "best_finish": "Group stage (1986)",
+        "coach": "Jesús Casas",
+        "fun_fact": "Iraq won the 2007 AFC Asian Cup against all odds while the country was engulfed in conflict.",
+    },
+    "Norway": {
+        "code": "NOR",
+        "flag": "🇳🇴",
+        "group": "I",
+        "key_players": ["Erling Haaland", "Martin Ødegaard", "Sander Berge", "Alexander Sørloth", "Antonio Nusa"],
+        "titles": 0,
+        "best_finish": "Group stage (1938, 1994, 1998)",
+        "coach": "Ståle Solbakken",
+        "fun_fact": "Norway is one of only three teams to have beaten Brazil in a World Cup match (1998, 2-1).",
+    },
+
+    # ── Group J ──────────────────────────────────────────────────────────────
+    "Argentina": {
+        "code": "ARG",
+        "flag": "🇦🇷",
+        "group": "J",
+        "key_players": ["Lionel Messi", "Julián Álvarez", "Enzo Fernández", "Lisandro Martínez", "Alexis Mac Allister"],
+        "titles": 3,
+        "best_finish": "Winners (1978, 1986, 2022)",
+        "coach": "Lionel Scaloni",
+        "fun_fact": "Argentina's 2022 triumph made Messi the first player to win the Golden Ball twice at a World Cup.",
+    },
+    "Algeria": {
+        "code": "ALG",
+        "flag": "🇩🇿",
+        "group": "J",
+        "key_players": ["Riyad Mahrez", "Youcef Atal", "Ismaël Bennacer", "Saïd Benrahma"],
+        "titles": 0,
+        "best_finish": "Round of 16 (2014)",
+        "coach": "Vladimir Petković",
+        "fun_fact": "Algeria's shock 2-1 win over West Germany in 1982 is known as the 'Disgrace of Gijón' aftermath.",
+    },
+    "Austria": {
+        "code": "AUT",
+        "flag": "🇦🇹",
+        "group": "J",
+        "key_players": ["David Alaba", "Marcel Sabitzer", "Konrad Laimer", "Christoph Baumgartner"],
+        "titles": 0,
+        "best_finish": "3rd place (1954)",
+        "coach": "Ralf Rangnick",
+        "fun_fact": "Austria's 7-5 win over Switzerland in 1954 remains the highest-scoring World Cup match in history.",
+    },
+    "Jordan": {
+        "code": "JOR",
+        "flag": "🇯🇴",
+        "group": "J",
+        "key_players": ["Musa Al-Taamari", "Yazan Al-Naimat", "Ehsan Haddad", "Mousa Tamari"],
+        "titles": 0,
+        "best_finish": "Debut (2026)",
+        "coach": "Hossein Kalani",
+        "fun_fact": "Jordan reached the 2024 AFC Asian Cup final, their best-ever continental result, fueling their WC qualification.",
+    },
+
+    # ── Group K ──────────────────────────────────────────────────────────────
+    "Colombia": {
+        "code": "COL",
+        "flag": "🇨🇴",
+        "group": "K",
+        "key_players": ["Luis Díaz", "James Rodríguez", "Jhon Arias", "Richard Ríos", "Jhon Durán"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (2014)",
+        "coach": "Néstor Lorenzo",
+        "fun_fact": "James Rodríguez won the 2014 World Cup Golden Boot with 6 goals, including a legendary volley vs. Uruguay.",
+    },
+    "Portugal": {
+        "code": "POR",
+        "flag": "🇵🇹",
+        "group": "K",
+        "key_players": ["Cristiano Ronaldo", "Bruno Fernandes", "Bernardo Silva", "Rafael Leão", "João Neves"],
+        "titles": 0,
+        "best_finish": "3rd place (1966)",
+        "coach": "Roberto Martínez",
+        "fun_fact": "Cristiano Ronaldo is the all-time top scorer in international football with 130+ goals.",
+    },
+    "Uzbekistan": {
+        "code": "UZB",
+        "flag": "🇺🇿",
+        "group": "K",
+        "key_players": ["Eldor Shomurodov", "Abbosbek Fayzullaev", "Oston Urunov", "Islom Tukhtakhodjaev"],
+        "titles": 0,
+        "best_finish": "Debut (2026)",
+        "coach": "Timur Kapadze",
+        "fun_fact": "Uzbekistan is making their World Cup debut after years of near-misses in Asian qualifying.",
+    },
+    "DR Congo": {
+        "code": "COD",
+        "flag": "🇨🇩",
+        "group": "K",
+        "key_players": ["Chancel Mbemba", "Cédric Bakambu", "Yoane Wissa", "Arthur Masuaku", "Samuel Moutoussamy"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (1974 as Zaire)",
+        "coach": "Sébastien Desabre",
+        "fun_fact": "As Zaire in 1974, they became the first sub-Saharan African nation to play in a World Cup.",
+    },
+
+    # ── Group L ──────────────────────────────────────────────────────────────
+    "England": {
+        "code": "ENG",
+        "flag": "🏴\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f",
+        "group": "L",
+        "key_players": ["Jude Bellingham", "Bukayo Saka", "Phil Foden", "Declan Rice", "Cole Palmer"],
+        "titles": 1,
+        "best_finish": "Winners (1966)",
+        "coach": "Thomas Tuchel",
+        "fun_fact": "England's only World Cup title came at Wembley in 1966 with Geoff Hurst's famous hat-trick in the final.",
+    },
+    "Croatia": {
+        "code": "CRO",
+        "flag": "🇭🇷",
+        "group": "L",
+        "key_players": ["Luka Modrić", "Joško Gvardiol", "Mateo Kovačić", "Andrej Kramarić", "Igor Matanović"],
+        "titles": 0,
+        "best_finish": "Runners-up (2018)",
+        "coach": "Zlatko Dalić",
+        "fun_fact": "Croatia reached the World Cup final in only their 5th tournament appearance (2018) — the smallest nation to do so at the time.",
+    },
+    "Ghana": {
+        "code": "GHA",
+        "flag": "🇬🇭",
+        "group": "L",
+        "key_players": ["Mohammed Kudus", "Thomas Partey", "Inaki Williams", "Antoine Semenyo", "Tariq Lamptey"],
+        "titles": 0,
+        "best_finish": "Quarter-finals (2010)",
+        "coach": "Otto Addo",
+        "fun_fact": "Ghana were denied a World Cup semi-final spot in 2010 by Suárez's infamous handball on the goal line.",
+    },
+    "Panama": {
+        "code": "PAN",
+        "flag": "🇵🇦",
+        "group": "L",
+        "key_players": ["Michael Murillo", "Eric Davis", "José Fajardo", "Adalberto Carrasquilla", "César Yanis"],
+        "titles": 0,
+        "best_finish": "Group stage (2018)",
+        "coach": "Thomas Christiansen",
+        "fun_fact": "Panama's qualification for the 2018 World Cup was declared a national holiday by the president.",
+    },
+}
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. SCHEDULE — Group Stage Fixtures (selected key matches)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+SCHEDULE: list[dict] = [
+    # ── Day 1 — June 11, 2026 ───────────────────────────────────────────────
+    {"date": "2026-06-11", "team_a": "Mexico", "team_b": "South Africa", "stage": "Group A – MD1", "venue": "Estadio Azteca, Mexico City"},
+
+    # ── Day 2 — June 12 ─────────────────────────────────────────────────────
+    {"date": "2026-06-12", "team_a": "Canada", "team_b": "Bosnia and Herzegovina", "stage": "Group B – MD1", "venue": "BMO Field, Toronto"},
+    {"date": "2026-06-12", "team_a": "USA", "team_b": "Paraguay", "stage": "Group D – MD1", "venue": "SoFi Stadium, Los Angeles"},
+    {"date": "2026-06-12", "team_a": "South Korea", "team_b": "Czechia", "stage": "Group A – MD1", "venue": "AT&T Stadium, Dallas"},
+
+    # ── Day 3 — June 13 ─────────────────────────────────────────────────────
+    {"date": "2026-06-13", "team_a": "Brazil", "team_b": "Morocco", "stage": "Group C – MD1", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-13", "team_a": "Germany", "team_b": "Ecuador", "stage": "Group E – MD1", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-13", "team_a": "Netherlands", "team_b": "Japan", "stage": "Group F – MD1", "venue": "Gillette Stadium, Boston"},
+    {"date": "2026-06-13", "team_a": "Haiti", "team_b": "Scotland", "stage": "Group C – MD1", "venue": "BBVA Stadium, Monterrey"},
+
+    # ── Day 4 — June 14 ─────────────────────────────────────────────────────
+    {"date": "2026-06-14", "team_a": "France", "team_b": "Senegal", "stage": "Group I – MD1", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-06-14", "team_a": "Belgium", "team_b": "Iran", "stage": "Group G – MD1", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-14", "team_a": "Spain", "team_b": "Uruguay", "stage": "Group H – MD1", "venue": "Lumen Field, Seattle"},
+    {"date": "2026-06-14", "team_a": "Australia", "team_b": "Türkiye", "stage": "Group D – MD1", "venue": "Estadio Akron, Guadalajara"},
+
+    # ── Day 5 — June 15 ─────────────────────────────────────────────────────
+    {"date": "2026-06-15", "team_a": "Argentina", "team_b": "Algeria", "stage": "Group J – MD1", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-15", "team_a": "England", "team_b": "Croatia", "stage": "Group L – MD1", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-06-15", "team_a": "Colombia", "team_b": "Portugal", "stage": "Group K – MD1", "venue": "Levi's Stadium, San Francisco Bay Area"},
+    {"date": "2026-06-15", "team_a": "Côte d'Ivoire", "team_b": "Curaçao", "stage": "Group E – MD1", "venue": "Arrowhead Stadium, Kansas City"},
+
+    # ── Day 6 — June 16 ─────────────────────────────────────────────────────
+    {"date": "2026-06-16", "team_a": "Tunisia", "team_b": "Sweden", "stage": "Group F – MD1", "venue": "Mercedes-Benz Stadium, Atlanta"},
+    {"date": "2026-06-16", "team_a": "Egypt", "team_b": "New Zealand", "stage": "Group G – MD1", "venue": "BC Place, Vancouver"},
+    {"date": "2026-06-16", "team_a": "Saudi Arabia", "team_b": "Cabo Verde", "stage": "Group H – MD1", "venue": "BBVA Stadium, Monterrey"},
+    {"date": "2026-06-16", "team_a": "Iraq", "team_b": "Norway", "stage": "Group I – MD1", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-16", "team_a": "Austria", "team_b": "Jordan", "stage": "Group J – MD1", "venue": "SoFi Stadium, Los Angeles"},
+    {"date": "2026-06-16", "team_a": "Uzbekistan", "team_b": "DR Congo", "stage": "Group K – MD1", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-16", "team_a": "Ghana", "team_b": "Panama", "stage": "Group L – MD1", "venue": "Estadio Azteca, Mexico City"},
+
+    # ── Day 7 — June 17 (MD2 begins) ────────────────────────────────────────
+    {"date": "2026-06-17", "team_a": "Mexico", "team_b": "South Korea", "stage": "Group A – MD2", "venue": "Estadio Azteca, Mexico City"},
+    {"date": "2026-06-17", "team_a": "South Africa", "team_b": "Czechia", "stage": "Group A – MD2", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-06-17", "team_a": "Switzerland", "team_b": "Qatar", "stage": "Group B – MD2", "venue": "Gillette Stadium, Boston"},
+    {"date": "2026-06-17", "team_a": "Canada", "team_b": "Switzerland", "stage": "Group B – MD2", "venue": "BMO Field, Toronto"},
+
+    # ── Day 8 — June 18 ─────────────────────────────────────────────────────
+    {"date": "2026-06-18", "team_a": "Brazil", "team_b": "Haiti", "stage": "Group C – MD2", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-06-18", "team_a": "Morocco", "team_b": "Scotland", "stage": "Group C – MD2", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-18", "team_a": "USA", "team_b": "Australia", "stage": "Group D – MD2", "venue": "SoFi Stadium, Los Angeles"},
+    {"date": "2026-06-18", "team_a": "Paraguay", "team_b": "Türkiye", "stage": "Group D – MD2", "venue": "Estadio Akron, Guadalajara"},
+
+    # ── Day 9 — June 19 ─────────────────────────────────────────────────────
+    {"date": "2026-06-19", "team_a": "Germany", "team_b": "Côte d'Ivoire", "stage": "Group E – MD2", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-19", "team_a": "Ecuador", "team_b": "Curaçao", "stage": "Group E – MD2", "venue": "Arrowhead Stadium, Kansas City"},
+    {"date": "2026-06-19", "team_a": "Netherlands", "team_b": "Tunisia", "stage": "Group F – MD2", "venue": "Mercedes-Benz Stadium, Atlanta"},
+    {"date": "2026-06-19", "team_a": "Japan", "team_b": "Sweden", "stage": "Group F – MD2", "venue": "Lumen Field, Seattle"},
+
+    # ── Day 10 — June 20 ────────────────────────────────────────────────────
+    {"date": "2026-06-20", "team_a": "Belgium", "team_b": "Egypt", "stage": "Group G – MD2", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-20", "team_a": "Iran", "team_b": "New Zealand", "stage": "Group G – MD2", "venue": "BC Place, Vancouver"},
+    {"date": "2026-06-20", "team_a": "Spain", "team_b": "Saudi Arabia", "stage": "Group H – MD2", "venue": "Lumen Field, Seattle"},
+    {"date": "2026-06-20", "team_a": "Uruguay", "team_b": "Cabo Verde", "stage": "Group H – MD2", "venue": "BBVA Stadium, Monterrey"},
+
+    # ── Day 11 — June 21 ────────────────────────────────────────────────────
+    {"date": "2026-06-21", "team_a": "France", "team_b": "Iraq", "stage": "Group I – MD2", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-06-21", "team_a": "Senegal", "team_b": "Norway", "stage": "Group I – MD2", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-21", "team_a": "Argentina", "team_b": "Austria", "stage": "Group J – MD2", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-21", "team_a": "Algeria", "team_b": "Jordan", "stage": "Group J – MD2", "venue": "SoFi Stadium, Los Angeles"},
+
+    # ── Day 12 — June 22 ────────────────────────────────────────────────────
+    {"date": "2026-06-22", "team_a": "Colombia", "team_b": "Uzbekistan", "stage": "Group K – MD2", "venue": "Levi's Stadium, San Francisco Bay Area"},
+    {"date": "2026-06-22", "team_a": "Portugal", "team_b": "DR Congo", "stage": "Group K – MD2", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-22", "team_a": "England", "team_b": "Ghana", "stage": "Group L – MD2", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-06-22", "team_a": "Croatia", "team_b": "Panama", "stage": "Group L – MD2", "venue": "Estadio Azteca, Mexico City"},
+
+    # ── MD3 — June 23-27 (Simultaneous group finales) ───────────────────────
+    {"date": "2026-06-23", "team_a": "Mexico", "team_b": "Czechia", "stage": "Group A – MD3", "venue": "Estadio Azteca, Mexico City"},
+    {"date": "2026-06-23", "team_a": "South Korea", "team_b": "South Africa", "stage": "Group A – MD3", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-06-23", "team_a": "Canada", "team_b": "Qatar", "stage": "Group B – MD3", "venue": "BMO Field, Toronto"},
+    {"date": "2026-06-23", "team_a": "Switzerland", "team_b": "Bosnia and Herzegovina", "stage": "Group B – MD3", "venue": "Gillette Stadium, Boston"},
+
+    {"date": "2026-06-24", "team_a": "Brazil", "team_b": "Scotland", "stage": "Group C – MD3", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-06-24", "team_a": "Morocco", "team_b": "Haiti", "stage": "Group C – MD3", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-24", "team_a": "USA", "team_b": "Türkiye", "stage": "Group D – MD3", "venue": "SoFi Stadium, Los Angeles"},
+    {"date": "2026-06-24", "team_a": "Paraguay", "team_b": "Australia", "stage": "Group D – MD3", "venue": "Estadio Akron, Guadalajara"},
+
+    {"date": "2026-06-25", "team_a": "Germany", "team_b": "Curaçao", "stage": "Group E – MD3", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-25", "team_a": "Ecuador", "team_b": "Côte d'Ivoire", "stage": "Group E – MD3", "venue": "Arrowhead Stadium, Kansas City"},
+    {"date": "2026-06-25", "team_a": "Netherlands", "team_b": "Sweden", "stage": "Group F – MD3", "venue": "Mercedes-Benz Stadium, Atlanta"},
+    {"date": "2026-06-25", "team_a": "Japan", "team_b": "Tunisia", "stage": "Group F – MD3", "venue": "Levi's Stadium, San Francisco Bay Area"},
+
+    {"date": "2026-06-25", "team_a": "Belgium", "team_b": "New Zealand", "stage": "Group G – MD3", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-25", "team_a": "Iran", "team_b": "Egypt", "stage": "Group G – MD3", "venue": "BC Place, Vancouver"},
+    {"date": "2026-06-26", "team_a": "Spain", "team_b": "Cabo Verde", "stage": "Group H – MD3", "venue": "Lumen Field, Seattle"},
+    {"date": "2026-06-26", "team_a": "Uruguay", "team_b": "Saudi Arabia", "stage": "Group H – MD3", "venue": "BBVA Stadium, Monterrey"},
+
+    {"date": "2026-06-26", "team_a": "France", "team_b": "Norway", "stage": "Group I – MD3", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-06-26", "team_a": "Senegal", "team_b": "Iraq", "stage": "Group I – MD3", "venue": "Lincoln Financial Field, Philadelphia"},
+    {"date": "2026-06-27", "team_a": "Argentina", "team_b": "Jordan", "stage": "Group J – MD3", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-06-27", "team_a": "Algeria", "team_b": "Austria", "stage": "Group J – MD3", "venue": "SoFi Stadium, Los Angeles"},
+
+    {"date": "2026-06-27", "team_a": "Colombia", "team_b": "DR Congo", "stage": "Group K – MD3", "venue": "Levi's Stadium, San Francisco Bay Area"},
+    {"date": "2026-06-27", "team_a": "Portugal", "team_b": "Uzbekistan", "stage": "Group K – MD3", "venue": "NRG Stadium, Houston"},
+    {"date": "2026-06-27", "team_a": "England", "team_b": "Panama", "stage": "Group L – MD3", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-06-27", "team_a": "Croatia", "team_b": "Ghana", "stage": "Group L – MD3", "venue": "Estadio Azteca, Mexico City"},
+
+    # ── Knockout Phase Structure ─────────────────────────────────────────────
+    {"date": "2026-06-28", "team_a": "TBD", "team_b": "TBD", "stage": "Round of 32 – Match 1", "venue": "Various"},
+    {"date": "2026-07-04", "team_a": "TBD", "team_b": "TBD", "stage": "Round of 16 – Match 1", "venue": "Various"},
+    {"date": "2026-07-09", "team_a": "TBD", "team_b": "TBD", "stage": "Quarter-final 1", "venue": "Various"},
+    {"date": "2026-07-14", "team_a": "TBD", "team_b": "TBD", "stage": "Semi-final 1", "venue": "AT&T Stadium, Dallas"},
+    {"date": "2026-07-15", "team_a": "TBD", "team_b": "TBD", "stage": "Semi-final 2", "venue": "MetLife Stadium, New York/New Jersey"},
+    {"date": "2026-07-18", "team_a": "TBD", "team_b": "TBD", "stage": "Third-place play-off", "venue": "Hard Rock Stadium, Miami"},
+    {"date": "2026-07-19", "team_a": "TBD", "team_b": "TBD", "stage": "Final", "venue": "MetLife Stadium, New York/New Jersey"},
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. PLAYERS — Notable Stars (80+)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+PLAYERS: dict[str, dict] = {
+    # ── Argentina ────────────────────────────────────────────────────────────
+    "Lionel Messi": {
+        "country": "Argentina",
+        "position": "Forward",
+        "club": "Inter Miami CF",
+        "age": 38,
+        "goals_international": 109,
+        "fun_facts": [
+            "Won the 2022 World Cup to complete football's ultimate trophy collection.",
+            "Only player to win the Ballon d'Or 8 times.",
+            "Holds the record for most goals in a calendar year (91 in 2012).",
+        ],
+    },
+    "Julián Álvarez": {
+        "country": "Argentina",
+        "position": "Forward",
+        "club": "Atlético Madrid",
+        "age": 26,
+        "goals_international": 22,
+        "fun_facts": [
+            "Scored 4 goals at the 2022 World Cup as a 22-year-old.",
+            "Won the Copa América 2024 as Argentina's main striker.",
+        ],
+    },
+    "Enzo Fernández": {
+        "country": "Argentina",
+        "position": "Midfielder",
+        "club": "Chelsea",
+        "age": 25,
+        "goals_international": 5,
+        "fun_facts": [
+            "Won the FIFA World Cup Best Young Player award in 2022.",
+            "Chelsea signed him for a British-record fee of £106.8 million in 2023.",
+        ],
+    },
+    "Lisandro Martínez": {
+        "country": "Argentina",
+        "position": "Defender",
+        "club": "Manchester United",
+        "age": 28,
+        "goals_international": 3,
+        "fun_facts": [
+            "Nicknamed 'The Butcher' for his aggressive tackling style.",
+            "Part of Argentina's World Cup-winning squad in 2022.",
+        ],
+    },
+
+    # ── Brazil ───────────────────────────────────────────────────────────────
+    "Vinícius Júnior": {
+        "country": "Brazil",
+        "position": "Forward",
+        "club": "Real Madrid",
+        "age": 25,
+        "goals_international": 7,
+        "fun_facts": [
+            "Won the Ballon d'Or in 2024 after Champions League heroics.",
+            "Scored the winning goal in the 2024 Champions League final.",
+            "Signed with Real Madrid at age 18 for €45 million.",
+        ],
+    },
+    "Rodrygo": {
+        "country": "Brazil",
+        "position": "Forward",
+        "club": "Real Madrid",
+        "age": 25,
+        "goals_international": 8,
+        "fun_facts": [
+            "Scored two goals in 90 seconds to eliminate Manchester City in the 2022 UCL semi-final.",
+            "Part of Real Madrid's deadly attacking trident.",
+        ],
+    },
+    "Endrick": {
+        "country": "Brazil",
+        "position": "Forward",
+        "club": "Real Madrid",
+        "age": 19,
+        "goals_international": 5,
+        "fun_facts": [
+            "Became Brazil's youngest scorer since Pelé when he debuted at age 17.",
+            "Signed a pre-contract with Real Madrid at just 16 years old.",
+        ],
+    },
+    "Bruno Guimarães": {
+        "country": "Brazil",
+        "position": "Midfielder",
+        "club": "Newcastle United",
+        "age": 28,
+        "goals_international": 4,
+        "fun_facts": [
+            "Considered one of the best box-to-box midfielders in the Premier League.",
+            "His pressing intensity ranks in the top 1% among midfielders in Europe.",
+        ],
+    },
+
+    # ── France ───────────────────────────────────────────────────────────────
+    "Kylian Mbappé": {
+        "country": "France",
+        "position": "Forward",
+        "club": "Real Madrid",
+        "age": 27,
+        "goals_international": 48,
+        "fun_facts": [
+            "Scored a hat-trick in the 2022 World Cup final — only the second player to do so.",
+            "Became the youngest French player to score at a World Cup (19 years old in 2018).",
+            "Won the 2018 World Cup at just 19, emulating Pelé.",
+        ],
+    },
+    "Antoine Griezmann": {
+        "country": "France",
+        "position": "Forward/Midfielder",
+        "club": "Atlético Madrid",
+        "age": 35,
+        "goals_international": 46,
+        "fun_facts": [
+            "Scored in the 2018 World Cup final and was named tournament MVP.",
+            "Known for his iconic 'Take the L' celebration from Fortnite.",
+        ],
+    },
+    "Aurélien Tchouaméni": {
+        "country": "France",
+        "position": "Midfielder",
+        "club": "Real Madrid",
+        "age": 26,
+        "goals_international": 5,
+        "fun_facts": [
+            "Scored from outside the box against England in the 2022 World Cup quarter-final.",
+            "One of the most complete defensive midfielders in world football.",
+        ],
+    },
+    "William Saliba": {
+        "country": "France",
+        "position": "Defender",
+        "club": "Arsenal",
+        "age": 25,
+        "goals_international": 2,
+        "fun_facts": [
+            "Arsenal signed him at 18, loaned him 3 times, then he became their defensive cornerstone.",
+            "Named in the Ligue 1 Team of the Season while on loan at Marseille.",
+        ],
+    },
+    "Ousmane Dembélé": {
+        "country": "France",
+        "position": "Forward",
+        "club": "Paris Saint-Germain",
+        "age": 29,
+        "goals_international": 7,
+        "fun_facts": [
+            "Ambidextrous — equally effective with both feet.",
+            "Won the World Cup with France in 2018 at just 21.",
+        ],
+    },
+
+    # ── England ──────────────────────────────────────────────────────────────
+    "Jude Bellingham": {
+        "country": "England",
+        "position": "Midfielder",
+        "club": "Real Madrid",
+        "age": 22,
+        "goals_international": 12,
+        "fun_facts": [
+            "Became the youngest player to play in a Bundesliga match at age 17.",
+            "Scored 23 goals in his debut La Liga season with Real Madrid.",
+            "Named La Liga Player of the Season 2023-24.",
+        ],
+    },
+    "Bukayo Saka": {
+        "country": "England",
+        "position": "Forward",
+        "club": "Arsenal",
+        "age": 24,
+        "goals_international": 14,
+        "fun_facts": [
+            "Arsenal academy graduate who debuted at 17.",
+            "Showed incredible courage stepping up for a penalty in the Euro 2020 final at age 19.",
+            "Has been Arsenal's top scorer or assister in multiple consecutive seasons.",
+        ],
+    },
+    "Phil Foden": {
+        "country": "England",
+        "position": "Midfielder/Forward",
+        "club": "Manchester City",
+        "age": 26,
+        "goals_international": 8,
+        "fun_facts": [
+            "Won the BBC Young Sports Personality of the Year at 17.",
+            "Pep Guardiola called him the most talented player he has ever coached.",
+            "Won 6 Premier League titles by age 25.",
+        ],
+    },
+    "Declan Rice": {
+        "country": "England",
+        "position": "Midfielder",
+        "club": "Arsenal",
+        "age": 27,
+        "goals_international": 5,
+        "fun_facts": [
+            "Originally represented Ireland at youth level before switching to England.",
+            "Arsenal paid a club-record £105 million for him in 2023.",
+        ],
+    },
+    "Cole Palmer": {
+        "country": "England",
+        "position": "Forward/Midfielder",
+        "club": "Chelsea",
+        "age": 24,
+        "goals_international": 6,
+        "fun_facts": [
+            "Scored 25 goals in his debut Chelsea season after leaving Manchester City.",
+            "Known as 'Cold Palmer' for his ice-cool penalty taking.",
+        ],
+    },
+
+    # ── Spain ────────────────────────────────────────────────────────────────
+    "Lamine Yamal": {
+        "country": "Spain",
+        "position": "Forward",
+        "club": "Barcelona",
+        "age": 18,
+        "goals_international": 5,
+        "fun_facts": [
+            "Became Spain's youngest-ever international at 15 years and 287 days.",
+            "Scored a stunning goal vs. France in the Euro 2024 semi-final at age 16.",
+            "Born on the same day as the 2006 World Cup final (July 13, 2007).",
+        ],
+    },
+    "Pedri": {
+        "country": "Spain",
+        "position": "Midfielder",
+        "club": "Barcelona",
+        "age": 23,
+        "goals_international": 6,
+        "fun_facts": [
+            "Named the Best Young Player at Euro 2020 at just 18.",
+            "Played 73 matches in his debut full season across all competitions.",
+            "Xavi called him the heir to Spain's midfield dynasty.",
+        ],
+    },
+    "Rodri": {
+        "country": "Spain",
+        "position": "Midfielder",
+        "club": "Manchester City",
+        "age": 30,
+        "goals_international": 6,
+        "fun_facts": [
+            "Won the 2024 Ballon d'Or as a defensive midfielder — a rarity.",
+            "Manchester City's unbeaten run with him in the squad lasted 74 matches.",
+            "Scored the winning goal in the 2023 Champions League final.",
+        ],
+    },
+    "Nico Williams": {
+        "country": "Spain",
+        "position": "Forward",
+        "club": "Athletic Bilbao",
+        "age": 23,
+        "goals_international": 5,
+        "fun_facts": [
+            "His parents migrated from Ghana to Spain, and his brother Iñaki plays for Ghana.",
+            "Scored in the Euro 2024 final for Spain.",
+        ],
+    },
+    "Dani Olmo": {
+        "country": "Spain",
+        "position": "Midfielder/Forward",
+        "club": "Barcelona",
+        "age": 28,
+        "goals_international": 12,
+        "fun_facts": [
+            "Won the Golden Boot at Euro 2024 with 3 goals and 2 assists.",
+            "Left La Masia at age 16 to play in Croatia's Dinamo Zagreb — an unusual career path.",
+        ],
+    },
+
+    # ── Germany ──────────────────────────────────────────────────────────────
+    "Jamal Musiala": {
+        "country": "Germany",
+        "position": "Midfielder/Forward",
+        "club": "Bayern Munich",
+        "age": 23,
+        "goals_international": 8,
+        "fun_facts": [
+            "Chose Germany over England despite growing up in London's Chelsea academy.",
+            "Became Germany's youngest World Cup player in 2022 at age 19.",
+            "His dribbling success rate is among the highest in the Bundesliga.",
+        ],
+    },
+    "Florian Wirtz": {
+        "country": "Germany",
+        "position": "Midfielder",
+        "club": "Bayer Leverkusen",
+        "age": 23,
+        "goals_international": 6,
+        "fun_facts": [
+            "Key architect of Leverkusen's unbeaten Bundesliga title in 2023-24.",
+            "Became the youngest Bundesliga scorer at age 17.",
+            "Named Bundesliga Player of the Season 2023-24.",
+        ],
+    },
+    "Kai Havertz": {
+        "country": "Germany",
+        "position": "Forward",
+        "club": "Arsenal",
+        "age": 27,
+        "goals_international": 20,
+        "fun_facts": [
+            "Scored the winning goal in the 2021 Champions League final for Chelsea.",
+            "Converted from midfielder to striker at Arsenal with remarkable success.",
+        ],
+    },
+    "Joshua Kimmich": {
+        "country": "Germany",
+        "position": "Midfielder/Defender",
+        "club": "Bayern Munich",
+        "age": 31,
+        "goals_international": 6,
+        "fun_facts": [
+            "Can play right-back and central midfield at the highest level.",
+            "Known for his extraordinary passing range and set-piece delivery.",
+        ],
+    },
+
+    # ── Portugal ─────────────────────────────────────────────────────────────
+    "Cristiano Ronaldo": {
+        "country": "Portugal",
+        "position": "Forward",
+        "club": "Al-Nassr",
+        "age": 41,
+        "goals_international": 135,
+        "fun_facts": [
+            "All-time leading scorer in international football history.",
+            "Has scored in 5 different World Cup tournaments.",
+            "First player to score 900 career goals across club and country.",
+        ],
+    },
+    "Bruno Fernandes": {
+        "country": "Portugal",
+        "position": "Midfielder",
+        "club": "Manchester United",
+        "age": 31,
+        "goals_international": 24,
+        "fun_facts": [
+            "Known for his aggressive pressing and late runs into the box.",
+            "Has the most goal contributions in the Premier League since his January 2020 debut.",
+        ],
+    },
+    "Bernardo Silva": {
+        "country": "Portugal",
+        "position": "Midfielder",
+        "club": "Manchester City",
+        "age": 31,
+        "goals_international": 12,
+        "fun_facts": [
+            "Pep Guardiola called him the best player in the Premier League.",
+            "Incredibly two-footed — almost impossible to tell his dominant foot.",
+        ],
+    },
+    "Rafael Leão": {
+        "country": "Portugal",
+        "position": "Forward",
+        "club": "AC Milan",
+        "age": 26,
+        "goals_international": 8,
+        "fun_facts": [
+            "Scored the fastest goal in Serie A history — 6.2 seconds.",
+            "His explosive pace has been clocked at over 36 km/h.",
+        ],
+    },
+
+    # ── Netherlands ──────────────────────────────────────────────────────────
+    "Virgil van Dijk": {
+        "country": "Netherlands",
+        "position": "Defender",
+        "club": "Liverpool",
+        "age": 34,
+        "goals_international": 9,
+        "fun_facts": [
+            "Came close to winning the 2019 Ballon d'Or — the first defender since Cannavaro.",
+            "Was not beaten in a 1-on-1 dribble for over 18 months at one point.",
+        ],
+    },
+    "Cody Gakpo": {
+        "country": "Netherlands",
+        "position": "Forward",
+        "club": "Liverpool",
+        "age": 27,
+        "goals_international": 14,
+        "fun_facts": [
+            "Scored in all three group stage matches at the 2022 World Cup.",
+            "Originally a product of PSV Eindhoven's famous academy.",
+        ],
+    },
+    "Xavi Simons": {
+        "country": "Netherlands",
+        "position": "Midfielder/Forward",
+        "club": "RB Leipzig",
+        "age": 23,
+        "goals_international": 4,
+        "fun_facts": [
+            "Joined Barcelona's La Masia at age 7 before moving to PSG.",
+            "Named after Xavi Hernández by his football-loving father.",
+        ],
+    },
+
+    # ── Belgium ──────────────────────────────────────────────────────────────
+    "Kevin De Bruyne": {
+        "country": "Belgium",
+        "position": "Midfielder",
+        "club": "Manchester City",
+        "age": 35,
+        "goals_international": 28,
+        "fun_facts": [
+            "Widely regarded as the best creative midfielder of his generation.",
+            "Was released by Chelsea before becoming a world star at Manchester City.",
+            "Has won 6 Premier League titles with City.",
+        ],
+    },
+    "Jérémy Doku": {
+        "country": "Belgium",
+        "position": "Forward",
+        "club": "Manchester City",
+        "age": 24,
+        "goals_international": 5,
+        "fun_facts": [
+            "His dribbling stats in 2023-24 were the highest in the Premier League.",
+            "Turned down both Liverpool and Arsenal to join Anderlecht as a teen.",
+        ],
+    },
+
+    # ── Croatia ──────────────────────────────────────────────────────────────
+    "Luka Modrić": {
+        "country": "Croatia",
+        "position": "Midfielder",
+        "club": "Real Madrid",
+        "age": 40,
+        "goals_international": 25,
+        "fun_facts": [
+            "Won the 2018 Ballon d'Or — breaking the Messi-Ronaldo duopoly.",
+            "Led Croatia to the 2018 World Cup final and 2022 semi-final.",
+            "Grew up as a war refugee during the Croatian War of Independence.",
+        ],
+    },
+    "Joško Gvardiol": {
+        "country": "Croatia",
+        "position": "Defender",
+        "club": "Manchester City",
+        "age": 24,
+        "goals_international": 5,
+        "fun_facts": [
+            "One of the most expensive defenders in history — City paid £77 million.",
+            "Scored a brilliant solo goal at the 2022 World Cup at age 20.",
+        ],
+    },
+
+    # ── Uruguay ──────────────────────────────────────────────────────────────
+    "Federico Valverde": {
+        "country": "Uruguay",
+        "position": "Midfielder",
+        "club": "Real Madrid",
+        "age": 27,
+        "goals_international": 9,
+        "fun_facts": [
+            "Nicknamed 'El Pajarito' (The Little Bird) for his work rate and speed.",
+            "Famous for his tactical foul on Morata in the 2020 Spanish Super Cup final.",
+        ],
+    },
+    "Darwin Núñez": {
+        "country": "Uruguay",
+        "position": "Forward",
+        "club": "Liverpool",
+        "age": 27,
+        "goals_international": 14,
+        "fun_facts": [
+            "Transferred from Benfica to Liverpool for up to £85 million.",
+            "Known for his chaotic but devastating style of play.",
+        ],
+    },
+
+    # ── Colombia ─────────────────────────────────────────────────────────────
+    "Luis Díaz": {
+        "country": "Colombia",
+        "position": "Forward",
+        "club": "Liverpool",
+        "age": 29,
+        "goals_international": 10,
+        "fun_facts": [
+            "From the indigenous Wayúu community in La Guajira, Colombia.",
+            "Was playing in Colombia's second tier just 3 years before joining Liverpool.",
+        ],
+    },
+    "James Rodríguez": {
+        "country": "Colombia",
+        "position": "Midfielder",
+        "club": "León",
+        "age": 34,
+        "goals_international": 26,
+        "fun_facts": [
+            "Won the 2014 World Cup Golden Boot with 6 goals.",
+            "His volley against Uruguay in 2014 is widely regarded as the best World Cup goal of the 21st century.",
+        ],
+    },
+
+    # ── Morocco ──────────────────────────────────────────────────────────────
+    "Achraf Hakimi": {
+        "country": "Morocco",
+        "position": "Defender",
+        "club": "Paris Saint-Germain",
+        "age": 27,
+        "goals_international": 10,
+        "fun_facts": [
+            "His Panenka penalty knocked Spain out of the 2022 World Cup.",
+            "Born in Madrid and trained at Real Madrid's academy.",
+        ],
+    },
+    "Hakim Ziyech": {
+        "country": "Morocco",
+        "position": "Forward/Midfielder",
+        "club": "Galatasaray",
+        "age": 33,
+        "goals_international": 20,
+        "fun_facts": [
+            "Returned from international retirement to help Morocco reach the 2022 semi-final.",
+            "Born in the Netherlands to Moroccan parents.",
+        ],
+    },
+
+    # ── Japan ────────────────────────────────────────────────────────────────
+    "Takefusa Kubo": {
+        "country": "Japan",
+        "position": "Forward",
+        "club": "Real Sociedad",
+        "age": 25,
+        "goals_international": 6,
+        "fun_facts": [
+            "Joined FC Barcelona's La Masia at age 10, making him the youngest foreign player.",
+            "Known as the 'Japanese Messi' in his youth.",
+        ],
+    },
+    "Kaoru Mitoma": {
+        "country": "Japan",
+        "position": "Forward",
+        "club": "Brighton & Hove Albion",
+        "age": 28,
+        "goals_international": 7,
+        "fun_facts": [
+            "Wrote a university thesis on dribbling before becoming a professional footballer.",
+            "His late goal vs. Spain at the 2022 World Cup sparked a massive VAR debate.",
+        ],
+    },
+
+    # ── South Korea ──────────────────────────────────────────────────────────
+    "Son Heung-min": {
+        "country": "South Korea",
+        "position": "Forward",
+        "club": "Tottenham Hotspur",
+        "age": 33,
+        "goals_international": 50,
+        "fun_facts": [
+            "Asia's all-time top scorer in the Premier League.",
+            "Won the 2018 Asian Games gold medal, earning military service exemption.",
+            "Won the Premier League Golden Boot in 2021-22.",
+        ],
+    },
+    "Lee Kang-in": {
+        "country": "South Korea",
+        "position": "Midfielder",
+        "club": "Paris Saint-Germain",
+        "age": 25,
+        "goals_international": 12,
+        "fun_facts": [
+            "Won the Golden Ball at the 2019 U-20 World Cup at just 18 years old.",
+            "Became the youngest player in Valencia's La Liga history.",
+        ],
+    },
+
+    # ── USA ──────────────────────────────────────────────────────────────────
+    "Christian Pulisic": {
+        "country": "USA",
+        "position": "Forward/Midfielder",
+        "club": "AC Milan",
+        "age": 27,
+        "goals_international": 32,
+        "fun_facts": [
+            "Nicknamed 'Captain America' by US soccer fans.",
+            "Became the youngest non-German to score in the Bundesliga at age 17.",
+            "Scored the USA's goal vs. Iran in the 2022 World Cup.",
+        ],
+    },
+    "Weston McKennie": {
+        "country": "USA",
+        "position": "Midfielder",
+        "club": "Juventus",
+        "age": 27,
+        "goals_international": 11,
+        "fun_facts": [
+            "Grew up in a military family and lived in Germany as a child.",
+            "One of the few Americans to play regularly for a top Serie A club.",
+        ],
+    },
+    "Giovanni Reyna": {
+        "country": "USA",
+        "position": "Midfielder",
+        "club": "Borussia Dortmund",
+        "age": 23,
+        "goals_international": 5,
+        "fun_facts": [
+            "Son of USMNT legend Claudio Reyna.",
+            "Became Dortmund's youngest scorer in Bundesliga history.",
+        ],
+    },
+
+    # ── Canada ───────────────────────────────────────────────────────────────
+    "Alphonso Davies": {
+        "country": "Canada",
+        "position": "Defender",
+        "club": "Real Madrid",
+        "age": 25,
+        "goals_international": 15,
+        "fun_facts": [
+            "Born in a refugee camp in Ghana before his family moved to Canada.",
+            "Became the youngest Canadian international at age 16.",
+            "His speed has been clocked at over 36 km/h.",
+        ],
+    },
+    "Jonathan David": {
+        "country": "Canada",
+        "position": "Forward",
+        "club": "Lille",
+        "age": 26,
+        "goals_international": 30,
+        "fun_facts": [
+            "Canada's all-time leading goal scorer.",
+            "Born in the USA to Haitian parents but raised in Canada.",
+        ],
+    },
+
+    # ── Norway ───────────────────────────────────────────────────────────────
+    "Erling Haaland": {
+        "country": "Norway",
+        "position": "Forward",
+        "club": "Manchester City",
+        "age": 25,
+        "goals_international": 35,
+        "fun_facts": [
+            "Scored 36 goals in his debut Premier League season — a single-season record.",
+            "Son of former Manchester City player Alfie Haaland.",
+            "Born in Leeds, England while his father played for Leeds United.",
+        ],
+    },
+    "Martin Ødegaard": {
+        "country": "Norway",
+        "position": "Midfielder",
+        "club": "Arsenal",
+        "age": 27,
+        "goals_international": 12,
+        "fun_facts": [
+            "Signed with Real Madrid at age 16, making him their youngest debutant.",
+            "Arsenal captain — leads with technical brilliance.",
+        ],
+    },
+
+    # ── Sweden ───────────────────────────────────────────────────────────────
+    "Alexander Isak": {
+        "country": "Sweden",
+        "position": "Forward",
+        "club": "Newcastle United",
+        "age": 26,
+        "goals_international": 18,
+        "fun_facts": [
+            "Joined Borussia Dortmund at 17 as one of Europe's hottest prospects.",
+            "Has an extremely high conversion rate — clinical in front of goal.",
+        ],
+    },
+    "Viktor Gyökeres": {
+        "country": "Sweden",
+        "position": "Forward",
+        "club": "Sporting CP",
+        "age": 28,
+        "goals_international": 15,
+        "fun_facts": [
+            "Scored 43 goals in a single season for Sporting CP in 2023-24.",
+            "Was released by Brighton before exploding in Portugal.",
+        ],
+    },
+    "Dejan Kulusevski": {
+        "country": "Sweden",
+        "position": "Forward/Midfielder",
+        "club": "Tottenham Hotspur",
+        "age": 26,
+        "goals_international": 10,
+        "fun_facts": [
+            "Born to a Macedonian father and has both Swedish and North Macedonian heritage.",
+            "Originally played for Juventus before thriving at Spurs.",
+        ],
+    },
+
+    # ── Egypt ────────────────────────────────────────────────────────────────
+    "Mohamed Salah": {
+        "country": "Egypt",
+        "position": "Forward",
+        "club": "Liverpool",
+        "age": 33,
+        "goals_international": 56,
+        "fun_facts": [
+            "Known as the 'Egyptian King' at Liverpool — one of the Premier League's all-time top scorers.",
+            "His 2017-18 season (44 goals) set the Premier League single-season record at the time.",
+            "Named African Footballer of the Year multiple times.",
+        ],
+    },
+    "Omar Marmoush": {
+        "country": "Egypt",
+        "position": "Forward",
+        "club": "Manchester City",
+        "age": 27,
+        "goals_international": 9,
+        "fun_facts": [
+            "Breakthrough season at Eintracht Frankfurt earned him a big-money move.",
+            "Known for his electrifying pace and direct running.",
+        ],
+    },
+
+    # ── Switzerland ──────────────────────────────────────────────────────────
+    "Granit Xhaka": {
+        "country": "Switzerland",
+        "position": "Midfielder",
+        "club": "Bayer Leverkusen",
+        "age": 33,
+        "goals_international": 14,
+        "fun_facts": [
+            "Reinvented himself at Leverkusen after years of criticism at Arsenal.",
+            "Key architect of Leverkusen's unbeaten Bundesliga title in 2023-24.",
+        ],
+    },
+    "Manuel Akanji": {
+        "country": "Switzerland",
+        "position": "Defender",
+        "club": "Manchester City",
+        "age": 30,
+        "goals_international": 4,
+        "fun_facts": [
+            "Born to a Nigerian father and Swiss mother.",
+            "Won multiple Premier League titles with Manchester City.",
+        ],
+    },
+
+    # ── Ecuador ──────────────────────────────────────────────────────────────
+    "Moisés Caicedo": {
+        "country": "Ecuador",
+        "position": "Midfielder",
+        "club": "Chelsea",
+        "age": 24,
+        "goals_international": 4,
+        "fun_facts": [
+            "Chelsea paid a British-record fee (surpassing Enzo Fernández) of £115 million for him.",
+            "At 20, he was already Ecuador's midfield lynchpin at the 2022 World Cup.",
+        ],
+    },
+    "Kendry Páez": {
+        "country": "Ecuador",
+        "position": "Midfielder",
+        "club": "Chelsea",
+        "age": 18,
+        "goals_international": 3,
+        "fun_facts": [
+            "Became Ecuador's youngest goal scorer in World Cup qualifying history at age 16.",
+            "Signed a pre-contract with Chelsea at just 15 years old.",
+        ],
+    },
+
+    # ── Senegal ──────────────────────────────────────────────────────────────
+    "Sadio Mané": {
+        "country": "Senegal",
+        "position": "Forward",
+        "club": "Al-Nassr",
+        "age": 34,
+        "goals_international": 40,
+        "fun_facts": [
+            "Led Senegal to their first-ever Africa Cup of Nations title in 2022.",
+            "Known for funding schools, hospitals, and a mosque in his hometown in Senegal.",
+        ],
+    },
+
+    # ── Türkiye ──────────────────────────────────────────────────────────────
+    "Arda Güler": {
+        "country": "Türkiye",
+        "position": "Midfielder",
+        "club": "Real Madrid",
+        "age": 21,
+        "goals_international": 6,
+        "fun_facts": [
+            "Known as the 'Turkish Messi' — signed by Real Madrid at 18.",
+            "Scored a stunning goal on his Champions League debut.",
+        ],
+    },
+    "Hakan Çalhanoğlu": {
+        "country": "Türkiye",
+        "position": "Midfielder",
+        "club": "Inter Milan",
+        "age": 32,
+        "goals_international": 18,
+        "fun_facts": [
+            "One of the best free-kick takers in European football.",
+            "Won Serie A title with Inter Milan in 2023-24.",
+        ],
+    },
+    "Kenan Yıldız": {
+        "country": "Türkiye",
+        "position": "Forward",
+        "club": "Juventus",
+        "age": 21,
+        "goals_international": 4,
+        "fun_facts": [
+            "Left Bayern Munich's academy for Juventus and quickly became a starter.",
+            "Scored his first Serie A goal at age 18.",
+        ],
+    },
+
+    # ── Iran ─────────────────────────────────────────────────────────────────
+    "Mehdi Taremi": {
+        "country": "Iran",
+        "position": "Forward",
+        "club": "Inter Milan",
+        "age": 33,
+        "goals_international": 45,
+        "fun_facts": [
+            "Iran's joint all-time top scorer with Ali Daei.",
+            "Scored a stunning bicycle kick vs. Chelsea in the Champions League.",
+        ],
+    },
+
+    # ── Ghana ────────────────────────────────────────────────────────────────
+    "Mohammed Kudus": {
+        "country": "Ghana",
+        "position": "Forward/Midfielder",
+        "club": "West Ham United",
+        "age": 25,
+        "goals_international": 10,
+        "fun_facts": [
+            "Scored 2 goals vs. South Korea at the 2022 World Cup.",
+            "Known for his skill moves and dribbling in tight spaces.",
+        ],
+    },
+    "Thomas Partey": {
+        "country": "Ghana",
+        "position": "Midfielder",
+        "club": "Arsenal",
+        "age": 32,
+        "goals_international": 14,
+        "fun_facts": [
+            "Arsenal triggered his £45 million release clause from Atlético Madrid.",
+            "Named Ghana Football Association Player of the Year multiple times.",
+        ],
+    },
+
+    # ── Saudi Arabia ─────────────────────────────────────────────────────────
+    "Salem Al-Dawsari": {
+        "country": "Saudi Arabia",
+        "position": "Forward",
+        "club": "Al-Hilal",
+        "age": 33,
+        "goals_international": 22,
+        "fun_facts": [
+            "Scored the goal of the 2022 World Cup to beat Argentina 2-1.",
+            "A national hero in Saudi Arabia after that victory.",
+        ],
+    },
+
+    # ── Algeria ──────────────────────────────────────────────────────────────
+    "Riyad Mahrez": {
+        "country": "Algeria",
+        "position": "Forward",
+        "club": "Al-Ahli",
+        "age": 35,
+        "goals_international": 29,
+        "fun_facts": [
+            "Won the 2016 Premier League title with Leicester City in their fairy-tale season.",
+            "Led Algeria to the 2019 AFCON title as captain.",
+        ],
+    },
+
+    # ── Mexico ───────────────────────────────────────────────────────────────
+    "Santiago Giménez": {
+        "country": "Mexico",
+        "position": "Forward",
+        "club": "Feyenoord",
+        "age": 25,
+        "goals_international": 15,
+        "fun_facts": [
+            "Son of former Mexican international Christian Giménez.",
+            "Has become one of the top scorers in the Eredivisie.",
+        ],
+    },
+    "Edson Álvarez": {
+        "country": "Mexico",
+        "position": "Midfielder",
+        "club": "West Ham United",
+        "age": 28,
+        "goals_international": 7,
+        "fun_facts": [
+            "Known as 'El Machín' (The Machine) for his relentless energy.",
+            "Was Ajax's player of the season before moving to the Premier League.",
+        ],
+    },
+
+    # ── Australia ────────────────────────────────────────────────────────────
+    "Jackson Irvine": {
+        "country": "Australia",
+        "position": "Midfielder",
+        "club": "FC St. Pauli",
+        "age": 33,
+        "goals_international": 10,
+        "fun_facts": [
+            "Captained Australia at the 2022 World Cup.",
+            "Fan favorite at FC St. Pauli for his passion and leadership.",
+        ],
+    },
+
+    # ── Qatar ────────────────────────────────────────────────────────────────
+    "Akram Afif": {
+        "country": "Qatar",
+        "position": "Forward",
+        "club": "Al-Sadd",
+        "age": 27,
+        "goals_international": 20,
+        "fun_facts": [
+            "Won the Asian Player of the Year award in 2024.",
+            "Scored a hat-trick in the 2024 Asian Cup final.",
+        ],
+    },
+
+    # ── Paraguay ─────────────────────────────────────────────────────────────
+    "Julio Enciso": {
+        "country": "Paraguay",
+        "position": "Forward",
+        "club": "Brighton & Hove Albion",
+        "age": 20,
+        "goals_international": 4,
+        "fun_facts": [
+            "Moved to the Premier League at just 18 from Libertad in Paraguay.",
+            "Known for his spectacular long-range strikes.",
+        ],
+    },
+
+    # ── DR Congo ─────────────────────────────────────────────────────────────
+    "Yoane Wissa": {
+        "country": "DR Congo",
+        "position": "Forward",
+        "club": "Brentford",
+        "age": 28,
+        "goals_international": 8,
+        "fun_facts": [
+            "Born in France and played for French youth teams before switching to DR Congo.",
+            "Became a key Premier League striker at Brentford.",
+        ],
+    },
+
+    # ── Côte d'Ivoire ───────────────────────────────────────────────────────
+    "Sébastien Haller": {
+        "country": "Côte d'Ivoire",
+        "position": "Forward",
+        "club": "Borussia Dortmund",
+        "age": 31,
+        "goals_international": 8,
+        "fun_facts": [
+            "Scored 11 goals in a single Champions League group stage for Ajax.",
+            "Returned to football after being diagnosed with testicular cancer in 2022.",
+        ],
+    },
+    "Simon Adingra": {
+        "country": "Côte d'Ivoire",
+        "position": "Forward",
+        "club": "Brighton & Hove Albion",
+        "age": 22,
+        "goals_international": 4,
+        "fun_facts": [
+            "Won the Best Player award at the 2024 Africa Cup of Nations.",
+            "His rapid rise from Belgian football to the Premier League took just two years.",
+        ],
+    },
+
+    # ── Remaining notable mentions ───────────────────────────────────────────
+    "Alexis Mac Allister": {
+        "country": "Argentina",
+        "position": "Midfielder",
+        "club": "Liverpool",
+        "age": 27,
+        "goals_international": 7,
+        "fun_facts": [
+            "Key player in Argentina's 2022 World Cup triumph.",
+            "Moved from Brighton to Liverpool after the World Cup.",
+        ],
+    },
+    "Ryan Gravenberch": {
+        "country": "Netherlands",
+        "position": "Midfielder",
+        "club": "Liverpool",
+        "age": 23,
+        "goals_international": 5,
+        "fun_facts": [
+            "Emerged as one of the top midfielders in the Premier League in 2024-25.",
+            "Product of Ajax's famous academy system.",
+        ],
+    },
+    "Jeremie Frimpong": {
+        "country": "Netherlands",
+        "position": "Defender/Midfielder",
+        "club": "Bayer Leverkusen",
+        "age": 25,
+        "goals_international": 3,
+        "fun_facts": [
+            "Key player in Leverkusen's unbeaten domestic season in 2023-24.",
+            "Born in Amsterdam to Ghanaian parents — could have played for Ghana.",
+        ],
+    },
+    "Antonio Rüdiger": {
+        "country": "Germany",
+        "position": "Defender",
+        "club": "Real Madrid",
+        "age": 33,
+        "goals_international": 4,
+        "fun_facts": [
+            "Known for his intimidating physical presence and passionate celebrations.",
+            "Won the Champions League with Chelsea and Real Madrid.",
+        ],
+    },
+    "Amadou Onana": {
+        "country": "Belgium",
+        "position": "Midfielder",
+        "club": "Aston Villa",
+        "age": 24,
+        "goals_international": 5,
+        "fun_facts": [
+            "Stands 6'5\" — one of the tallest elite midfielders in world football.",
+            "Speaks five languages fluently.",
+        ],
+    },
+    "Mateo Kovačić": {
+        "country": "Croatia",
+        "position": "Midfielder",
+        "club": "Manchester City",
+        "age": 32,
+        "goals_international": 5,
+        "fun_facts": [
+            "One of the few players to have won the Champions League with two different clubs.",
+            "Holds Croatian, Austrian, and Bosnian heritage.",
+        ],
+    },
+    "Ronald Araújo": {
+        "country": "Uruguay",
+        "position": "Defender",
+        "club": "Barcelona",
+        "age": 27,
+        "goals_international": 4,
+        "fun_facts": [
+            "Nicknamed 'The Wall' for his aerial dominance and physicality.",
+            "Born in Rivera, Uruguay, on the Brazilian border.",
+        ],
+    },
+    "Jhon Durán": {
+        "country": "Colombia",
+        "position": "Forward",
+        "club": "Aston Villa",
+        "age": 22,
+        "goals_international": 3,
+        "fun_facts": [
+            "Has a knack for scoring spectacular goals off the bench.",
+            "Moved to Europe at just 18 from MLS side Chicago Fire.",
+        ],
+    },
+    "Kim Min-jae": {
+        "country": "South Korea",
+        "position": "Defender",
+        "club": "Bayern Munich",
+        "age": 29,
+        "goals_international": 5,
+        "fun_facts": [
+            "Nicknamed 'The Monster' for his powerful defensive displays.",
+            "First Korean player to play for Napoli and Bayern Munich.",
+        ],
+    },
+    "Ismaïla Sarr": {
+        "country": "Senegal",
+        "position": "Forward",
+        "club": "Crystal Palace",
+        "age": 28,
+        "goals_international": 12,
+        "fun_facts": [
+            "Scored twice to end Liverpool's 44-match unbeaten run while at Watford.",
+            "One of the fastest players in the Premier League.",
+        ],
+    },
+    "Folarin Balogun": {
+        "country": "USA",
+        "position": "Forward",
+        "club": "Monaco",
+        "age": 24,
+        "goals_international": 6,
+        "fun_facts": [
+            "Born in the USA, raised in England, chose to represent the USMNT.",
+            "Top scorer in Ligue 1 in his debut season at Reims.",
+        ],
+    },
+}
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. HISTORICAL_FACTS — 100+ World Cup Moments (1930–2022)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+HISTORICAL_FACTS: list[dict] = [
+    # ── 1930 (Uruguay) ───────────────────────────────────────────────────────
+    {"date": "07-13", "year": 1930, "event": "The first-ever FIFA World Cup kicks off in Montevideo, Uruguay, with 13 participating nations."},
+    {"date": "07-13", "year": 1930, "event": "Lucien Laurent of France scores the first-ever World Cup goal, against Mexico."},
+    {"date": "07-30", "year": 1930, "event": "Uruguay win the inaugural World Cup, beating Argentina 4-2 in the final at Estadio Centenario."},
+
+    # ── 1934 (Italy) ─────────────────────────────────────────────────────────
+    {"date": "06-10", "year": 1934, "event": "Italy win the World Cup on home soil, beating Czechoslovakia 2-1 in extra time in the final."},
+    {"date": "05-27", "year": 1934, "event": "Egypt become the first African nation to play in a World Cup, losing 4-2 to Hungary."},
+
+    # ── 1938 (France) ────────────────────────────────────────────────────────
+    {"date": "06-19", "year": 1938, "event": "Italy successfully defend their World Cup title, beating Hungary 4-2 in the final in Paris."},
+    {"date": "06-05", "year": 1938, "event": "Leônidas of Brazil scores 4 goals against Poland, showcasing the bicycle kick to a global audience."},
+
+    # ── 1950 (Brazil) ────────────────────────────────────────────────────────
+    {"date": "07-16", "year": 1950, "event": "Uruguay shock Brazil 2-1 in the 'Maracanazo' — considered the greatest upset in World Cup history."},
+    {"date": "06-29", "year": 1950, "event": "USA shock England 1-0 in one of the biggest World Cup upsets of all time."},
+    {"date": "07-16", "year": 1950, "event": "199,854 spectators attend the final at the Maracanã — the largest crowd in World Cup history."},
+
+    # ── 1954 (Switzerland) ───────────────────────────────────────────────────
+    {"date": "07-04", "year": 1954, "event": "West Germany complete the 'Miracle of Bern', beating Hungary 3-2 in the final despite being 2-0 down."},
+    {"date": "06-26", "year": 1954, "event": "Austria beat Switzerland 7-5 in the highest-scoring World Cup match ever."},
+    {"date": "06-17", "year": 1954, "event": "Hungary thrash South Korea 9-0 — the biggest winning margin in World Cup history at the time."},
+
+    # ── 1958 (Sweden) ────────────────────────────────────────────────────────
+    {"date": "06-29", "year": 1958, "event": "A 17-year-old Pelé scores twice as Brazil beat Sweden 5-2 to win their first World Cup."},
+    {"date": "06-15", "year": 1958, "event": "Just Fontaine begins his record-breaking tournament — he will score 13 goals, a record that still stands."},
+    {"date": "06-08", "year": 1958, "event": "Northern Ireland qualify for the quarter-finals, the smallest nation to do so at the time."},
+
+    # ── 1962 (Chile) ─────────────────────────────────────────────────────────
+    {"date": "06-17", "year": 1962, "event": "Brazil win their second consecutive World Cup, beating Czechoslovakia 3-1 in the final."},
+    {"date": "06-02", "year": 1962, "event": "The 'Battle of Santiago' between Chile and Italy becomes one of the most violent matches in history."},
+
+    # ── 1966 (England) ───────────────────────────────────────────────────────
+    {"date": "07-30", "year": 1966, "event": "Geoff Hurst scores a hat-trick as England win the World Cup 4-2 vs. West Germany — including the controversial 'Ghost Goal'."},
+    {"date": "07-23", "year": 1966, "event": "North Korea stun Italy 1-0 at Ayresome Park — one of the biggest shocks in World Cup history."},
+    {"date": "07-19", "year": 1966, "event": "Eusébio scores 4 goals to lead Portugal's comeback from 3-0 down against North Korea in the quarter-final."},
+
+    # ── 1970 (Mexico) ────────────────────────────────────────────────────────
+    {"date": "06-21", "year": 1970, "event": "Brazil beat Italy 4-1 to win their third World Cup, with the team widely considered the greatest ever."},
+    {"date": "06-17", "year": 1970, "event": "The 'Game of the Century' — Italy beat West Germany 4-3 in extra time in a semifinal classic."},
+    {"date": "06-14", "year": 1970, "event": "Gordon Banks produces the 'Save of the Century' to deny Pelé's header against Brazil."},
+    {"date": "06-21", "year": 1970, "event": "Brazil permanently keep the original Jules Rimet Trophy after winning their third title."},
+
+    # ── 1974 (West Germany) ──────────────────────────────────────────────────
+    {"date": "07-07", "year": 1974, "event": "West Germany win the World Cup on home soil, beating Total Football Netherlands 2-1 in the final."},
+    {"date": "06-22", "year": 1974, "event": "East Germany beat West Germany 1-0 — the only meeting of the two Germanys at a World Cup."},
+    {"date": "06-14", "year": 1974, "event": "Zaire (now DR Congo) become the first sub-Saharan African team to play in a World Cup."},
+    {"date": "06-14", "year": 1974, "event": "Johan Cruyff and the Netherlands dazzle the world with 'Total Football'."},
+
+    # ── 1978 (Argentina) ─────────────────────────────────────────────────────
+    {"date": "06-25", "year": 1978, "event": "Argentina win the World Cup for the first time, beating the Netherlands 3-1 in Buenos Aires."},
+    {"date": "06-03", "year": 1978, "event": "Tunisia become the first African nation to win a World Cup match, beating Mexico 3-1."},
+    {"date": "06-21", "year": 1978, "event": "Argentina's 6-0 win over Peru draws allegations of match-fixing — one of the tournament's biggest controversies."},
+
+    # ── 1982 (Spain) ─────────────────────────────────────────────────────────
+    {"date": "07-11", "year": 1982, "event": "Italy win their third World Cup, with Paolo Rossi scoring 6 goals to win the Golden Boot."},
+    {"date": "07-08", "year": 1982, "event": "West Germany vs. France produces one of the greatest World Cup semi-finals ever, including a brutal foul on Patrick Battiston."},
+    {"date": "06-25", "year": 1982, "event": "The 'Disgrace of Gijón': West Germany and Austria play out a mutually beneficial 1-0 result to eliminate Algeria."},
+    {"date": "06-16", "year": 1982, "event": "Algeria shock West Germany 2-1 in one of the tournament's greatest upsets."},
+    {"date": "07-05", "year": 1982, "event": "Brazil's artistic team featuring Zico, Sócrates, and Falcão is eliminated by Italy in a 3-2 classic."},
+
+    # ── 1986 (Mexico) ────────────────────────────────────────────────────────
+    {"date": "06-29", "year": 1986, "event": "Argentina win the World Cup 3-2 vs. West Germany — Maradona lifts the trophy."},
+    {"date": "06-22", "year": 1986, "event": "Maradona's 'Hand of God' and 'Goal of the Century' — both in the same quarter-final against England."},
+    {"date": "06-22", "year": 1986, "event": "Maradona dribbles past 5 England players to score what FIFA named the 'Goal of the Century'."},
+
+    # ── 1990 (Italy) ─────────────────────────────────────────────────────────
+    {"date": "07-08", "year": 1990, "event": "West Germany beat Argentina 1-0 in a defensive final — Brehme scores the only goal from a penalty."},
+    {"date": "06-23", "year": 1990, "event": "Cameroon's Roger Milla dances at the corner flag after scoring — becoming the oldest World Cup scorer at 38."},
+    {"date": "06-08", "year": 1990, "event": "Cameroon beat defending champions Argentina 1-0 in the opening match, one of the biggest upsets ever."},
+    {"date": "07-03", "year": 1990, "event": "The penalty shootout between Argentina and Italy breaks Italian hearts in the semi-final in Naples."},
+
+    # ── 1994 (USA) ───────────────────────────────────────────────────────────
+    {"date": "07-17", "year": 1994, "event": "Brazil beat Italy in the first-ever World Cup final decided by a penalty shootout, after a 0-0 draw."},
+    {"date": "07-17", "year": 1994, "event": "Roberto Baggio blazes his penalty over the bar — the iconic image of the 1994 World Cup."},
+    {"date": "06-22", "year": 1994, "event": "Maradona is expelled from the World Cup after testing positive for ephedrine."},
+    {"date": "07-02", "year": 1994, "event": "Andrés Escobar of Colombia scores an own goal vs. the USA and is tragically murdered 10 days later."},
+    {"date": "06-18", "year": 1994, "event": "Russia's Oleg Salenko scores 5 goals in a single match against Cameroon — a World Cup record."},
+
+    # ── 1998 (France) ────────────────────────────────────────────────────────
+    {"date": "07-12", "year": 1998, "event": "France win the World Cup at home, beating Brazil 3-0 in the final with Zidane scoring twice."},
+    {"date": "06-30", "year": 1998, "event": "England vs. Argentina: Beckham's red card and a penalty shootout heartbreak define a classic."},
+    {"date": "07-04", "year": 1998, "event": "Dennis Bergkamp scores a last-minute wonder goal vs. Argentina in the quarter-final."},
+    {"date": "06-26", "year": 1998, "event": "Iran beat the USA 2-1 in one of the most politically charged matches in World Cup history."},
+    {"date": "06-14", "year": 1998, "event": "Jamaica make their first (and so far only) World Cup appearance."},
+
+    # ── 2002 (South Korea / Japan) ───────────────────────────────────────────
+    {"date": "06-30", "year": 2002, "event": "Brazil beat Germany 2-0 in the final as Ronaldo scores twice to complete his redemption arc."},
+    {"date": "06-11", "year": 2002, "event": "Senegal shock France 1-0 in the opening match — the defending champions go out without scoring a goal."},
+    {"date": "06-25", "year": 2002, "event": "South Korea reach the semi-finals, becoming the first Asian team to do so, amid refereeing controversies."},
+    {"date": "06-29", "year": 2002, "event": "Türkiye's Hakan Şükür scores after just 11 seconds vs. South Korea — the fastest World Cup goal ever."},
+    {"date": "05-31", "year": 2002, "event": "The World Cup is held in Asia for the first time, co-hosted by South Korea and Japan."},
+
+    # ── 2006 (Germany) ───────────────────────────────────────────────────────
+    {"date": "07-09", "year": 2006, "event": "Italy win their 4th World Cup, beating France on penalties after Zidane's infamous headbutt on Materazzi."},
+    {"date": "07-09", "year": 2006, "event": "Zidane headbutts Materazzi in his final professional match — one of the most shocking moments in sports."},
+    {"date": "06-20", "year": 2006, "event": "Ghana become the first African team to win a match at a World Cup held in Europe (beat Czechia 2-0)."},
+    {"date": "06-24", "year": 2006, "event": "Australia's Tim Cahill scores the Socceroos' first-ever World Cup goal in a 3-1 win vs. Japan."},
+
+    # ── 2010 (South Africa) ──────────────────────────────────────────────────
+    {"date": "07-11", "year": 2010, "event": "Spain win the World Cup for the first time, beating Netherlands 1-0 with Iniesta's extra-time goal."},
+    {"date": "07-02", "year": 2010, "event": "Luis Suárez handles the ball on the goal line vs. Ghana — Gyan misses the penalty, Ghana are eliminated."},
+    {"date": "06-17", "year": 2010, "event": "South Africa become the first host nation eliminated in the group stage."},
+    {"date": "06-11", "year": 2010, "event": "The vuvuzela becomes the soundtrack of the first World Cup held on African soil."},
+    {"date": "06-27", "year": 2010, "event": "England's Frank Lampard has a clear goal disallowed vs. Germany — the ball bounced well over the line."},
+
+    # ── 2014 (Brazil) ────────────────────────────────────────────────────────
+    {"date": "07-13", "year": 2014, "event": "Germany beat Argentina 1-0 in the final, with Götze's extra-time goal sealing their 4th World Cup."},
+    {"date": "07-08", "year": 2014, "event": "Germany demolish Brazil 7-1 in the semi-final at the Mineirão — the most shocking result in modern WC history."},
+    {"date": "06-13", "year": 2014, "event": "Spain, the defending champions, are eliminated after losing 5-1 to the Netherlands in a stunning group stage upset."},
+    {"date": "06-24", "year": 2014, "event": "Luis Suárez bites Italy's Giorgio Chiellini — his third biting incident on a football pitch."},
+    {"date": "06-18", "year": 2014, "event": "Tim Howard makes a record 16 saves for the USA against Belgium in the Round of 16."},
+    {"date": "06-28", "year": 2014, "event": "James Rodríguez scores a stunning volley against Uruguay — later voted goal of the tournament."},
+    {"date": "06-22", "year": 2014, "event": "Algeria reach the Round of 16 for the first time, with Slimani scoring the crucial goal vs. Russia."},
+
+    # ── 2018 (Russia) ────────────────────────────────────────────────────────
+    {"date": "07-15", "year": 2018, "event": "France beat Croatia 4-2 in a thrilling final to win their second World Cup title."},
+    {"date": "06-27", "year": 2018, "event": "South Korea beat Germany 2-0, eliminating the defending champions in the group stage."},
+    {"date": "07-07", "year": 2018, "event": "Croatia, with a population of just 4 million, reach the World Cup final for the first time."},
+    {"date": "06-15", "year": 2018, "event": "VAR is used at the World Cup for the first time, with France awarded a penalty vs. Australia."},
+    {"date": "07-01", "year": 2018, "event": "Russia shock Spain in a penalty shootout in the Round of 16 — the host nation's magical run continues."},
+    {"date": "06-17", "year": 2018, "event": "Mexico stun Germany 1-0 in the group stage, causing seismic sensors to detect celebration-caused earthquakes in Mexico City."},
+    {"date": "06-16", "year": 2018, "event": "Iceland, the smallest nation to qualify (population ~350,000), hold Argentina to a 1-1 draw on their debut."},
+    {"date": "07-15", "year": 2018, "event": "Kylian Mbappé becomes only the second teenager (after Pelé) to score in a World Cup final."},
+    {"date": "06-19", "year": 2018, "event": "Senegal become the first African team to win at the 2018 World Cup, beating Poland 2-1."},
+
+    # ── 2022 (Qatar) ─────────────────────────────────────────────────────────
+    {"date": "12-18", "year": 2022, "event": "Argentina beat France in a penalty shootout after a 3-3 draw — widely considered the greatest World Cup final ever."},
+    {"date": "12-18", "year": 2022, "event": "Messi finally wins the World Cup, completing his collection of every major trophy in football."},
+    {"date": "12-18", "year": 2022, "event": "Mbappé scores a hat-trick in the 2022 final — the first player to do so since Hurst in 1966."},
+    {"date": "11-22", "year": 2022, "event": "Saudi Arabia stun Argentina 2-1 — one of the biggest upsets in World Cup history."},
+    {"date": "12-10", "year": 2022, "event": "Morocco become the first African and Arab nation to reach a World Cup semi-final, beating Portugal 1-0."},
+    {"date": "11-23", "year": 2022, "event": "Japan beat Germany 2-1 in a stunning comeback — their second consecutive World Cup upset of a European giant."},
+    {"date": "12-06", "year": 2022, "event": "Achraf Hakimi's cheeky Panenka penalty eliminates Spain and sends Morocco to the quarter-finals."},
+    {"date": "11-20", "year": 2022, "event": "The World Cup is held in the Middle East for the first time and in November-December — a historic first."},
+    {"date": "11-25", "year": 2022, "event": "Japan's goal vs. Spain is allowed after VAR confirms the ball stayed on the line by millimeters — a hugely debated decision."},
+    {"date": "12-09", "year": 2022, "event": "Croatia beat Brazil on penalties in the quarter-finals, ending Brazil's 7-match World Cup knockout unbeaten run."},
+
+    # ── Extra Records & Milestones ───────────────────────────────────────────
+    {"date": "06-25", "year": 1958, "event": "Pelé becomes the youngest player to score in a World Cup final — age 17 years, 249 days."},
+    {"date": "06-19", "year": 2018, "event": "Panama score their first-ever World Cup goal — the entire country celebrates with a national holiday."},
+    {"date": "06-18", "year": 1994, "event": "Russia's Oleg Salenko and Cameroon's Roger Milla make history — Salenko scores 5, Milla scores at age 42."},
+    {"date": "07-12", "year": 1998, "event": "Ronaldo (Brazil) suffers a mysterious seizure hours before the 1998 final — one of football's greatest mysteries."},
+    {"date": "06-22", "year": 1986, "event": "Diego Maradona's solo goal against England is voted the 'Goal of the Century' by FIFA in 2002."},
+    {"date": "07-09", "year": 2006, "event": "Fabio Cannavaro becomes only the third defender to win the Ballon d'Or, largely due to his 2006 World Cup performances."},
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. QUIZ_QUESTIONS — 80+ questions (easy / medium / hard)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+QUIZ_QUESTIONS: list[dict] = [
+    # ── Easy ─────────────────────────────────────────────────────────────────
+    {
+        "question": "Which country won the first-ever FIFA World Cup in 1930?",
+        "options": ["Brazil", "Argentina", "Uruguay", "Italy"],
+        "answer": "Uruguay",
+        "answer_detail": "Uruguay hosted and won the inaugural 1930 World Cup, beating Argentina 4-2 in the final.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which country has won the most FIFA World Cup titles?",
+        "options": ["Germany", "Brazil", "Italy", "Argentina"],
+        "answer": "Brazil",
+        "answer_detail": "Brazil have won the World Cup 5 times (1958, 1962, 1970, 1994, 2002) — more than any other nation.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "How many teams participate in the 2026 FIFA World Cup?",
+        "options": ["32", "36", "48", "64"],
+        "answer": "48",
+        "answer_detail": "The 2026 World Cup is the first to feature 48 teams, expanded from 32.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which three countries are hosting the 2026 World Cup?",
+        "options": ["USA, Mexico, Canada", "USA, UK, France", "Brazil, Argentina, Chile", "Spain, Portugal, Morocco"],
+        "answer": "USA, Mexico, Canada",
+        "answer_detail": "The 2026 World Cup is jointly hosted by the United States, Mexico, and Canada.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Who scored a hat-trick in the 2022 World Cup final?",
+        "options": ["Lionel Messi", "Kylian Mbappé", "Antoine Griezmann", "Olivier Giroud"],
+        "answer": "Kylian Mbappé",
+        "answer_detail": "Mbappé scored three goals in the final against Argentina, but France lost on penalties.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which country won the 2022 FIFA World Cup?",
+        "options": ["France", "Brazil", "Argentina", "Croatia"],
+        "answer": "Argentina",
+        "answer_detail": "Argentina beat France on penalties (4-2) after a 3-3 draw in one of the greatest finals ever.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "What is the name of the World Cup trophy?",
+        "options": ["Jules Rimet Trophy", "FIFA World Cup Trophy", "Golden Globe", "The Golden Ball"],
+        "answer": "FIFA World Cup Trophy",
+        "answer_detail": "The current trophy is the FIFA World Cup Trophy, introduced in 1974. The original was called the Jules Rimet Trophy.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which country is the only one to have played in every World Cup?",
+        "options": ["Germany", "Argentina", "Italy", "Brazil"],
+        "answer": "Brazil",
+        "answer_detail": "Brazil have participated in all 22 World Cup tournaments since 1930.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "What colour shirts does Brazil traditionally wear?",
+        "options": ["Blue", "Yellow", "Green", "White"],
+        "answer": "Yellow",
+        "answer_detail": "Brazil's iconic home kit features a yellow shirt — adopted after the 1950 World Cup loss.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "How many players are on the field per team in a football match?",
+        "options": ["9", "10", "11", "12"],
+        "answer": "11",
+        "answer_detail": "Each team fields 11 players, including one goalkeeper.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "How long is a standard football match (excluding extra time)?",
+        "options": ["60 minutes", "80 minutes", "90 minutes", "120 minutes"],
+        "answer": "90 minutes",
+        "answer_detail": "A standard match consists of two 45-minute halves, totaling 90 minutes.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "What does a red card mean in football?",
+        "options": ["Warning", "Free kick awarded", "Player is sent off", "Penalty awarded"],
+        "answer": "Player is sent off",
+        "answer_detail": "A red card means the player must leave the field and cannot be replaced — the team plays with 10 men.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which team did Lionel Messi play for before Inter Miami?",
+        "options": ["Real Madrid", "Barcelona", "Paris Saint-Germain", "Manchester City"],
+        "answer": "Paris Saint-Germain",
+        "answer_detail": "Messi played for PSG from 2021 to 2023 before joining Inter Miami.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "Which stadium will host the 2026 World Cup final?",
+        "options": ["SoFi Stadium", "AT&T Stadium", "MetLife Stadium", "Estadio Azteca"],
+        "answer": "MetLife Stadium",
+        "answer_detail": "The final will be held at MetLife Stadium in East Rutherford, New Jersey on July 19, 2026.",
+        "difficulty": "easy",
+    },
+    {
+        "question": "What is the offside rule in football?",
+        "options": [
+            "A player cannot be in the opponent's half",
+            "A player must be behind the ball when it is played",
+            "A player is offside if they are nearer to the opponent's goal than both the ball and the second-last opponent",
+            "A player cannot score from outside the box"
+        ],
+        "answer": "A player is offside if they are nearer to the opponent's goal than both the ball and the second-last opponent",
+        "answer_detail": "Offside is judged at the moment the ball is played to the attacker, not when it is received.",
+        "difficulty": "easy",
+    },
+
+    # ── Medium ───────────────────────────────────────────────────────────────
+    {
+        "question": "Who holds the record for most World Cup goals scored by a single player?",
+        "options": ["Pelé", "Miroslav Klose", "Ronaldo (Brazil)", "Gerd Müller"],
+        "answer": "Miroslav Klose",
+        "answer_detail": "Klose scored 16 goals across 4 World Cups (2002-2014), surpassing Ronaldo's 15.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who scored the fastest goal in World Cup history?",
+        "options": ["Hakan Şükür", "Clint Dempsey", "Pelé", "Neymar"],
+        "answer": "Hakan Şükür",
+        "answer_detail": "Şükür scored just 11 seconds into the 2002 third-place match between Türkiye and South Korea.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which player holds the record for most goals in a single World Cup tournament?",
+        "options": ["Gerd Müller (10)", "Just Fontaine (13)", "Sándor Kocsis (11)", "Ronaldo (8)"],
+        "answer": "Just Fontaine (13)",
+        "answer_detail": "France's Just Fontaine scored 13 goals in the 1958 World Cup — a record that has stood for nearly 70 years.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "What year was VAR (Video Assistant Referee) first used at the World Cup?",
+        "options": ["2014", "2018", "2022", "2010"],
+        "answer": "2018",
+        "answer_detail": "VAR was introduced at the 2018 World Cup in Russia.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which team won the World Cup without losing a single match in 2002?",
+        "options": ["France", "Germany", "Brazil", "Italy"],
+        "answer": "Brazil",
+        "answer_detail": "Brazil won all 7 matches at the 2002 World Cup, the only team to do so in the modern era.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who is the oldest player to have scored in a World Cup match?",
+        "options": ["Roger Milla", "Miroslav Klose", "Dino Zoff", "Cristiano Ronaldo"],
+        "answer": "Roger Milla",
+        "answer_detail": "Cameroon's Roger Milla scored against Russia at the 1994 World Cup aged 42 years and 39 days.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which was the first World Cup to feature 32 teams?",
+        "options": ["1994", "1998", "2002", "2006"],
+        "answer": "1998",
+        "answer_detail": "The 1998 World Cup in France expanded from 24 to 32 teams.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which African nation reached the World Cup semi-finals for the first time in 2022?",
+        "options": ["Senegal", "Ghana", "Nigeria", "Morocco"],
+        "answer": "Morocco",
+        "answer_detail": "Morocco beat Portugal 1-0 in the quarter-final to become the first African team in a World Cup semi-final.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "What was the score in the 2014 semi-final between Germany and Brazil?",
+        "options": ["3-0", "5-0", "7-1", "6-0"],
+        "answer": "7-1",
+        "answer_detail": "Germany demolished Brazil 7-1 in what became known as the 'Mineirazo' — one of the most shocking results ever.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who won the Golden Ball (best player) at the 2022 World Cup?",
+        "options": ["Kylian Mbappé", "Lionel Messi", "Enzo Fernández", "Luka Modrić"],
+        "answer": "Lionel Messi",
+        "answer_detail": "Messi won the Golden Ball for the second time (also in 2014), making him the only player to win it twice.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which country has hosted the World Cup the most times?",
+        "options": ["France", "Brazil", "Mexico", "Italy"],
+        "answer": "Mexico",
+        "answer_detail": "Mexico is hosting for the third time in 2026 (also 1970 and 1986), making it the most frequent host.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who is the all-time leading scorer in international football?",
+        "options": ["Lionel Messi", "Pelé", "Cristiano Ronaldo", "Ali Daei"],
+        "answer": "Cristiano Ronaldo",
+        "answer_detail": "Ronaldo has scored 130+ goals for Portugal, surpassing Ali Daei's long-standing record of 109.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "What is the 'Maracanazo'?",
+        "options": [
+            "Brazil's 1970 World Cup victory",
+            "Uruguay's shock 1950 World Cup final win over Brazil",
+            "Maradona's Hand of God goal",
+            "Germany's 7-1 win over Brazil"
+        ],
+        "answer": "Uruguay's shock 1950 World Cup final win over Brazil",
+        "answer_detail": "Uruguay's 2-1 upset of Brazil in the 1950 World Cup final at the Maracanã is called the 'Maracanazo'.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which nation has the most World Cup runner-up finishes without winning?",
+        "options": ["Netherlands", "Hungary", "Czech Republic", "Sweden"],
+        "answer": "Netherlands",
+        "answer_detail": "The Netherlands have been runners-up 3 times (1974, 1978, 2010) without ever winning.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "How many groups are there in the 2026 World Cup?",
+        "options": ["8", "10", "12", "16"],
+        "answer": "12",
+        "answer_detail": "The expanded 48-team format features 12 groups of 4 teams each.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which player won the 2018 Ballon d'Or, breaking the Messi-Ronaldo duopoly?",
+        "options": ["Antoine Griezmann", "Luka Modrić", "Eden Hazard", "Robert Lewandowski"],
+        "answer": "Luka Modrić",
+        "answer_detail": "Modrić won the Ballon d'Or after leading Croatia to the 2018 World Cup final.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "What is a 'Panenka' penalty?",
+        "options": [
+            "A penalty taken with the outside of the foot",
+            "A softly chipped penalty down the middle",
+            "A penalty hit into the top corner",
+            "A penalty taken without a run-up"
+        ],
+        "answer": "A softly chipped penalty down the middle",
+        "answer_detail": "Named after Antonín Panenka who chipped the ball down the center in the 1976 Euro final shootout.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Which country's fans caused earthquake readings during the 2018 World Cup?",
+        "options": ["Brazil", "Japan", "Mexico", "England"],
+        "answer": "Mexico",
+        "answer_detail": "After Lozano's goal vs. Germany, celebrations in Mexico City triggered seismic sensors.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who captained Spain to their only World Cup title in 2010?",
+        "options": ["Xavi", "Iker Casillas", "Carles Puyol", "Andrés Iniesta"],
+        "answer": "Iker Casillas",
+        "answer_detail": "Goalkeeper Iker Casillas captained Spain to their 2010 World Cup triumph in South Africa.",
+        "difficulty": "medium",
+    },
+    {
+        "question": "Who is the youngest player to score in a World Cup?",
+        "options": ["Pelé", "Michael Owen", "Lionel Messi", "Kylian Mbappé"],
+        "answer": "Pelé",
+        "answer_detail": "Pelé scored at the 1958 World Cup aged 17 years and 239 days — a record that still stands.",
+        "difficulty": "medium",
+    },
+
+    # ── Hard ─────────────────────────────────────────────────────────────────
+    {
+        "question": "In what year was the original Jules Rimet Trophy permanently awarded to Brazil?",
+        "options": ["1958", "1962", "1966", "1970"],
+        "answer": "1970",
+        "answer_detail": "Brazil kept the original trophy after winning their third title in 1970. It was later stolen and melted down.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which country won the first World Cup held outside of South America and Europe?",
+        "options": ["Brazil", "West Germany", "Argentina", "France"],
+        "answer": "Brazil",
+        "answer_detail": "The 2002 World Cup in South Korea/Japan was the first held outside of South America and Europe. Brazil won it.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What was unique about the 1950 World Cup format?",
+        "options": [
+            "It had a final group stage instead of a knockout final",
+            "It had golden goal rules",
+            "It used a penalty shootout for the first time",
+            "Teams could make 5 substitutions"
+        ],
+        "answer": "It had a final group stage instead of a knockout final",
+        "answer_detail": "The 1950 tournament used a round-robin final group. The deciding Uruguay vs. Brazil match was technically not a 'final'.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which goalkeeper saved the most penalties in World Cup history?",
+        "options": ["Harald Schumacher", "Sergio Goycochea", "Manuel Neuer", "Emiliano Martínez"],
+        "answer": "Sergio Goycochea",
+        "answer_detail": "Argentina's Goycochea saved key penalties in both the 1990 quarter-final and semi-final shootouts.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who were the two teams involved in the 'Battle of Santiago' in 1962?",
+        "options": ["Brazil vs. Argentina", "Chile vs. Italy", "England vs. Argentina", "Uruguay vs. Brazil"],
+        "answer": "Chile vs. Italy",
+        "answer_detail": "The match was so violent that police had to intervene multiple times on the pitch.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which country won the 1934 and 1938 World Cups back-to-back?",
+        "options": ["Brazil", "Uruguay", "Italy", "Germany"],
+        "answer": "Italy",
+        "answer_detail": "Italy are the only European team to win two consecutive World Cups (1934 and 1938).",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What is the highest-scoring match in World Cup history?",
+        "options": ["Hungary 10-1 El Salvador", "Austria 7-5 Switzerland", "Germany 8-0 Saudi Arabia", "Brazil 7-1 Sweden"],
+        "answer": "Austria 7-5 Switzerland",
+        "answer_detail": "The 12-goal thriller in 1954 remains the highest-scoring World Cup match ever.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "How many goals did Pelé score in World Cup finals tournaments in total?",
+        "options": ["8", "10", "12", "14"],
+        "answer": "12",
+        "answer_detail": "Pelé scored 12 goals across 4 World Cups (1958: 6, 1962: 1, 1966: 1, 1970: 4).",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which World Cup is known for the introduction of the 'Golden Goal' rule?",
+        "options": ["1994", "1998", "2002", "1990"],
+        "answer": "1998",
+        "answer_detail": "The 'Golden Goal' (sudden death in extra time) was first used at the 1998 World Cup. Laurent Blanc scored one vs. Paraguay.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What is the record for most consecutive World Cup matches without conceding a goal?",
+        "options": ["3 matches", "5 matches", "7 matches", "9 matches"],
+        "answer": "5 matches",
+        "answer_detail": "Switzerland hold the record with 559 minutes without conceding between 2006 and 2010.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who was the coach when Germany won the 2014 World Cup?",
+        "options": ["Jürgen Klinsmann", "Joachim Löw", "Hansi Flick", "Julian Nagelsmann"],
+        "answer": "Joachim Löw",
+        "answer_detail": "Löw managed Germany from 2006 to 2021, with the 2014 World Cup triumph being the highlight.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which country did NOT qualify for the 2022 World Cup?",
+        "options": ["Italy", "Ecuador", "Canada", "Qatar"],
+        "answer": "Italy",
+        "answer_detail": "Italy failed to qualify for the second consecutive World Cup, losing to North Macedonia in the playoffs.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who scored the winning goal in the 2010 World Cup final?",
+        "options": ["David Villa", "Andrés Iniesta", "Xavi", "Fernando Torres"],
+        "answer": "Andrés Iniesta",
+        "answer_detail": "Iniesta scored in the 116th minute to give Spain a 1-0 victory over the Netherlands.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What was the result of the 'Disgrace of Gijón' match in 1982?",
+        "options": ["West Germany 1-0 Austria", "West Germany 0-0 Austria", "West Germany 2-1 Austria", "West Germany 3-2 Austria"],
+        "answer": "West Germany 1-0 Austria",
+        "answer_detail": "Both teams appeared to collude in a result that eliminated Algeria from the tournament.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who is the only player to have played in three World Cup finals?",
+        "options": ["Pelé", "Diego Maradona", "Cafu", "Paolo Maldini"],
+        "answer": "Cafu",
+        "answer_detail": "Brazil's Cafu played in the finals in 1994, 1998, and 2002 — winning twice.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which was the first Asian team to reach the World Cup semi-finals?",
+        "options": ["Japan", "South Korea", "Iran", "Saudi Arabia"],
+        "answer": "South Korea",
+        "answer_detail": "South Korea reached the semi-finals at the 2002 World Cup co-hosted with Japan.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "How many World Cups has Germany/West Germany appeared in the final?",
+        "options": ["5", "6", "7", "8"],
+        "answer": "8",
+        "answer_detail": "Germany have reached the final 8 times (1954, 1966, 1974, 1982, 1986, 1990, 2002, 2014), winning 4.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What was the name of the official match ball of the 2022 World Cup?",
+        "options": ["Telstar", "Jabulani", "Al Rihla", "Brazuca"],
+        "answer": "Al Rihla",
+        "answer_detail": "'Al Rihla' means 'The Journey' in Arabic. It was designed by Adidas for the Qatar World Cup.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which country was banned from the 1950 World Cup for political reasons?",
+        "options": ["Germany", "Japan", "Russia", "Spain"],
+        "answer": "Germany",
+        "answer_detail": "Germany and Japan were banned from the 1950 World Cup due to World War II.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What happened to the original Jules Rimet Trophy?",
+        "options": [
+            "It is in a museum in Zurich",
+            "It was stolen and melted down",
+            "It was returned to France",
+            "It is still held by Brazil"
+        ],
+        "answer": "It was stolen and melted down",
+        "answer_detail": "The trophy was stolen from Brazil's FA headquarters in 1983 and is believed to have been melted down by the thieves.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who was the first player to score 5 goals in a single World Cup match?",
+        "options": ["Just Fontaine", "Oleg Salenko", "Sándor Kocsis", "Gerd Müller"],
+        "answer": "Oleg Salenko",
+        "answer_detail": "Russia's Salenko scored 5 goals against Cameroon at the 1994 World Cup — a single-match record.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "What unique rule applies in the 2026 World Cup group stage advancement?",
+        "options": [
+            "Top 2 teams advance, no third-place teams qualify",
+            "Top 2 teams plus 8 best third-placed teams advance",
+            "All teams advance to the knockout round",
+            "Only group winners advance"
+        ],
+        "answer": "Top 2 teams plus 8 best third-placed teams advance",
+        "answer_detail": "The new format means 32 of 48 teams advance: 24 from top-2 plus 8 best third-placed sides.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which country won the World Cup despite not winning any of their group stage matches in 90 minutes?",
+        "options": ["Italy 1982", "Spain 2010", "Germany 2014", "Argentina 2022"],
+        "answer": "Spain 2010",
+        "answer_detail": "Spain lost to Switzerland and drew with Honduras in the group stage, but went on to win the tournament.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who was the first substitute to score in a World Cup match?",
+        "options": ["László Kiss", "Pelé", "Just Fontaine", "Roger Milla"],
+        "answer": "László Kiss",
+        "answer_detail": "Hungary's László Kiss scored a hat-trick as a substitute against El Salvador in 1982.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Which World Cup saw the introduction of group stages for the first time?",
+        "options": ["1930", "1934", "1950", "1954"],
+        "answer": "1950",
+        "answer_detail": "The 1950 World Cup introduced group stages, though with an unusual final round-robin format.",
+        "difficulty": "hard",
+    },
+    {
+        "question": "Who was the last player to win the World Cup Golden Ball while being on the losing side in the final?",
+        "options": ["Lionel Messi", "Zinedine Zidane", "Diego Maradona", "Oliver Kahn"],
+        "answer": "Lionel Messi",
+        "answer_detail": "Messi won the 2014 Golden Ball despite Argentina losing the final to Germany. He also won it in 2022, this time as the winner.",
+        "difficulty": "hard",
+    },
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. CONTROVERSIES — 40+ Dramatic / Controversial World Cup Moments
+# ═══════════════════════════════════════════════════════════════════════════════
+
+CONTROVERSIES: list[dict] = [
+    {
+        "title": "The Hand of God",
+        "year": 1986,
+        "description": "Diego Maradona punched the ball into the net with his fist against England in the quarter-final. The referee allowed the goal, which became one of the most infamous moments in football history.",
+    },
+    {
+        "title": "Zidane's Headbutt",
+        "year": 2006,
+        "description": "Zinedine Zidane headbutted Italy's Marco Materazzi in the chest during the World Cup final — his last-ever match. France went on to lose the penalty shootout.",
+    },
+    {
+        "title": "The Disgrace of Gijón",
+        "year": 1982,
+        "description": "West Germany and Austria played out a mutually convenient 1-0 result that eliminated Algeria from the World Cup. Both teams barely moved the ball in the second half.",
+    },
+    {
+        "title": "Suárez's Handball on the Line",
+        "year": 2010,
+        "description": "Luis Suárez deliberately handled the ball on the goal line to deny Ghana a winning goal in the quarter-final. Ghana's Asamoah Gyan then missed the resulting penalty. Uruguay won the shootout.",
+    },
+    {
+        "title": "The Ghost Goal",
+        "year": 1966,
+        "description": "Geoff Hurst's second goal in the 1966 final — the ball hit the crossbar and bounced down. Whether it crossed the line remains one of football's most debated moments. England won 4-2.",
+    },
+    {
+        "title": "Maradona's Drug Scandal",
+        "year": 1994,
+        "description": "Diego Maradona was expelled from the 1994 World Cup after testing positive for ephedrine. Argentina, who had been playing brilliantly, collapsed after his departure.",
+    },
+    {
+        "title": "The Andrés Escobar Tragedy",
+        "year": 1994,
+        "description": "Colombian defender Andrés Escobar scored an own goal against the USA, leading to Colombia's elimination. Ten days later, he was shot and killed in Medellín.",
+    },
+    {
+        "title": "Beckham's Red Card",
+        "year": 1998,
+        "description": "David Beckham was sent off for kicking out at Argentina's Diego Simeone in the Round of 16. England lost on penalties, and Beckham became a national scapegoat.",
+    },
+    {
+        "title": "The Battle of Santiago",
+        "year": 1962,
+        "description": "Chile vs. Italy was one of the most violent matches in World Cup history. Police entered the pitch, players were punched, and Italian players were spat on by the crowd.",
+    },
+    {
+        "title": "Argentina-Peru 1978 Suspicion",
+        "year": 1978,
+        "description": "Argentina needed to win by 4+ goals against Peru to reach the final. They won 6-0 in suspicious circumstances, with allegations of bribery and political pressure from the military junta.",
+    },
+    {
+        "title": "The Ronaldo Mystery (1998 Final)",
+        "year": 1998,
+        "description": "Brazil's Ronaldo suffered a mysterious convulsive fit hours before the 1998 final. He was initially dropped, then reinstated. Brazil lost 3-0 to France in a bizarre performance.",
+    },
+    {
+        "title": "Rivaldo's Oscar Performance",
+        "year": 2002,
+        "description": "Brazil's Rivaldo was hit on the shin by a ball kicked by a Turkish player during a corner. He collapsed clutching his face. The Turkish player was red-carded. Rivaldo was later fined.",
+    },
+    {
+        "title": "South Korea 2002 — Refereeing Controversies",
+        "year": 2002,
+        "description": "South Korea's run to the semi-finals was marred by controversial refereeing decisions against Spain and Italy, including disallowed goals and questionable offsides.",
+    },
+    {
+        "title": "Henry's Handball vs. Ireland",
+        "year": 2009,
+        "description": "Thierry Henry clearly handled the ball before assisting William Gallas's goal in the World Cup playoff between France and Ireland. France qualified; Ireland were denied a place at the 2010 World Cup.",
+    },
+    {
+        "title": "Suárez Bites Chiellini",
+        "year": 2014,
+        "description": "Luis Suárez bit Italy's Giorgio Chiellini on the shoulder during a group stage match. It was his third biting incident. He was banned for 9 international matches and 4 months from all football.",
+    },
+    {
+        "title": "Brazil 1-7 Germany",
+        "year": 2014,
+        "description": "Brazil's humiliating 7-1 loss to Germany in the semi-final on home soil shocked the world. Germany scored 5 goals in 18 first-half minutes. It remains the most humbling result in World Cup history.",
+    },
+    {
+        "title": "Frank Lampard's Disallowed Goal",
+        "year": 2010,
+        "description": "England's Frank Lampard struck a shot that bounced off the crossbar and clearly over the line against Germany. The goal was not given. England lost 4-1. This directly led to the adoption of goal-line technology.",
+    },
+    {
+        "title": "Qatar 2022 — Worker Deaths Controversy",
+        "year": 2022,
+        "description": "Qatar's hosting of the 2022 World Cup was overshadowed by reports of thousands of migrant worker deaths during stadium and infrastructure construction. The tournament also sparked debates about human rights.",
+    },
+    {
+        "title": "Saudi Arabia Declares National Holiday",
+        "year": 2022,
+        "description": "After Saudi Arabia's stunning 2-1 victory over Argentina in the 2022 group stage, the Saudi government declared a national holiday. Argentina's 36-match unbeaten run was ended.",
+    },
+    {
+        "title": "Japan's VAR Controversy vs. Spain",
+        "year": 2022,
+        "description": "Japan's second goal against Spain, which sent Japan through and eliminated Germany, was allowed despite the ball appearing to be entirely out of play. VAR ruled it stayed on the line by millimeters.",
+    },
+    {
+        "title": "Zaire's Free-Kick Confusion",
+        "year": 1974,
+        "description": "In a match against Brazil, Zaire defender Mwepu Ilunga ran from the wall and kicked the ball away before the free kick was taken. He received a yellow card. The reasons behind his actions remain debated.",
+    },
+    {
+        "title": "Schumacher's Foul on Battiston",
+        "year": 1982,
+        "description": "German goalkeeper Harald Schumacher violently collided with France's Patrick Battiston in the semi-final, knocking out his teeth and leaving him unconscious. Schumacher was not even booked.",
+    },
+    {
+        "title": "The Frozen Penalty — Baggio's Miss",
+        "year": 1994,
+        "description": "Roberto Baggio, Italy's hero throughout the tournament, blazed his penalty over the bar in the World Cup final shootout against Brazil. The image of him standing, head bowed, is iconic.",
+    },
+    {
+        "title": "Iran vs. USA — Political Football",
+        "year": 1998,
+        "description": "The 1998 group match between Iran and the USA was loaded with political tension due to hostile diplomatic relations. Iran won 2-1 in a match that transcended sport.",
+    },
+    {
+        "title": "Willie Johnston's Drug Test",
+        "year": 1978,
+        "description": "Scotland's Willie Johnston was sent home from the 1978 World Cup after testing positive for a banned stimulant. He was banned from international football for life.",
+    },
+    {
+        "title": "The French Mutiny",
+        "year": 2010,
+        "description": "France's 2010 World Cup campaign imploded when Nicolas Anelka was sent home for insulting coach Raymond Domenech. The squad then boycotted training in a full-blown mutiny.",
+    },
+    {
+        "title": "Neymar's Rolling",
+        "year": 2018,
+        "description": "Neymar became a global meme at the 2018 World Cup for his exaggerated reactions to fouls, rolling multiple times on the ground. His diving and theatrics drew worldwide mockery.",
+    },
+    {
+        "title": "Morocco's Denied Goal vs. Portugal (1986)",
+        "year": 1986,
+        "description": "Morocco claimed they had a legitimate goal disallowed against West Germany in 1986. The refereeing decision contributed to their elimination in the Round of 16.",
+    },
+    {
+        "title": "Croatia's Semifinal Penalty Controversy (2018)",
+        "year": 2018,
+        "description": "In the semi-final against England, some argued that a free kick leading to Croatia's equalizer should not have been awarded. England fans felt the call changed the course of the match.",
+    },
+    {
+        "title": "Chile vs. Spain (1962) — Media War",
+        "year": 1962,
+        "description": "Before their match, Italian journalists wrote derogatory articles about Chilean life, inflaming tensions. This media war set the stage for the 'Battle of Santiago'.",
+    },
+    {
+        "title": "Cameroon's Opening Day Shock",
+        "year": 1990,
+        "description": "Cameroon beat defending champions Argentina 1-0 in the opening match of Italia '90, with François Omam-Biyik scoring the winner. Two Cameroon players were sent off, yet they still won.",
+    },
+    {
+        "title": "Diego Simeone's Acting",
+        "year": 1998,
+        "description": "After David Beckham's minor kick in the 1998 Round of 16, Diego Simeone dramatically fell to the ground, getting Beckham sent off. Many felt Simeone's reaction was theatrical.",
+    },
+    {
+        "title": "Portugal's Brutality Against Pelé",
+        "year": 1966,
+        "description": "In the 1966 World Cup, Portugal's players systematically fouled Pelé with brutal tackles. Brazil were eliminated, and Pelé briefly vowed never to play in a World Cup again.",
+    },
+    {
+        "title": "Togo Player Strike",
+        "year": 2006,
+        "description": "Togo players threatened to boycott their World Cup matches over unpaid bonuses. The dispute overshadowed their first-ever World Cup appearance in Germany.",
+    },
+    {
+        "title": "Spain's 'Tiki-Taka' Boredom Debate",
+        "year": 2010,
+        "description": "Spain's possession-based 'tiki-taka' style was criticized by some as boring, with several 1-0 wins. Despite the criticism, they won the World Cup with just 8 goals in 7 matches.",
+    },
+    {
+        "title": "De Jong's Karate Kick",
+        "year": 2010,
+        "description": "Netherlands' Nigel de Jong delivered a karate kick to Xabi Alonso's chest in the 2010 final. He received only a yellow card, despite many arguing it warranted a straight red.",
+    },
+    {
+        "title": "Australia's 31-0 Win — Qualifying Controversy",
+        "year": 2001,
+        "description": "Australia beat American Samoa 31-0 in a World Cup qualifier — the largest-ever international football victory. It raised questions about the fairness of the qualification format.",
+    },
+    {
+        "title": "Messi's Tax Evasion Chants",
+        "year": 2018,
+        "description": "Opposing fans taunted Messi with tax evasion chants during the 2018 World Cup, referencing his off-field legal issues in Spain. Argentina had a turbulent group stage.",
+    },
+    {
+        "title": "Denmark's Goalkeeper Swap Controversy",
+        "year": 2022,
+        "description": "FIFA blocked Denmark's plans to wear protest jerseys against Qatar's human rights record. Denmark eventually wore toned-down kits with barely visible logos.",
+    },
+    {
+        "title": "Cameroon vs. Germany — Referee Controversy",
+        "year": 2002,
+        "description": "In a group stage match, Cameroon had a potential equalizer incorrectly ruled offside against Germany. The decision sparked outrage from African football officials.",
+    },
+    {
+        "title": "England's 'Hand of God' Revenge Denied",
+        "year": 2002,
+        "description": "England and Argentina met again in 2002. Beckham scored the winner from the penalty spot — sweet revenge for his 1998 red card. However, refereeing in the match was again controversial.",
+    },
+    {
+        "title": "Materazzi's Provocation of Zidane",
+        "year": 2006,
+        "description": "Marco Materazzi allegedly insulted Zidane's sister, provoking the legendary headbutt in the final. Materazzi later admitted to the insult but said it was 'nothing extraordinary'.",
+    },
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. TOP_10_TOPICS — Pre-defined 'Top 10' List Topics (30+)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+TOP_10_TOPICS: list[dict] = [
+    {
+        "title": "Top 10 World Cup Goals of All Time",
+        "items": [
+            "Diego Maradona vs. England (1986) — 'Goal of the Century', solo dribble past 5 players",
+            "Carlos Alberto vs. Italy (1970) — Team goal perfection in the final",
+            "James Rodríguez vs. Uruguay (2014) — Chest-and-volley masterpiece",
+            "Michael Owen vs. Argentina (1998) — Teenage solo run",
+            "Saeed Al-Owairan vs. Belgium (1994) — Saudi solo dribble from halfway",
+            "Dennis Bergkamp vs. Argentina (1998) — Last-minute touch-and-volley",
+            "Robin van Persie vs. Spain (2014) — 'The Flying Dutchman' diving header",
+            "Pelé dummy vs. Uruguay (1970) — The greatest goal never scored",
+            "Manuel Negrete vs. Bulgaria (1986) — Scissor kick perfection",
+            "Archie Gemmill vs. Netherlands (1978) — Scotland's greatest goal",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Upsets",
+        "items": [
+            "Saudi Arabia 2-1 Argentina (2022) — Al-Dawsari's thunderbolt",
+            "Uruguay 2-1 Brazil (1950) — The Maracanazo",
+            "USA 1-0 England (1950) — Amateurs beat the masters",
+            "West Germany 3-2 Hungary (1954) — The Miracle of Bern",
+            "North Korea 1-0 Italy (1966) — Asia shocks Europe",
+            "Cameroon 1-0 Argentina (1990) — Defending champs fall",
+            "Senegal 1-0 France (2002) — Debutants stun the holders",
+            "South Korea over Spain and Italy (2002) — Asian fairy tale",
+            "Algeria 2-1 West Germany (1982) — African upset",
+            "Japan 2-1 Germany (2022) — Late comeback shock",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Saves",
+        "items": [
+            "Gordon Banks vs. Pelé (1970) — The Save of the Century",
+            "Thibaut Courtois vs. France (2018) — Multiple world-class stops in the semi-final",
+            "Manuel Neuer vs. Algeria (2014) — Sweeper-keeper masterclass",
+            "Tim Howard vs. Belgium (2014) — 16 saves in a single match",
+            "Emiliano Martínez vs. France (2022) — Penalty heroics in the final",
+            "Gianluigi Buffon vs. France (2006) — Shut-out in the final",
+            "Peter Shilton vs. Poland (1986) — One-on-one dominance",
+            "Iker Casillas vs. Netherlands (2010) — Crucial final save on Robben",
+            "Oliver Kahn throughout 2002 — Golden Ball-winning performances",
+            "Jan Oblak vs. England (2010 qualifier) — Slovenia's wall",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Matches of All Time",
+        "items": [
+            "Argentina 3-3 France (2022 Final, Argentina win on pens) — Greatest final ever",
+            "Italy 4-3 West Germany (1970 semi-final) — The Game of the Century",
+            "West Germany 3-3 France (1982 semi-final) — Drama and brutality",
+            "Brazil 3-2 Italy (1982) — Beautiful football vs. grit",
+            "England 4-2 West Germany (1966 final) — The Ghost Goal final",
+            "Germany 7-1 Brazil (2014 semi-final) — Shocking humiliation",
+            "Netherlands 2-1 Brazil (2010 quarter-final) — Dutch resilience",
+            "Spain 1-0 Netherlands (2010 final) — Iniesta's late winner",
+            "Brazil 5-2 Sweden (1958 final) — Pelé announces himself",
+            "Croatia 3-3 Japan (2022, Croatia win on pens) — Heartbreaking exit",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Players of All Time",
+        "items": [
+            "Pelé (Brazil) — 3 World Cup titles, 12 finals goals",
+            "Diego Maradona (Argentina) — Single-handedly won 1986",
+            "Lionel Messi (Argentina) — 2022 champion, 2x Golden Ball",
+            "Zinedine Zidane (France) — 1998 and 2006 finals dominance",
+            "Ronaldo (Brazil) — 15 World Cup goals, ultimate redemption in 2002",
+            "Franz Beckenbauer (Germany) — Won as player (1974) and manager (1990)",
+            "Johan Cruyff (Netherlands) — Revolutionized football with Total Football",
+            "Miroslav Klose (Germany) — All-time World Cup top scorer (16 goals)",
+            "Paolo Maldini (Italy) — 23-year career, multiple World Cups",
+            "Lothar Matthäus (Germany) — Most World Cup matches (25)",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Celebrations",
+        "items": [
+            "Roger Milla's corner flag dance (1990) — Cameroon icon",
+            "Bebeto's baby cradle (1994) — Celebrated the birth of his son",
+            "Brandi Chastain's shirt off (1999 Women's) — Iconic moment",
+            "Miroslav Klose's front flip (2002-2014) — Signature celebration",
+            "Robbie Keane's cartwheel (2002) — Irish joy",
+            "Daniel Sturridge's arm wave (2014) — Unique dance move",
+            "Marcus Rashford's tribute (2022) — Honored a friend",
+            "Cristiano Ronaldo's 'Siiiiu' (Multiple) — Iconic jump and turn",
+            "Peter Crouch's robot dance (2006) — Fan favorite",
+            "Lionel Messi's shirt lift to Argentine fans (2022 QF) — Raw emotion",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Goalkeepers",
+        "items": [
+            "Lev Yashin (USSR) — The Black Spider, only GK to win Ballon d'Or",
+            "Gianluigi Buffon (Italy) — 5 World Cups, 2006 champion",
+            "Oliver Kahn (Germany) — Only GK to win World Cup Golden Ball (2002)",
+            "Gordon Banks (England) — 1966 champion, Save of the Century",
+            "Dino Zoff (Italy) — Oldest World Cup winning captain at 40 (1982)",
+            "Manuel Neuer (Germany) — Redefined the sweeper-keeper role",
+            "Iker Casillas (Spain) — 2010 champion, crucial final save",
+            "Peter Shilton (England) — Most World Cup appearances for a GK",
+            "Thibaut Courtois (Belgium) — 2018 Golden Glove winner",
+            "Emiliano Martínez (Argentina) — 2022 hero, penalty specialist",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Hat-Tricks",
+        "items": [
+            "Geoff Hurst vs. West Germany (1966 final) — Only hat-trick in a WC final",
+            "Kylian Mbappé vs. Argentina (2022 final) — Second hat-trick in a final",
+            "Gerd Müller vs. Peru (1970) — Clinical finishing",
+            "Just Fontaine vs. Paraguay (1958) — Part of his 13-goal tournament",
+            "Gabriel Batistuta vs. Greece (1994) — Argentine power",
+            "Miroslav Klose vs. Saudi Arabia (2002) — Three headers",
+            "Oleg Salenko vs. Cameroon (1994) — 5 goals, the most in a single match",
+            "László Kiss vs. El Salvador (1982) — Substitute hat-trick",
+            "Sándor Kocsis vs. West Germany (1954) — Hungarian brilliance",
+            "Ademir vs. Sweden (1950) — Brazilian legend's treble",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Underdogs",
+        "items": [
+            "North Korea (1966) — Beat Italy, led Portugal 3-0 in QF",
+            "Cameroon (1990) — Beat Argentina, reached quarter-finals",
+            "Croatia (1998) — Third place on debut",
+            "Senegal (2002) — Beat France, reached quarter-finals",
+            "South Korea (2002) — Semi-finalists as co-hosts",
+            "Costa Rica (2014) — Won a group with Italy, England, Uruguay",
+            "Iceland (2016/2018) — Drew with Argentina, beat England",
+            "Morocco (2022) — First African semi-finalists",
+            "Turkey (2002) — Third place on return to the World Cup",
+            "Ghana (2010) — Within a Suárez handball of the semi-finals",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Penalty Shootouts",
+        "items": [
+            "Argentina vs. France (2022 final) — After a 3-3 epic, Argentina win 4-2",
+            "Italy vs. France (2006 final) — After Zidane's headbutt, Italy win 5-3",
+            "Brazil vs. Italy (1994 final) — Baggio's miss seals it for Brazil",
+            "West Germany vs. France (1982 semi) — Schumacher's foul, Germany win",
+            "Argentina vs. England (1998 R16) — Beckham red card, Argentina win",
+            "Germany vs. Argentina (2006 QF) — Lehmann's cheat sheet saves the day",
+            "Spain vs. Russia (2018 R16) — Hosts shock the world, Russia win",
+            "Ghana vs. Uruguay (2010 QF) — Suárez handball, Gyan misses, Uruguay win",
+            "Netherlands vs. Argentina (2014 semi) — Romero the hero, Argentina win",
+            "Croatia vs. Denmark (2018 R16) — Schmeichel vs. Subašić marathon",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Stadiums",
+        "items": [
+            "Estadio Centenario, Montevideo (1930) — Where it all began",
+            "Maracanã, Rio de Janeiro — Scene of the Maracanazo and 2014 final",
+            "Wembley Stadium, London (1966) — 'They think it's all over...'",
+            "Estadio Azteca, Mexico City (1970, 1986) — Maradona's greatest moments",
+            "San Siro / Giuseppe Meazza, Milan (1990) — Iconic Italian venue",
+            "Rose Bowl, Pasadena (1994) — Baggio's miss in the final",
+            "Stade de France, Paris (1998) — Zidane's final heroics",
+            "Yokohama International Stadium (2002) — Ronaldo's redemption",
+            "Soccer City, Johannesburg (2010) — Iniesta's moment",
+            "Lusail Stadium, Qatar (2022) — The greatest final ever",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Coaches",
+        "items": [
+            "Vittorio Pozzo (Italy) — Only coach to win 2 World Cups (1934, 1938)",
+            "Sir Alf Ramsey (England) — Won on home soil in 1966",
+            "Franz Beckenbauer (Germany) — Won as player and manager",
+            "Didier Deschamps (France) — Won as captain (1998) and manager (2018)",
+            "Luiz Felipe Scolari (Brazil) — 2002 champion, then managed Portugal",
+            "Joachim Löw (Germany) — 2014 architect, 15-year tenure",
+            "Carlos Bilardo (Argentina) — 1986 champion with Maradona",
+            "Mario Zagallo (Brazil) — Won as player (1958, 1962) and coach (1970)",
+            "Vicente del Bosque (Spain) — 2010 champion, calm under pressure",
+            "Lionel Scaloni (Argentina) — 2022 champion, surprise appointment",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Kits of All Time",
+        "items": [
+            "Brazil 1970 — Yellow and green perfection",
+            "Argentina 1986 — Maradona's light blue and white stripes",
+            "Netherlands 1974 — Cruyff's orange revolution",
+            "Italy 2006 — Azzurri's deep blue",
+            "France 1998 — Les Bleus' iconic home",
+            "Germany 1990 — The iconic flag-inspired design",
+            "Croatia 1998 — Red-and-white checkerboard debut",
+            "Mexico 1998 — Aztec-inspired dark green",
+            "Nigeria 2018 — Sold out in minutes, fashion icon",
+            "Japan 2022 — Origami-inspired design",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Debut Performances",
+        "items": [
+            "Pelé (1958) — 6 goals as a 17-year-old to win the World Cup",
+            "Kylian Mbappé (2018) — 4 goals including one in the final",
+            "Michael Owen (1998) — Wonder goal vs. Argentina at age 18",
+            "Lamine Yamal (Euro 2024/2026 WC) — Youngest scorer in major tournament history",
+            "Eusébio (1966) — 9 goals, including 4 vs. North Korea",
+            "James Rodríguez (2014) — 6 goals, Golden Boot winner",
+            "Ronaldo (1998) — 4 goals before the mysterious final",
+            "Miroslav Klose (2002) — 5 goals, all headers",
+            "Geoff Hurst (1966) — Hat-trick in the final on debut",
+            "Salvatore Schillaci (1990) — Unknown to global star, Golden Boot",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Rivalries",
+        "items": [
+            "Argentina vs. England — Falklands War, Hand of God, Beckham",
+            "Brazil vs. Argentina — South American supremacy",
+            "Germany vs. Netherlands — European football's fiercest rivalry",
+            "Germany vs. Italy — Four classic World Cup meetings",
+            "Brazil vs. Italy — Five World Cup finals between them",
+            "USA vs. Mexico — CONCACAF dominance",
+            "England vs. Germany — Ghost goals and penalty woes",
+            "France vs. Italy — 2006 final headbutt drama",
+            "Brazil vs. France — 1998 and 2006 clashes",
+            "Uruguay vs. Brazil — The Maracanazo legacy",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Young Stars to Watch in 2026",
+        "items": [
+            "Lamine Yamal (Spain, 18) — Youngest major tournament scorer",
+            "Endrick (Brazil, 19) — Real Madrid's teenage prodigy",
+            "Kendry Páez (Ecuador, 18) — Chelsea-bound wonderkid",
+            "Arda Güler (Türkiye, 21) — 'Turkish Messi' at Real Madrid",
+            "Kobbie Mainoo (England, 21) — Manchester United's midfield gem",
+            "Florian Wirtz (Germany, 23) — Leverkusen's unbeaten season architect",
+            "Julio Enciso (Paraguay, 20) — Premier League rising star",
+            "Antonio Nusa (Norway, 21) — Explosive winger",
+            "Abbosbek Fayzullaev (Uzbekistan, 21) — Central Asian sensation",
+            "Joško Gvardiol (Croatia, 24) — World's best young defender",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Mascots",
+        "items": [
+            "World Cup Willie (1966, England) — First official World Cup mascot",
+            "Tip & Tap (1974, West Germany) — Two boys with WM on their shirts",
+            "Naranjito (1982, Spain) — Orange wearing a football kit",
+            "Pique (1986, Mexico) — A jalapeño pepper",
+            "Ciao (1990, Italy) — Abstract stick figure, controversial design",
+            "Striker (1994, USA) — A dog wearing USA kit",
+            "Footix (1998, France) — A blue rooster",
+            "Goleo VI (2006, Germany) — A lion with a talking football",
+            "Zakumi (2010, South Africa) — A leopard with green hair",
+            "La'eeb (2022, Qatar) — A ghostly Arabic headscarf figure",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Golden Boot Winners",
+        "items": [
+            "Just Fontaine (1958) — 13 goals, all-time record",
+            "Gerd Müller (1970) — 10 goals for West Germany",
+            "Ronaldo (2002) — 8 goals, redemption tour",
+            "Gary Lineker (1986) — 6 goals for England",
+            "Salvatore Schillaci (1990) — 6 goals for Italy",
+            "Oleg Salenko (1994) — 6 goals including 5 in one match",
+            "Davor Šuker (1998) — 6 goals for Croatia",
+            "Thomas Müller (2010) — 5 goals for Germany",
+            "James Rodríguez (2014) — 6 goals with that volley",
+            "Kylian Mbappé (2022) — 8 goals including a final hat-trick",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Comebacks",
+        "items": [
+            "West Germany 3-2 Hungary (1954) — Down 2-0, won the Miracle of Bern",
+            "Portugal 5-3 North Korea (1966) — Down 3-0, Eusébio scored 4",
+            "France 3-3 Argentina (2022 final) — Down 2-0, Mbappé scored twice in 97 seconds",
+            "Japan 2-1 Germany (2022) — Down 1-0, two late goals",
+            "South Korea 2-1 Germany (2018) — Two stoppage-time goals eliminated the champs",
+            "Brazil 4-2 Italy (1970 semi) — Down 1-0, came back to win in extra time",
+            "Senegal 2-2 South Korea (2002) — Late equalizer in extra time",
+            "Netherlands 2-1 Brazil (2010 QF) — Down 1-0 at half-time",
+            "Germany 2-0 Sweden (2018) — Kroos's 95th-minute free kick",
+            "Japan 2-1 Spain (2022) — Down 1-0, two late goals to top the group",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Moments That Changed Football",
+        "items": [
+            "Goal-line technology adopted after Lampard's ghost goal (2010 → 2014)",
+            "VAR introduced at the World Cup (2018)",
+            "Back-pass rule created after boring 1990 World Cup",
+            "Red and yellow cards introduced (1970)",
+            "Professional fouls leading to red card rule (1990s)",
+            "Three points for a win in World Cup qualifiers (1994 onwards)",
+            "The offside rule modifications to encourage attacking football",
+            "Five substitutions rule (2022 onwards)",
+            "Semi-automated offside technology (2022)",
+            "48-team expansion (2026) — largest World Cup ever",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Host Nations' Performances",
+        "items": [
+            "Uruguay 1930 — Won the tournament (Champions)",
+            "Italy 1934 — Won the tournament (Champions)",
+            "England 1966 — Won the tournament (Champions)",
+            "West Germany 1974 — Won the tournament (Champions)",
+            "Argentina 1978 — Won the tournament (Champions)",
+            "France 1998 — Won the tournament (Champions)",
+            "South Korea 2002 — Semi-finals (Best Asian run ever)",
+            "Brazil 2014 — Semi-finals (7-1 humiliation by Germany)",
+            "Russia 2018 — Quarter-finals (Overachieved)",
+            "South Africa 2010 — Group stage (First host eliminated in groups)",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Free Kicks",
+        "items": [
+            "Roberto Carlos vs. France (1997 friendly) — The impossible swerve",
+            "Toni Kroos vs. Sweden (2018) — 95th-minute winner",
+            "Ronaldinho vs. England (2002) — Lobbed Seaman from 40 yards",
+            "David Beckham vs. Greece (2001 qualifier) — Last-minute qualifying goal",
+            "Sinisa Mihajlovic vs. multiple (Various) — Left-foot cannon",
+            "Diego Maradona vs. Italy (1986) — Curled perfection",
+            "Juninho Pernambucano style — Knuckleball technique pioneer",
+            "Cristiano Ronaldo vs. Spain (2018) — Completed his hat-trick",
+            "Neymar vs. Colombia (2014) — Set-piece specialist",
+            "Hakan Çalhanoğlu style — Modern free-kick mastery",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup 'What Ifs'",
+        "items": [
+            "What if Ronaldo was fit for the 1998 final?",
+            "What if Ghana scored the penalty after Suárez's handball in 2010?",
+            "What if Lampard's ghost goal was given vs. Germany in 2010?",
+            "What if Baggio had scored his penalty in 1994?",
+            "What if Beckham wasn't sent off vs. Argentina in 1998?",
+            "What if Pelé wasn't injured at the 1962 and 1966 World Cups?",
+            "What if Messi had retired after losing the 2014 final?",
+            "What if Maradona never used the Hand of God in 1986?",
+            "What if Algeria hadn't been robbed by the Disgrace of Gijón in 1982?",
+            "What if the Netherlands had won any of their 3 finals?",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup National Anthems Moments",
+        "items": [
+            "Argentina 2022 — Messi and team singing before the final",
+            "Italy 2006 — Emotional singing before the final vs. France",
+            "France 1998 — La Marseillaise at the Stade de France",
+            "Brazil 2014 — 200,000 fans drowning out the speakers",
+            "Wales 2022 — Hen Wlad Fy Nhadau at their first WC since 1958",
+            "Iceland 2018 — Viking thunderclap before the Argentina match",
+            "Germany 2014 — Unity singing before the final",
+            "Mexico — Always one of the loudest in any stadium",
+            "Japan 2022 — Respectful, emotional singing before the Germany upset",
+            "Morocco 2022 — Arabic-Berber anthem echoing through Qatar",
+        ],
+    },
+    {
+        "title": "Top 10 World Cup Records That May Never Be Broken",
+        "items": [
+            "Just Fontaine — 13 goals in a single tournament (1958)",
+            "Pelé — 3 World Cup titles as a player (1958, 1962, 1970)",
+            "Brazil — Only team to play in every World Cup (since 1930)",
+            "Australia 31-0 American Samoa — Largest international victory",
+            "Hakan Şükür — Fastest World Cup goal, 11 seconds (2002)",
+            "Roger Milla — Oldest scorer at 42 years old (1994)",
+            "Lothar Matthäus — 25 World Cup matches across 5 tournaments",
+            "199,854 attendance — 1950 final at the Maracanã",
+            "Oleg Salenko — 5 goals in a single World Cup match (1994)",
+            "Italy — Back-to-back World Cup titles (1934, 1938)",
+        ],
+    },
+    {
+        "title": "Top 10 2026 World Cup Venues",
+        "items": [
+            "MetLife Stadium, New Jersey — Final venue, 82,500 capacity",
+            "Estadio Azteca, Mexico City — Opening match venue, iconic history",
+            "SoFi Stadium, Los Angeles — State-of-the-art, 70,000 capacity",
+            "AT&T Stadium, Dallas — Massive retractable-roof venue",
+            "Hard Rock Stadium, Miami — Tropical World Cup football",
+            "NRG Stadium, Houston — Air-conditioned comfort",
+            "Lumen Field, Seattle — Electric atmosphere, famous '12th Man'",
+            "Mercedes-Benz Stadium, Atlanta — Stunning architecture",
+            "BMO Field, Toronto — Canada's World Cup home",
+            "BC Place, Vancouver — Canadian venue with retractable roof",
+        ],
+    },
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. FACTS_AND_RULES — Educational Football Content (30+)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+FACTS_AND_RULES: list[dict] = [
+    {
+        "title": "The Offside Rule",
+        "explanation": "A player is in an offside position if they are nearer to the opponent's goal line than both the ball and the second-last defender at the moment the ball is played. Being offside is not an offence — playing the ball or interfering with play while offside is.",
+    },
+    {
+        "title": "VAR (Video Assistant Referee)",
+        "explanation": "VAR reviews four types of decisions: goals, penalty decisions, direct red cards, and mistaken identity. The on-field referee makes the final decision after consulting the pitch-side monitor.",
+    },
+    {
+        "title": "The Back-Pass Rule",
+        "explanation": "Goalkeepers cannot handle the ball if it is deliberately kicked to them by a teammate. This rule was introduced in 1992 to prevent time-wasting and encourage attacking football.",
+    },
+    {
+        "title": "Extra Time and Penalties",
+        "explanation": "In knockout matches, if the score is level after 90 minutes, two 15-minute periods of extra time are played. If still tied, the match is decided by a penalty shootout (5 penalties each, then sudden death).",
+    },
+    {
+        "title": "Yellow and Red Cards",
+        "explanation": "Yellow cards are warnings for misconduct; two yellows in a match result in a red card. A straight red card is given for serious foul play, violent conduct, or denying a goal-scoring opportunity.",
+    },
+    {
+        "title": "The Penalty Area (18-Yard Box)",
+        "explanation": "The penalty area extends 18 yards from each goalpost and 18 yards into the field. Fouls by the defending team inside this area result in a penalty kick taken from the penalty spot, 12 yards from goal.",
+    },
+    {
+        "title": "Substitutions in Modern Football",
+        "explanation": "Teams can make up to 5 substitutions in a match, but only in 3 'windows' (plus half-time). This rule was made permanent by FIFA in 2022 after being introduced during COVID-19.",
+    },
+    {
+        "title": "Goal-Line Technology",
+        "explanation": "Goal-line technology uses cameras or magnetic fields to determine if the ball has fully crossed the goal line. It was introduced at the 2014 World Cup after controversial incidents.",
+    },
+    {
+        "title": "The Advantage Rule",
+        "explanation": "The referee can allow play to continue after a foul if the fouled team has a clear advantage. If the advantage doesn't materialize, the referee can come back and award the original foul.",
+    },
+    {
+        "title": "Corner Kicks",
+        "explanation": "A corner kick is awarded when the ball crosses the goal line after being last touched by a defending player. The ball is placed in the corner arc nearest to where it went out.",
+    },
+    {
+        "title": "Throw-Ins",
+        "explanation": "A throw-in is awarded when the ball fully crosses the touchline. The player must throw with both hands from behind their head while keeping both feet on the ground.",
+    },
+    {
+        "title": "The 2026 World Cup Format",
+        "explanation": "The 2026 tournament features 48 teams in 12 groups of 4. The top 2 from each group plus the 8 best third-placed teams advance to a Round of 32, followed by the Round of 16, quarter-finals, semi-finals, and the final.",
+    },
+    {
+        "title": "FIFA Rankings",
+        "explanation": "FIFA uses the Elo rating system (adopted in 2018) to rank national teams. Points are gained or lost based on match results, the importance of the match, and the strength of the opponent.",
+    },
+    {
+        "title": "The Golden Boot Award",
+        "explanation": "Awarded to the top scorer at the World Cup. If players are tied on goals, assists are used as a tiebreaker. If still tied, the player with fewer minutes played wins.",
+    },
+    {
+        "title": "The Golden Ball Award",
+        "explanation": "Awarded to the best player at the World Cup as voted by media representatives. Past winners include Maradona (1986), Ronaldo (1998), Zidane (2006), and Messi (2014, 2022).",
+    },
+    {
+        "title": "The Golden Glove Award",
+        "explanation": "Awarded to the best goalkeeper at the World Cup. Notable winners include Oliver Kahn (2002), Manuel Neuer (2014), and Emiliano Martínez (2022).",
+    },
+    {
+        "title": "Handball Rules",
+        "explanation": "A handball is penalized if a player makes their body unnaturally bigger, or if their hand/arm is above shoulder height. Accidental handballs by attackers that directly lead to goals are also penalized.",
+    },
+    {
+        "title": "The 6-Second Rule for Goalkeepers",
+        "explanation": "Goalkeepers must release the ball within 6 seconds of picking it up. In practice, this rule is rarely strictly enforced, though referees may give warnings.",
+    },
+    {
+        "title": "Free Kick Types",
+        "explanation": "Direct free kicks allow the taker to score directly. Indirect free kicks require another player to touch the ball before a goal can be scored. Indirect free kicks are signaled by the referee raising their arm.",
+    },
+    {
+        "title": "ABBA Penalty Shootout (Abandoned)",
+        "explanation": "FIFA trialed an ABBA penalty format (like a tennis tiebreak) to reduce the advantage of going first. It was abandoned after trials — the traditional alternating ABAB format remains.",
+    },
+    {
+        "title": "Semi-Automated Offside Technology (SAOT)",
+        "explanation": "Introduced at the 2022 World Cup, SAOT uses 12 cameras tracking 29 body points per player at 50 times per second to create an accurate 3D model for offside decisions.",
+    },
+    {
+        "title": "Injury Time / Stoppage Time",
+        "explanation": "Added at the end of each half to compensate for stoppages. The referee has discretion, but common additions include time for substitutions, injuries, VAR reviews, and time-wasting.",
+    },
+    {
+        "title": "The Away Goals Rule (Historic)",
+        "explanation": "Previously used in two-legged ties: away goals counted double to break ties. UEFA abolished this rule in 2021 after decades of debate. It was never used in World Cup finals.",
+    },
+    {
+        "title": "Concussion Substitutions",
+        "explanation": "Teams can make additional substitutions (beyond the 5-player limit) for suspected concussions. This is a permanent concussion substitution — the player cannot return to the match.",
+    },
+    {
+        "title": "The Triple Punishment Rule Change",
+        "explanation": "Before 2016, fouling inside the penalty area could result in a penalty, red card, and suspension. Now, if the foul is a genuine attempt to play the ball, it's only a yellow card.",
+    },
+    {
+        "title": "Kit Regulations",
+        "explanation": "Teams must have two distinct kits (home and away). If there's a clash, the away team changes. Goalkeepers must wear colors that distinguish them from all other players and the referees.",
+    },
+    {
+        "title": "The World Cup Trophy Weight",
+        "explanation": "The FIFA World Cup Trophy weighs 6.175 kg and is made of 18-carat gold. It stands 36.8 cm tall. Unlike the original Jules Rimet Trophy, it cannot be permanently awarded to any nation.",
+    },
+    {
+        "title": "Squad Size at the 2026 World Cup",
+        "explanation": "Each nation can bring a squad of 26 players (expanded from 23 since 2022). Teams must finalize their squad before the tournament begins, though injury replacements are allowed before the first match.",
+    },
+    {
+        "title": "Fair Play Points",
+        "explanation": "If teams are tied on points, goal difference, and goals scored in the group stage, fair play is used: yellow card = -1 point, indirect red = -3, direct red = -4, yellow + direct red = -4.",
+    },
+    {
+        "title": "The Maracanazo",
+        "explanation": "Brazil adopted yellow jerseys after their traumatic 1950 World Cup final loss to Uruguay. The original white jersey was deemed cursed, and a public design competition chose the now-iconic yellow.",
+    },
+    {
+        "title": "Why 90 Minutes?",
+        "explanation": "The 90-minute match length dates back to 1866, when London and Sheffield agreed on a standard 90-minute match. The FA later codified this into the Laws of the Game in 1897.",
+    },
+    {
+        "title": "The Crossbar Challenge in Rules",
+        "explanation": "If the crossbar or goalposts become displaced during a match, play is stopped. The match can only resume once the frame has been repaired to the referee's satisfaction.",
+    },
+]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Utility constants
+# ═══════════════════════════════════════════════════════════════════════════════
+
+ALL_GROUPS: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+
+HOST_NATIONS: list[str] = ["USA", "Mexico", "Canada"]
+
+TOURNAMENT_DATES = {
+    "start": "2026-06-11",
+    "end": "2026-07-19",
+    "group_stage_end": "2026-06-27",
+    "round_of_32_start": "2026-06-28",
+    "round_of_16_start": "2026-07-04",
+    "quarterfinals_start": "2026-07-09",
+    "semifinals": ["2026-07-14", "2026-07-15"],
+    "third_place": "2026-07-18",
+    "final": "2026-07-19",
+}
+
+VENUES: list[dict] = [
+    {"name": "MetLife Stadium", "city": "East Rutherford, NJ", "country": "USA", "capacity": 82500},
+    {"name": "SoFi Stadium", "city": "Inglewood, CA", "country": "USA", "capacity": 70000},
+    {"name": "AT&T Stadium", "city": "Arlington, TX", "country": "USA", "capacity": 80000},
+    {"name": "Hard Rock Stadium", "city": "Miami Gardens, FL", "country": "USA", "capacity": 65326},
+    {"name": "NRG Stadium", "city": "Houston, TX", "country": "USA", "capacity": 72220},
+    {"name": "Mercedes-Benz Stadium", "city": "Atlanta, GA", "country": "USA", "capacity": 71000},
+    {"name": "Lumen Field", "city": "Seattle, WA", "country": "USA", "capacity": 69000},
+    {"name": "Gillette Stadium", "city": "Foxborough, MA", "country": "USA", "capacity": 65878},
+    {"name": "Lincoln Financial Field", "city": "Philadelphia, PA", "country": "USA", "capacity": 69176},
+    {"name": "Arrowhead Stadium", "city": "Kansas City, MO", "country": "USA", "capacity": 76416},
+    {"name": "Levi's Stadium", "city": "Santa Clara, CA", "country": "USA", "capacity": 68500},
+    {"name": "Estadio Azteca", "city": "Mexico City", "country": "Mexico", "capacity": 87523},
+    {"name": "Estadio Akron", "city": "Guadalajara", "country": "Mexico", "capacity": 49850},
+    {"name": "BBVA Stadium", "city": "Monterrey", "country": "Mexico", "capacity": 53500},
+    {"name": "BMO Field", "city": "Toronto", "country": "Canada", "capacity": 30000},
+    {"name": "BC Place", "city": "Vancouver", "country": "Canada", "capacity": 54500},
+]

@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Editor/Tool folders
+.vscode/
+.idea/
+.claude/
+.qodo/
+
+# Private client secrets
+**/client_secrets.json
+
+# Media files and workspace outputs
+**/content_engine_workspace/
+**/scratch/
+**/temp_recordings/
+**/tiktok_exports/
+**/temp_uploads/
+*.mp4
+*.ts
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg

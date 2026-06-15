@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClipCatcher Shorts Template</title>
+  <style>
+    /* 1. Base Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: #06060c;
+      overflow: hidden;
+      width: 1080px;
+      height: 1920px;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #stage {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #090915 0%, #030307 100%);
+    }
+
+    /* 2. Slide Styles (Ken Burns / Images) */
+    .slide-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 1;
+    }
+
+    .bg-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.0);
+      transform-origin: center center;
+    }
+
+    /* Dark vignette overlay over visual slides for text readability */
+    .vignette-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.85) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* 3. Branding & Decor */
+    .brand-header {
+      position: absolute;
+      top: 140px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10;
+      width: 800px;
+    }
+
+    .brand-logo {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: #ffd700; /* Gold */
+      text-transform: uppercase;
+      text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.4);
+      display: inline-block;
+      padding: 8px 24px;
+      border: 3px solid #ffd700;
+      background: rgba(10, 10, 25, 0.65);
+      border-radius: 8px;
+    }
+
+
+
+    /* 4. Subtitle Elements */
+    .subtitle-wrapper {
+      position: absolute;
+      bottom: 350px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      text-align: center;
+      z-index: 20;
+    }
+
+    .subtitle-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+      opacity: 0;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .subtitle-word {
+      font-size: 64px;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 10px 14px;
+      text-shadow: 0px 6px 12px rgba(0,0,0,0.9), 0px 0px 6px rgba(0,0,0,0.85);
+      transition: color 0.1s ease, transform 0.1s ease;
+      transform: scale(1.0);
+      display: inline-block;
+    }
+
+    /* Active highlighted word class */
+    .subtitle-word.active {
+      color: #00b4ff; /* Neon Cyan */
+      transform: scale(1.18);
+      text-shadow: 0px 6px 12px rgba(0,0,0,0.9), 0px 0px 12px rgba(0, 180, 255, 0.8);
+    }
+    
+    /* Alternating active color for emphasis */
+    .subtitle-word.active.alt {
+      color: #ffd700; /* Gold */
+      text-shadow: 0px 6px 12px rgba(0,0,0,0.9), 0px 0px 12px rgba(255, 215, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Root element defining the HyperFrames composition -->
+  <!-- data-duration will be injected programmatically by Python -->
+  <div id="stage" data-composition-id="shorts-comp" data-width="1080" data-height="1920" data-duration="30">
+    
+
+
+    <!-- Vignette effect for visual contrast -->
+    <div class="vignette-overlay"></div>
+
+    <!-- Watermark / Branding -->
+    <div class="brand-header">
+      <div class="brand-logo" id="brand-logo-text">WORLD CUP CENTRAL</div>
+    </div>
+
+    <!-- Media slide list -->
+    <div class="slide-container" id="slide-container">
+      <!-- Injected programmatically by Python / JS: -->
+      <!-- <img class="bg-slide" src="img1.jpg" data-start="0" data-duration="4" data-track-index="1" /> -->
+    </div>
+
+    <!-- Subtitle Container -->
+    <div class="subtitle-wrapper" id="subtitle-wrapper">
+      <!-- Injected programmatically by JS: -->
+      <!-- <div class="subtitle-line" id="line-0">
+             <span class="subtitle-word" id="word-0">hello</span>
+           </div> -->
+    </div>
+
+    <!-- Narrator Audio track -->
+    <!-- src path will be injected programmatically by Python -->
+    <audio id="narrator-voice" data-start="0" data-track-index="2" data-volume="1.0" data-duration="30" src="narration.mp3"></audio>
+
+  </div>
+
+  <!-- Load GSAP library -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+  <!-- Data payload placeholder - Python will overwrite/replace this block -->
+  <script id="shorts-payload">
+    window.shortsPayload = {
+      "channel_name": "World Cup Central",
+      "duration_s": 15.0,
+      "audio_path": "narration.mp3",
+      "visual_segments": [
+        {"type": "image", "path": "test_img.jpg", "duration": 5.0},
+        {"type": "image", "path": "test_img.jpg", "duration": 5.0},
+        {"type": "image", "path": "test_img.jpg", "duration": 5.0}
+      ],
+      "subtitles": [
+        {"word": "Welcome", "start": 0.0, "end": 0.8},
+        {"word": "to", "start": 0.8, "end": 1.2},
+        {"word": "the", "start": 1.2, "end": 1.5},
+        {"word": "world", "start": 1.5, "end": 2.2},
+        {"word": "cup", "start": 2.2, "end": 3.0}
+      ]
+    };
+  </script>
+
+  <!-- Composition logic & GSAP timeline setup -->
+  <script>
+    (() => {
+      const payload = window.shortsPayload || {};
+      
+      // Update Root Attributes
+      const stage = document.getElementById("stage");
+      const durationS = parseFloat(payload.duration_s || 30.0);
+      stage.setAttribute("data-duration", durationS);
+      
+      // Update Brand Text
+      if (payload.channel_name) {
+        document.getElementById("brand-logo-text").innerText = payload.channel_name.toUpperCase();
+      }
+      
+      // Update Audio Source
+      const audio = document.getElementById("narrator-voice");
+      audio.setAttribute("src", payload.audio_path || "narration.mp3");
+      audio.setAttribute("data-duration", durationS);
+
+      // Build Visual Slides
+      const slideContainer = document.getElementById("slide-container");
+      slideContainer.innerHTML = "";
+      
+      let currentStart = 0.0;
+      (payload.visual_segments || []).forEach((seg, idx) => {
+        const img = document.createElement("img");
+        img.className = "bg-slide";
+        img.id = `slide-${idx}`;
+        img.src = seg.path;
+        
+        const dur = parseFloat(seg.duration || 5.0);
+        img.setAttribute("data-start", currentStart);
+        img.setAttribute("data-duration", dur);
+        img.setAttribute("data-track-index", "1");
+        
+        slideContainer.appendChild(img);
+        currentStart += dur;
+      });
+
+      // Build Subtitles
+      const subtitleWrapper = document.getElementById("subtitle-wrapper");
+      subtitleWrapper.innerHTML = "";
+
+      const words = payload.subtitles || [];
+      if (words.length > 0) {
+        // Group words into phrases (max 6 words per phrase/line)
+        const MAX_WORDS_PER_LINE = 6;
+        const lines = [];
+        for (let i = 0; i < words.length; i += MAX_WORDS_PER_LINE) {
+          lines.push(words.slice(i, i + MAX_WORDS_PER_LINE));
+        }
+
+        lines.forEach((lineWords, lineIdx) => {
+          const lineDiv = document.createElement("div");
+          lineDiv.className = "subtitle-line";
+          lineDiv.id = `line-${lineIdx}`;
+          
+          lineWords.forEach((w, wIdx) => {
+            const span = document.createElement("span");
+            span.className = "subtitle-word";
+            // Check if start/end are defined on the word payload
+            span.id = `word-${lineIdx}-${wIdx}`;
+            span.innerText = w.word || w.text || "";
+            // Store timestamps in data attrs
+            span.setAttribute("data-start", w.start);
+            span.setAttribute("data-end", w.end);
+            
+            lineDiv.appendChild(span);
+          });
+          
+          subtitleWrapper.appendChild(lineDiv);
+        });
+      }
+
+      // Initialize GSAP paused timeline
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // 1. Animate Visual Slides (Ken Burns: Zoom & Fade)
+      const slides = document.querySelectorAll(".bg-slide");
+      slides.forEach((slide) => {
+        const start = parseFloat(slide.getAttribute("data-start"));
+        const duration = parseFloat(slide.getAttribute("data-duration"));
+        
+        // Face in slide
+        tl.to(slide, {
+          opacity: 1,
+          duration: 0.25,
+          ease: "power1.out"
+        }, start);
+
+        // Ken Burns scale animation
+        // Zooms from 1.0 to 1.15 gradually over the duration
+        tl.fromTo(slide, {
+          scale: 1.0
+        }, {
+          scale: 1.12,
+          duration: duration,
+          ease: "none"
+        }, start);
+
+        // Fade out slide near end (only if not the last slide)
+        if (start + duration < durationS) {
+          tl.to(slide, {
+            opacity: 0,
+            duration: 0.25,
+            ease: "power1.in"
+          }, start + duration - 0.2);
+        }
+      });
+
+      // 2. Animate Subtitles
+      const lineDivs = document.querySelectorAll(".subtitle-line");
+      lineDivs.forEach((lineDiv) => {
+        const childSpans = lineDiv.querySelectorAll(".subtitle-word");
+        if (childSpans.length === 0) return;
+
+        // Start time of line is the start of its first word
+        const lineStart = parseFloat(childSpans[0].getAttribute("data-start"));
+        // End time of line is the end of its last word
+        const lineEnd = parseFloat(childSpans[childSpans.length - 1].getAttribute("data-end")) + 0.15;
+
+        // Line appearance animation
+        tl.to(lineDiv, {
+          opacity: 1,
+          duration: 0.15,
+          ease: "power1.out"
+        }, lineStart);
+
+        // Line disappearance animation
+        tl.to(lineDiv, {
+          opacity: 0,
+          duration: 0.15,
+          ease: "power1.in"
+        }, lineEnd);
+
+        // Highlight individual words
+        childSpans.forEach((span, idx) => {
+          const wStart = parseFloat(span.getAttribute("data-start"));
+          const wEnd = parseFloat(span.getAttribute("data-end"));
+          
+          // Determine alternating highlighted color (gold vs cyan)
+          const activeClass = (idx % 2 === 0) ? "active" : "active alt";
+
+          // Turn on highlight
+          tl.to(span, {
+            onStart: () => span.className = `subtitle-word ${activeClass}`,
+            duration: 0.01
+          }, wStart);
+
+          // Turn off highlight
+          tl.to(span, {
+            onStart: () => span.className = "subtitle-word",
+            duration: 0.01
+          }, wEnd);
+        });
+      });
+
+      // Register timeline for HyperFrames engine
+      window.__timelines["shorts-comp"] = tl;
+      console.log("HyperFrames GSAP Timeline Registered successfully!");
+    })();
+  </script>
+</body>
+</html>
