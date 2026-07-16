@@ -1088,7 +1088,8 @@ class ClipCatcherApp:
         self.ce_template_var = tk.StringVar(value="Auto-Pick")
         temp_options = [
             "Auto-Pick", "YouTube Inspiration", "Match Preview", "Player Profile", "Top 10", 
-            "Daily Recap", "Quiz", "History", "Squad Guide", "Controversy", "Facts"
+            "Daily Recap", "Quiz", "History", "Squad Guide", "Controversy", "Facts",
+            "Transfer Quiz", "National Team Quiz"
         ]
         self.ce_temp_menu = ctk.CTkOptionMenu(
             temp_row, variable=self.ce_template_var, values=temp_options,
@@ -1623,6 +1624,9 @@ class ClipCatcherApp:
         buf_after = self.settings["buf_after"]
         
         def save():
+            wait_time = buf_after + 2
+            self.root.after(0, lambda: self._set_status(f"capturing aftermath… ({wait_time}s)", COLOR_AMBER))
+            time.sleep(wait_time)
             p = self.recorder.save_clip(buf_before, buf_after, ch)
             if p:
                 self.root.after(0, lambda: self._on_clip_saved(ch, p, rate))
@@ -1794,6 +1798,9 @@ class ClipCatcherApp:
         active_recorders = self.multi_recorder.get_active_channels()
 
         def save_and_stitch():
+            wait_time = buf_after + 2
+            self.root.after(0, lambda: self._set_status(f"capturing aftermath… ({wait_time}s)", COLOR_GREEN))
+            time.sleep(wait_time)
             p = self.multi_recorder.save_grid_clip(
                 channels=active_recorders,
                 seconds_before=buf_before,
@@ -2257,4 +2264,24 @@ class ClipCatcherApp:
             self.multi_recorder.save_folder = Path(f)
 
     def run(self):
+        # Force the window to become visible and come to the foreground
+        self.root.deiconify()
+        self.root.update()
+        self.root.lift()
+        self.root.attributes('-topmost', True)
+        self.root.after(200, lambda: self.root.attributes('-topmost', False))
+        self.root.focus_force()
+
+        # On Windows, use ctypes to forcefully bring the window to front
+        try:
+            import ctypes
+            hwnd = ctypes.windll.user32.GetForegroundWindow()
+            # Get the actual window handle from tkinter
+            tk_hwnd = self.root.winfo_id()
+            ctypes.windll.user32.ShowWindow(tk_hwnd, 9)  # SW_RESTORE
+            ctypes.windll.user32.SetForegroundWindow(tk_hwnd)
+        except Exception:
+            pass
+
         self.root.mainloop()
+

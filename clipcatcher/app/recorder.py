@@ -115,6 +115,25 @@ class StreamRecorder:
             except Exception:
                 pass
 
+    def _get_segment_duration(self, seg_path: Path) -> float:
+        """Get real duration of a segment using ffprobe."""
+        ffprobe = find_tool("ffprobe")
+        if not ffprobe:
+            return float(self.SEGMENT_DURATION)
+        try:
+            cmd = [
+                ffprobe, "-v", "quiet",
+                "-show_entries", "format=duration",
+                "-of", "default=noprint_wrappers=1:nokey=1",
+                str(seg_path)
+            ]
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+            if res.returncode == 0:
+                return float(res.stdout.strip())
+        except Exception:
+            pass
+        return float(self.SEGMENT_DURATION)
+
     def save_clip(
         self,
         seconds_before: int = 15,
@@ -132,17 +151,32 @@ class StreamRecorder:
             return None
 
         with self._segments_lock:
-            segs = list(self._segments)
+            # Exclude the newest segment if it is still being written
+            now = time.time()
+            segs = []
+            for s in self._segments:
+                try:
+                    if s.exists() and (now - s.stat().st_mtime > 1.5):
+                        segs.append(s)
+                except Exception:
+                    pass
 
         if not segs:
             if self.on_error:
                 self.on_error("No recorded data yet - wait a few seconds after connecting")
             return None
 
-        # Figure out which segments we need
+        # Figure out which segments we need using real durations
         total_needed = seconds_before + seconds_after
-        segs_needed = max(1, (total_needed // self.SEGMENT_DURATION) + 2)
-        relevant = segs[-segs_needed:]
+        relevant = []
+        cumulative_duration = 0.0
+        for s in reversed(segs):
+            dur = self._get_segment_duration(s)
+            relevant.append(s)
+            cumulative_duration += dur
+            if cumulative_duration >= total_needed:
+                break
+        relevant.reverse()
 
         # Write concat list
         concat_file = Path(self._tmp_dir.name) / f"concat_{int(time.time())}.txt"
@@ -155,9 +189,7 @@ class StreamRecorder:
         out_path = self.save_folder / f"{channel}_{ts}.mp4"
 
         # Use ffmpeg to concat and trim to the desired duration
-        # We take from (total_concat_duration - seconds_before - seconds_after) to end
-        concat_duration = len(relevant) * self.SEGMENT_DURATION
-        start_offset = max(0, concat_duration - seconds_before - seconds_after)
+        start_offset = max(0.0, cumulative_duration - total_needed)
 
         cmd = [
             self.ffmpeg, "-y",
