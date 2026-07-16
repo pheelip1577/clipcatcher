@@ -94,6 +94,20 @@ class ContentScheduler:
 
         Returns None if quota is exhausted.
         """
+        # Callers pass None since the niche refactor; pull schedule/team data
+        # from the active niche pack so time-based prioritization still works
+        # for niches that define those pools.
+        if world_cup_data is None:
+            try:
+                from content_engine.niche_loader import get_active_niche_name, load_niche
+                niche = load_niche(get_active_niche_name())
+                world_cup_data = {
+                    "schedule": niche.topic_pools.get("schedule", []),
+                    "teams": niche.topic_pools.get("teams", {}),
+                }
+            except Exception:
+                world_cup_data = {}
+
         max_per_day = self.settings.get("ce_max_uploads_per_day", 6)
         if not ignore_quota and self.get_today_count() >= max_per_day:
             logger.info("Daily production limit reached.")
