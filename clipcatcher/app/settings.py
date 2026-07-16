@@ -36,6 +36,7 @@ DEFAULT_SETTINGS = {
     "match_score": "LIVE REACTION",
     "youtube_wc_grid_template": "{streamer1} vs {streamer2} vs {streamer3} vs {streamer4} INSANE REACTION! #shorts #worldcup",
     # ─── ContentEngine settings ─────────────────────────────────────────
+    "ce_active_niche": "world_cup_2026",
     "ce_enabled": False,
     "ce_gemini_api_key": "",
     "ce_pexels_api_key": "",

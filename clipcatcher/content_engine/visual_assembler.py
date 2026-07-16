@@ -226,8 +226,9 @@ class VisualAssembler:
         # Fallback for national teams: fetch a star player's image instead
         # (e.g. for "Argentina" → get a photo of Messi or Álvarez)
         try:
-            from content_engine.world_cup_data import TEAMS
-            team_data = TEAMS.get(team_name, {})
+            from content_engine.niche_loader import get_active_niche_name, load_niche
+            niche = load_niche(get_active_niche_name())
+            team_data = niche.topic_pools.get("teams", {}).get(team_name, {})
             key_players = team_data.get("key_players", [])
             if key_players:
                 logger.info(f"No team imagery for '{team_name}', trying key player: {key_players[0]}")
@@ -239,7 +240,7 @@ class VisualAssembler:
                     player_img = self._tsdb_get_player_image(key_players[1], output_dir)
                     if player_img and player_img.exists():
                         return player_img
-        except ImportError:
+        except Exception:
             pass
 
         logger.info(f"No usable image found on TheSportsDB for team '{team_name}'.")
@@ -260,22 +261,25 @@ class VisualAssembler:
         topic = getattr(script, "topic", "") or ""
         content_type = getattr(script, "content_type", "") or ""
 
-        # Try to match against known players/teams from world_cup_data
+        # Try to match against known players/teams from active niche topic pools
         try:
-            from content_engine.world_cup_data import PLAYERS, TEAMS
+            from content_engine.niche_loader import get_active_niche_name, load_niche
+            niche = load_niche(get_active_niche_name())
+            players_pool = niche.topic_pools.get("players", {})
+            players_keys = list(players_pool.keys()) if isinstance(players_pool, dict) else [p.get("name") or p.get("player_name") for p in players_pool if isinstance(p, dict)]
+            teams_pool = niche.topic_pools.get("teams", {})
+            teams_keys = list(teams_pool.keys()) if isinstance(teams_pool, dict) else [t.get("name") or t.get("team_name") for t in teams_pool if isinstance(t, dict)]
 
             # Check if topic matches a known player
-            for pname in PLAYERS:
-                if pname.lower() in topic.lower():
+            for pname in players_keys:
+                if pname and pname.lower() in topic.lower():
                     player_names.append(pname)
 
             # Check if topic matches a known team/country
-            for tname in TEAMS:
-                if tname.lower() in topic.lower():
+            for tname in teams_keys:
+                if tname and tname.lower() in topic.lower():
                     team_names.append(tname)
-                    # Also add the national team name variant for TheSportsDB
-                    # e.g. "Brazil" -> also try "Brazil" as a team search
-        except ImportError:
+        except Exception:
             pass
 
         # For player_profile content, the topic IS the player name
@@ -299,32 +303,38 @@ class VisualAssembler:
     def _extract_players_from_visual_cue(self, visual_cue: str) -> List[str]:
         """
         Try to extract player names from a visual cue by matching against
-        the known player database.
+        the active niche's player pool.
         """
         found = []
         try:
-            from content_engine.world_cup_data import PLAYERS
+            from content_engine.niche_loader import get_active_niche_name, load_niche
+            niche = load_niche(get_active_niche_name())
+            players_pool = niche.topic_pools.get("players", {})
+            players_keys = list(players_pool.keys()) if isinstance(players_pool, dict) else [p.get("name") or p.get("player_name") for p in players_pool if isinstance(p, dict)]
             cue_lower = visual_cue.lower()
-            for pname in PLAYERS:
-                if pname.lower() in cue_lower:
+            for pname in players_keys:
+                if pname and pname.lower() in cue_lower:
                     found.append(pname)
-        except ImportError:
+        except Exception:
             pass
         return found
 
     def _extract_teams_from_visual_cue(self, visual_cue: str) -> List[str]:
         """
         Try to extract team/country names from a visual cue by matching against
-        the known team database.
+        the active niche's team pool.
         """
         found = []
         try:
-            from content_engine.world_cup_data import TEAMS
+            from content_engine.niche_loader import get_active_niche_name, load_niche
+            niche = load_niche(get_active_niche_name())
+            teams_pool = niche.topic_pools.get("teams", {})
+            teams_keys = list(teams_pool.keys()) if isinstance(teams_pool, dict) else [t.get("name") or t.get("team_name") for t in teams_pool if isinstance(t, dict)]
             cue_lower = visual_cue.lower()
-            for tname in TEAMS:
-                if tname.lower() in cue_lower:
+            for tname in teams_keys:
+                if tname and tname.lower() in cue_lower:
                     found.append(tname)
-        except ImportError:
+        except Exception:
             pass
         return found
 
@@ -562,13 +572,42 @@ class VisualAssembler:
         # Find matching quiz question in database if it is a quiz
         quiz_data = None
         quiz_bg_path = None
-        if script.content_type == "quiz":
+        is_quiz_type = script.content_type in ("quiz", "transfer_quiz", "national_team_quiz")
+        if is_quiz_type:
             try:
-                from content_engine.world_cup_data import QUIZ_QUESTIONS
+                from content_engine.niche_loader import get_active_niche_name, load_niche
+                niche = load_niche(get_active_niche_name())
+                topic_pool_name = "quiz_questions"
+                for t in niche.get_templates_data():
+                    if t["name"] == script.content_type:
+                        topic_pool_name = t.get("topic_pool")
+                        break
+                
+                pool = niche.topic_pools.get(topic_pool_name, [])
                 target_start = script.topic.split(": ", 1)[-1][:40].lower()
-                for q in QUIZ_QUESTIONS:
-                    if q["question"].lower().startswith(target_start) or target_start in q["question"].lower():
-                        quiz_data = q
+                for q in pool:
+                    q_text = q.get("question") or q.get("player_name") or q.get("national_team") or q.get("topic") or ""
+                    if q_text.lower().startswith(target_start) or target_start in q_text.lower():
+                        question_str = q.get("question")
+                        if not question_str:
+                            if script.content_type == "transfer_quiz":
+                                transfers_summary = " -> ".join([f"{t['club']} ({t['years']})" for t in q.get("transfers", [])])
+                                question_str = f"Who is this player?\n{transfers_summary}"
+                            elif script.content_type == "national_team_quiz":
+                                clubs_list = ", ".join(q.get("clubs", []))
+                                question_str = f"Which national team's stars play at:\n{clubs_list}?"
+                            else:
+                                question_str = q.get("topic", "Guess the answer:")
+                                
+                        answer_str = q.get("answer") or q.get("player_name") or q.get("national_team") or ""
+                        detail_str = q.get("answer_detail") or q.get("hint") or ""
+                        
+                        quiz_data = {
+                            "question": question_str,
+                            "options": q.get("options", []),
+                            "answer": answer_str,
+                            "answer_detail": detail_str
+                        }
                         break
             except Exception as e:
                 logger.warning(f"Failed to match quiz question in database: {e}")
@@ -671,6 +710,61 @@ class VisualAssembler:
                     "duration": duration_s
                 })
                 continue
+
+            # 1b. Special Transfer Quiz Visual Card Generation
+            if script.content_type == "transfer_quiz" and idx in (1, 2, 3):
+                transfers = topic_data_fallback(script, "transfers", [])
+                options = topic_data_fallback(script, "options", [])
+                hint = topic_data_fallback(script, "hint", "")
+                answer = topic_data_fallback(script, "answer", "")
+                
+                bg_query = "soccer stadium crowd"
+                bg_path = self.fetch_stock_image(bg_query, visuals_dir)
+                
+                self.create_transfer_quiz_graphic(
+                    player_name=topic_data_fallback(script, "player_name", ""),
+                    transfers=transfers,
+                    options=options,
+                    answer=answer,
+                    hint=hint,
+                    frame_type=idx,
+                    output_path=seg_path,
+                    bg_image_path=bg_path
+                )
+                visual_segments.append({
+                    "type": "image",
+                    "path": str(seg_path.absolute()),
+                    "duration": duration_s
+                })
+                continue
+
+            # 1c. Special National Team Quiz Visual Card Generation
+            if script.content_type == "national_team_quiz" and idx in (1, 2, 3):
+                clubs = topic_data_fallback(script, "clubs", [])
+                options = topic_data_fallback(script, "options", [])
+                hint = topic_data_fallback(script, "hint", "")
+                answer = topic_data_fallback(script, "answer", "")
+                
+                bg_query = "soccer pitch lineup"
+                bg_path = self.fetch_stock_image(bg_query, visuals_dir)
+                
+                self.create_national_team_quiz_graphic(
+                    national_team=topic_data_fallback(script, "national_team", ""),
+                    clubs=clubs,
+                    options=options,
+                    answer=answer,
+                    hint=hint,
+                    frame_type=idx,
+                    output_path=seg_path,
+                    bg_image_path=bg_path
+                )
+                visual_segments.append({
+                    "type": "image",
+                    "path": str(seg_path.absolute()),
+                    "duration": duration_s
+                })
+                continue
+
 
             # 2. Player Profile Template & Stat card decision
             if script.content_type == "player_profile" and idx == 1:
@@ -1121,6 +1215,431 @@ class VisualAssembler:
         final_img.save(output_path, "JPEG", quality=95)
         logger.info(f"Saved custom quiz graphic frame: {output_path.name}")
         return output_path
+
+    def create_transfer_quiz_graphic(
+        self,
+        player_name: str,
+        transfers: List[Dict[str, str]],
+        options: List[str],
+        answer: str,
+        hint: str,
+        frame_type: int,  # 1: question, 2: countdown, 3: answer
+        output_path: Path,
+        bg_image_path: Optional[Path] = None
+    ) -> Path:
+        """Generates a premium visual card for Transfer History Quiz segments."""
+        width, height = 1080, 1920
+        
+        # 1. Background Setup
+        if bg_image_path and Path(bg_image_path).is_file():
+            try:
+                with Image.open(bg_image_path) as bg_img:
+                    img = bg_img.convert("RGBA")
+                    img = self._crop_to_portrait(img, width, height)
+                overlay = Image.new("RGBA", (width, height), (10, 10, 20, 180))
+                img = Image.alpha_composite(img, overlay)
+            except Exception as e:
+                logger.warning(f"Failed to load background image {bg_image_path}: {e}")
+                img = Image.new("RGBA", (width, height), (10, 10, 20, 255))
+        else:
+            img = Image.new("RGBA", (width, height), (10, 10, 20, 255))
+            draw = ImageDraw.Draw(img)
+            color_start = self.c_primary
+            color_end = (5, 5, 12, 255)
+            for y in range(height):
+                ratio = y / height
+                r = int(color_start[0] * ratio + color_end[0] * (1 - ratio))
+                g = int(color_start[1] * ratio + color_end[1] * (1 - ratio))
+                b = int(color_start[2] * ratio + color_end[2] * (1 - ratio))
+                draw.line([(0, y), (width, y)], fill=(r, g, b, 255))
+
+        draw = ImageDraw.Draw(img)
+
+        # Theme colors
+        c_orange = (235, 130, 0, 255)     # Amber/orange
+        c_green = (50, 220, 50, 255)       # Neon green
+        c_gray = (100, 100, 110, 255)      # Medium gray
+        c_dark_gray = (50, 50, 60, 255)    # Dark gray
+        c_box_bg = (12, 12, 18, 210)       # Card background
+        c_box_bg_incorrect = (8, 8, 12, 230)
+        c_box_bg_correct = (12, 45, 12, 220)
+
+        # 2. Draw Title Header
+        draw.text((width / 2, 140), "GUESS THE BALLER", font=self._get_font(52), fill=self.c_accent, anchor="mm")
+        draw.text((width / 2, 210), "BY THEIR TRANSFERS", font=self._get_font(40), fill=self.c_secondary, anchor="mm")
+
+        # 3. Draw Timeline container box (y = 260 to y = 920)
+        tl_box = [100, 260, 980, 920]
+        draw.rounded_rectangle(tl_box, radius=24, fill=c_box_bg, outline=self.c_accent, width=3)
+
+        # If answer reveal frame (type 3), show the player image over the timeline
+        player_overlay_drawn = False
+        if frame_type == 3:
+            player_img_path = self._tsdb_get_player_image(player_name, output_path.parent)
+            if player_img_path and player_img_path.is_file():
+                try:
+                    with Image.open(player_img_path) as p_img:
+                        p_img = p_img.convert("RGBA")
+                        badge_size = 380
+                        p_cropped = self._crop_to_portrait(p_img, badge_size, badge_size)
+                        
+                        mask = Image.new("L", (badge_size, badge_size), 0)
+                        mask_draw = ImageDraw.Draw(mask)
+                        mask_draw.ellipse([5, 5, badge_size - 5, badge_size - 5], fill=255)
+                        
+                        badge = Image.new("RGBA", (badge_size, badge_size), (0, 0, 0, 0))
+                        badge.paste(p_cropped, (0, 0), mask=mask)
+                        
+                        bx = width // 2 - badge_size // 2
+                        by = 360
+                        
+                        border_layer = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+                        border_draw = ImageDraw.Draw(border_layer)
+                        border_draw.ellipse([bx - 6, by - 6, bx + badge_size + 6, by + badge_size + 6], outline=c_green, width=8)
+                        
+                        img = Image.alpha_composite(img, border_layer)
+                        img.paste(badge, (bx, by), mask=mask)
+                        player_overlay_drawn = True
+                        
+                        # Re-initialize draw context since we alpha-composited
+                        draw = ImageDraw.Draw(img)
+                        
+                        # Draw Correct Player Name Banner
+                        banner_box = [200, 770, 880, 880]
+                        draw.rounded_rectangle(banner_box, radius=16, fill=(10, 35, 10, 240), outline=c_green, width=3)
+                        draw.text((width / 2, 825), player_name.upper(), font=self._get_font(46), fill=(255, 255, 255, 255), anchor="mm")
+                except Exception as e:
+                    logger.warning(f"Failed to overlay player image in transfer reveal: {e}")
+
+        # If we didn't overlay the player photo, draw the transfer timeline list
+        if not player_overlay_drawn:
+            num_transfers = len(transfers)
+            if num_transfers > 0:
+                start_y = 300
+                end_y = 880
+                timeline_height = end_y - start_y
+                row_spacing = timeline_height / max(1, num_transfers - 1) if num_transfers > 1 else timeline_height
+                
+                # Vertical line down the left side
+                line_x = 240
+                draw.line([(line_x, start_y), (line_x, end_y)], fill=c_orange, width=4)
+                
+                tf_font_club = self._get_font(34)
+                tf_font_year = self._get_font(32)
+                
+                for idx, tf in enumerate(transfers):
+                    y_pos = int(start_y + (idx * row_spacing))
+                    
+                    # Draw node circle
+                    draw.ellipse([line_x - 12, y_pos - 12, line_x + 12, y_pos + 12], fill=self.c_secondary, outline=(255, 255, 255, 255), width=2)
+                    
+                    # Text display (Club - Years)
+                    club_txt = tf.get("club", "").upper()
+                    years_txt = tf.get("years", "")
+                    
+                    draw.text((line_x + 40, y_pos - 18), club_txt, font=tf_font_club, fill=(255, 255, 255, 255), anchor="lm")
+                    draw.text((line_x + 40, y_pos + 18), years_txt, font=tf_font_year, fill=self.c_accent, anchor="lm")
+
+        # 4. Draw Multiple-Choice Options
+        opt_font = self._get_font(42)
+        opt_y = 980
+        letter_mapping = ["A", "B", "C", "D"]
+        
+        for o_idx, opt in enumerate(options):
+            opt_text = opt
+            letter = letter_mapping[o_idx]
+            val_text = opt.strip()
+
+            is_correct = (val_text.lower() == answer.lower() or letter.lower() == answer[0].lower() or answer.lower().startswith(val_text.lower()))
+            
+            box_fill = c_box_bg
+            box_outline = c_orange
+            letter_fill = c_orange
+            text_color = (255, 255, 255, 255)
+            letter_text_color = (0, 0, 0, 255)
+            border_width = 3
+
+            if frame_type == 3:
+                if is_correct:
+                    box_fill = c_box_bg_correct
+                    box_outline = c_green
+                    letter_fill = c_green
+                    text_color = (255, 255, 255, 255)
+                    border_width = 5
+                else:
+                    box_fill = c_box_bg_incorrect
+                    box_outline = c_dark_gray
+                    letter_fill = c_gray
+                    text_color = (130, 130, 140, 255)
+                    letter_text_color = (30, 30, 30, 255)
+
+            # Option Container Box
+            box_coords = [150, opt_y, 930, opt_y + 115]
+            draw.rounded_rectangle(box_coords, radius=18, fill=box_fill)
+
+            # Option Letter Tab
+            letter_box = [150, opt_y, 250, opt_y + 115]
+            draw.rounded_rectangle(letter_box, radius=18, fill=letter_fill)
+            draw.rectangle([200, opt_y, 250, opt_y + 115], fill=letter_fill)
+
+            draw.rounded_rectangle(box_coords, radius=18, outline=box_outline, width=border_width)
+            draw.line([(250, opt_y), (250, opt_y + 115)], fill=box_outline, width=border_width)
+
+            draw.text((200, opt_y + 57), letter, font=self._get_font(44), fill=letter_text_color, anchor="mm")
+            draw.text((285, opt_y + 57), val_text, font=opt_font, fill=text_color, anchor="lm")
+
+            if frame_type == 3 and is_correct:
+                cx, cy = 880, opt_y + 57
+                draw.line([(cx - 16, cy + 2), (cx - 6, cy + 12)], fill=c_green, width=6)
+                draw.line([(cx - 6, cy + 12), (cx + 16, cy - 12)], fill=c_green, width=6)
+
+            opt_y += 140
+
+        # 5. Timer Bar / Explanation Box
+        if frame_type == 2:
+            draw.text((width / 2, opt_y + 15), "THINKING...", font=self._get_font(30), fill=c_orange, anchor="mm")
+            bar_coords = [250, opt_y + 40, 830, opt_y + 70]
+            draw.rounded_rectangle(bar_coords, radius=15, fill=(150, 150, 160, 80), outline=(200, 200, 210, 100), width=2)
+            fill_width = int((830 - 250) * 0.45)
+            if fill_width > 30:
+                draw.rounded_rectangle([250, opt_y + 40, 250 + fill_width, opt_y + 70], radius=15, fill=c_orange)
+        elif frame_type == 3:
+            exp_box = [150, opt_y + 10, 930, opt_y + 140]
+            draw.rounded_rectangle(exp_box, radius=18, fill=c_box_bg, outline=c_green, width=3)
+            
+            draw.text((width / 2, opt_y + 35), "DID YOU KNOW?", font=self._get_font(30), fill=c_green, anchor="mm")
+            
+            detail_font = self._get_font(26)
+            detail_lines = textwrap.wrap(hint, width=48)
+            det_y = opt_y + 75
+            for line in detail_lines[:2]:
+                draw.text((width / 2, det_y), line, font=detail_font, fill=(220, 220, 235, 255), anchor="mm")
+                det_y += 32
+
+        # 6. Watermark
+        wm_font = self._get_font(28)
+        draw.text((width / 2, height - 100), self.channel_name.upper(), font=wm_font, fill=c_orange, anchor="mm")
+
+        final_img = img.convert("RGB")
+        final_img.save(output_path, "JPEG", quality=95)
+        logger.info(f"Saved transfer quiz graphic frame: {output_path.name}")
+        return output_path
+
+    def create_national_team_quiz_graphic(
+        self,
+        national_team: str,
+        clubs: List[str],
+        options: List[str],
+        answer: str,
+        hint: str,
+        frame_type: int,  # 1: question, 2: countdown, 3: answer
+        output_path: Path,
+        bg_image_path: Optional[Path] = None
+    ) -> Path:
+        """Generates a premium visual card for National Team Club Lineup Quiz segments."""
+        width, height = 1080, 1920
+        
+        # 1. Background Setup
+        if bg_image_path and Path(bg_image_path).is_file():
+            try:
+                with Image.open(bg_image_path) as bg_img:
+                    img = bg_img.convert("RGBA")
+                    img = self._crop_to_portrait(img, width, height)
+                overlay = Image.new("RGBA", (width, height), (10, 10, 20, 180))
+                img = Image.alpha_composite(img, overlay)
+            except Exception as e:
+                logger.warning(f"Failed to load background image {bg_image_path}: {e}")
+                img = Image.new("RGBA", (width, height), (10, 10, 20, 255))
+        else:
+            img = Image.new("RGBA", (width, height), (10, 10, 20, 255))
+            draw = ImageDraw.Draw(img)
+            color_start = self.c_primary
+            color_end = (5, 5, 12, 255)
+            for y in range(height):
+                ratio = y / height
+                r = int(color_start[0] * ratio + color_end[0] * (1 - ratio))
+                g = int(color_start[1] * ratio + color_end[1] * (1 - ratio))
+                b = int(color_start[2] * ratio + color_end[2] * (1 - ratio))
+                draw.line([(0, y), (width, y)], fill=(r, g, b, 255))
+
+        draw = ImageDraw.Draw(img)
+
+        # Theme colors
+        c_orange = (235, 130, 0, 255)     # Amber/orange
+        c_green = (50, 220, 50, 255)       # Neon green
+        c_gray = (100, 100, 110, 255)      # Medium gray
+        c_dark_gray = (50, 50, 60, 255)    # Dark gray
+        c_box_bg = (12, 12, 18, 210)       # Card background
+        c_box_bg_incorrect = (8, 8, 12, 230)
+        c_box_bg_correct = (12, 45, 12, 220)
+
+        # 2. Draw Title Header
+        draw.text((width / 2, 140), "GUESS THE SQUAD", font=self._get_font(52), fill=self.c_accent, anchor="mm")
+        draw.text((width / 2, 210), "BY PLAYERS' CLUB LINEUP", font=self._get_font(40), fill=self.c_secondary, anchor="mm")
+
+        # 3. Draw Grid/List container box (y = 260 to y = 920)
+        grid_box = [100, 260, 980, 920]
+        draw.rounded_rectangle(grid_box, radius=24, fill=c_box_bg, outline=self.c_accent, width=3)
+
+        # If answer reveal frame (type 3), show the team flag/image
+        team_overlay_drawn = False
+        if frame_type == 3:
+            team_img_path = self._tsdb_get_team_image(national_team, output_path.parent)
+            if team_img_path and team_img_path.is_file():
+                try:
+                    with Image.open(team_img_path) as t_img:
+                        t_img = t_img.convert("RGBA")
+                        badge_size = 380
+                        t_cropped = self._crop_to_portrait(t_img, badge_size, badge_size)
+                        
+                        mask = Image.new("L", (badge_size, badge_size), 0)
+                        mask_draw = ImageDraw.Draw(mask)
+                        mask_draw.ellipse([5, 5, badge_size - 5, badge_size - 5], fill=255)
+                        
+                        badge = Image.new("RGBA", (badge_size, badge_size), (0, 0, 0, 0))
+                        badge.paste(t_cropped, (0, 0), mask=mask)
+                        
+                        bx = width // 2 - badge_size // 2
+                        by = 360
+                        
+                        border_layer = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+                        border_draw = ImageDraw.Draw(border_layer)
+                        border_draw.ellipse([bx - 6, by - 6, bx + badge_size + 6, by + badge_size + 6], outline=c_green, width=8)
+                        
+                        img = Image.alpha_composite(img, border_layer)
+                        img.paste(badge, (bx, by), mask=mask)
+                        team_overlay_drawn = True
+                        
+                        draw = ImageDraw.Draw(img)
+                        
+                        # Draw Correct Country Name Banner
+                        banner_box = [200, 770, 880, 880]
+                        draw.rounded_rectangle(banner_box, radius=16, fill=(10, 35, 10, 240), outline=c_green, width=3)
+                        draw.text((width / 2, 825), national_team.upper(), font=self._get_font(46), fill=(255, 255, 255, 255), anchor="mm")
+                except Exception as e:
+                    logger.warning(f"Failed to overlay team image in lineup reveal: {e}")
+
+        # If we didn't overlay the team flag, draw the 2x4 grid of club names
+        if not team_overlay_drawn:
+            num_clubs = len(clubs)
+            if num_clubs > 0:
+                cols = 2
+                rows = 4
+                start_x = 130
+                end_x = 950
+                start_y = 300
+                end_y = 880
+                
+                col_width = (end_x - start_x) // cols - 20
+                row_height = (end_y - start_y) // rows - 20
+                
+                cell_font = self._get_font(34)
+                
+                for idx, club in enumerate(clubs[:8]):
+                    r_idx = idx // cols
+                    c_idx = idx % cols
+                    
+                    x_pos = start_x + c_idx * (col_width + 40)
+                    y_pos = start_y + r_idx * (row_height + 25)
+                    
+                    cell_rect = [x_pos, y_pos, x_pos + col_width, y_pos + row_height]
+                    draw.rounded_rectangle(cell_rect, radius=12, fill=(15, 25, 45, 180), outline=self.c_secondary, width=2)
+                    
+                    club_txt = club.upper()
+                    wrapped_txt = textwrap.wrap(club_txt, width=14)
+                    
+                    text_y = y_pos + row_height // 2
+                    if len(wrapped_txt) > 1:
+                        draw.text((x_pos + col_width // 2, text_y - 20), wrapped_txt[0], font=cell_font, fill=(255, 255, 255, 255), anchor="mm")
+                        draw.text((x_pos + col_width // 2, text_y + 20), wrapped_txt[1], font=cell_font, fill=self.c_accent, anchor="mm")
+                    else:
+                        draw.text((x_pos + col_width // 2, text_y), club_txt, font=cell_font, fill=(255, 255, 255, 255), anchor="mm")
+
+        # 4. Draw Multiple-Choice Options
+        opt_font = self._get_font(42)
+        opt_y = 980
+        letter_mapping = ["A", "B", "C", "D"]
+        
+        for o_idx, opt in enumerate(options):
+            opt_text = opt
+            letter = letter_mapping[o_idx]
+            val_text = opt.strip()
+
+            is_correct = (val_text.lower() == answer.lower() or letter.lower() == answer[0].lower() or answer.lower().startswith(val_text.lower()))
+            
+            box_fill = c_box_bg
+            box_outline = c_orange
+            letter_fill = c_orange
+            text_color = (255, 255, 255, 255)
+            letter_text_color = (0, 0, 0, 255)
+            border_width = 3
+
+            if frame_type == 3:
+                if is_correct:
+                    box_fill = c_box_bg_correct
+                    box_outline = c_green
+                    letter_fill = c_green
+                    text_color = (255, 255, 255, 255)
+                    border_width = 5
+                else:
+                    box_fill = c_box_bg_incorrect
+                    box_outline = c_dark_gray
+                    letter_fill = c_gray
+                    text_color = (130, 130, 140, 255)
+                    letter_text_color = (30, 30, 30, 255)
+
+            # Option Container Box
+            box_coords = [150, opt_y, 930, opt_y + 115]
+            draw.rounded_rectangle(box_coords, radius=18, fill=box_fill)
+
+            # Option Letter Tab
+            letter_box = [150, opt_y, 250, opt_y + 115]
+            draw.rounded_rectangle(letter_box, radius=18, fill=letter_fill)
+            draw.rectangle([200, opt_y, 250, opt_y + 115], fill=letter_fill)
+
+            draw.rounded_rectangle(box_coords, radius=18, outline=box_outline, width=border_width)
+            draw.line([(250, opt_y), (250, opt_y + 115)], fill=box_outline, width=border_width)
+
+            draw.text((200, opt_y + 57), letter, font=self._get_font(44), fill=letter_text_color, anchor="mm")
+            draw.text((285, opt_y + 57), val_text, font=opt_font, fill=text_color, anchor="lm")
+
+            if frame_type == 3 and is_correct:
+                cx, cy = 880, opt_y + 57
+                draw.line([(cx - 16, cy + 2), (cx - 6, cy + 12)], fill=c_green, width=6)
+                draw.line([(cx - 6, cy + 12), (cx + 16, cy - 12)], fill=c_green, width=6)
+
+            opt_y += 140
+
+        # 5. Timer Bar / Explanation Box
+        if frame_type == 2:
+            draw.text((width / 2, opt_y + 15), "THINKING...", font=self._get_font(30), fill=c_orange, anchor="mm")
+            bar_coords = [250, opt_y + 40, 830, opt_y + 70]
+            draw.rounded_rectangle(bar_coords, radius=15, fill=(150, 150, 160, 80), outline=(200, 200, 210, 100), width=2)
+            fill_width = int((830 - 250) * 0.45)
+            if fill_width > 30:
+                draw.rounded_rectangle([250, opt_y + 40, 250 + fill_width, opt_y + 70], radius=15, fill=c_orange)
+        elif frame_type == 3:
+            exp_box = [150, opt_y + 10, 930, opt_y + 140]
+            draw.rounded_rectangle(exp_box, radius=18, fill=c_box_bg, outline=c_green, width=3)
+            
+            draw.text((width / 2, opt_y + 35), "DID YOU KNOW?", font=self._get_font(30), fill=c_green, anchor="mm")
+            
+            detail_font = self._get_font(26)
+            detail_lines = textwrap.wrap(hint, width=48)
+            det_y = opt_y + 75
+            for line in detail_lines[:2]:
+                draw.text((width / 2, det_y), line, font=detail_font, fill=(220, 220, 235, 255), anchor="mm")
+                det_y += 32
+
+        # 6. Watermark
+        wm_font = self._get_font(28)
+        draw.text((width / 2, height - 100), self.channel_name.upper(), font=wm_font, fill=c_orange, anchor="mm")
+
+        final_img = img.convert("RGB")
+        final_img.save(output_path, "JPEG", quality=95)
+        logger.info(f"Saved team quiz graphic frame: {output_path.name}")
+        return output_path
+
 
     def _create_high_impact_visual_frame(
         self,

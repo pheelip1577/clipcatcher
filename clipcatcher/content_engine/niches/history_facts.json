@@ -1,0 +1,124 @@
+{
+  "name": "history_facts",
+  "display_name": "History Uncovered 📜",
+  "channel_name": "History Uncovered",
+  "hashtags": ["#HistoryFacts", "#History", "#DidYouKnow", "#UnsolvedMysteries", "#Shorts"],
+  "default_tags": ["history facts", "history channel", "did you know", "mysteries", "historical secrets", "shorts"],
+  "brand_colors": {
+    "primary": [44, 24, 16],
+    "secondary": [218, 165, 32],
+    "accent": [160, 82, 45],
+    "thumbnail_accent": [178, 34, 34]
+  },
+  "rss_search_query": "unbelievable+history+facts+OR+archaeology+discoveries",
+  "visual_sources": {
+    "sportsdb_enabled": false,
+    "pexels_default_terms": ["ancient ruins", "old books", "castle", "vintage map"],
+    "pexels_sport_term": "history"
+  },
+  "tone_preamble": "You are a charismatic, mysterious history content creator telling wild, verified secrets from the past for TikTok and YouTube Shorts. Your tone is mysterious, dramatic, and captivating. Hook the viewer instantly with an unbelievable claim that actually happened.",
+  "subscribe_cta": "Subscribe for more forgotten secrets from the past!",
+  "topic_pools": {
+    "historical_events": [
+      {
+        "topic": "The Dancing Plague of 1518",
+        "description": "In Strasburg, a woman started dancing in the street. Within a month, 400 people joined in, dancing uncontrollably until they died of heart attacks or exhaustion.",
+        "year": "1518",
+        "location": "Strasbourg, France",
+        "fun_fact": "Doctors at the time actually recommended *more* dancing to cure it, even building a wooden stage for them."
+      },
+      {
+        "topic": "The Great Molasses Flood",
+        "description": "A massive molasses tank burst in Boston, sending a 25-foot wave of sticky syrup rushing through the streets at 35 mph, destroying buildings and killing 21 people.",
+        "year": "1919",
+        "location": "Boston, USA",
+        "fun_fact": "Locals claimed that for decades after the disaster, the streets still smelled of sweet molasses on hot summer days."
+      },
+      {
+        "topic": "The War of the Golden Bucket",
+        "description": "A war fought between two Italian city-states (Bologna and Modena) over a simple wooden bucket stolen from a Bologna well. Modena won and still displays the bucket today.",
+        "year": "1325",
+        "location": "Italy",
+        "fun_fact": "Over 2,000 soldiers died in the battle that decided the bucket's fate."
+      },
+      {
+        "topic": "Julius Caesar and the Pirates",
+        "description": "Caesar was kidnapped by Sicilian pirates who demanded a ransom of 20 talents. Caesar laughed at them, insisted they demand 50, and promised to crucify them once freed—which he did.",
+        "year": "75 BC",
+        "location": "Mediterranean Sea",
+        "fun_fact": "While held captive, Caesar wrote poems and read them to the pirates, calling them illiterate barbarians when they didn't appreciate them."
+      }
+    ],
+    "quiz_questions": [
+      {
+        "question": "Which ancient civilization constructed the first known flushing toilets?",
+        "options": ["Indus Valley Civilization", "Ancient Egyptians", "Roman Empire", "Ancient Greeks"],
+        "answer": "Indus Valley Civilization",
+        "answer_detail": "Dating back to 2500 BC, the Indus Valley cities had advanced subterranean sewage systems and flushing toilets in individual houses.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which Roman Emperor famously declared war on Poseidon, God of the Sea, and ordered his soldiers to stab the water?",
+        "options": ["Caligula", "Nero", "Julius Caesar", "Commodus"],
+        "answer": "Caligula",
+        "answer_detail": "In 40 AD Caligula marched his army to the shore and ordered them to attack the waves, returning with seashells as war spoils.",
+        "difficulty": "easy"
+      }
+    ],
+    "myth_fact": [
+      {
+        "topic": "Napoleon's Height",
+        "myth": "Napoleon Bonaparte was famously short and suffered from a complex named after him.",
+        "fact": "Napoleon was actually 5 feet 6 inches tall, which was slightly above average for French men of that era.",
+        "explanation": "The confusion came from differences between French and English inches, as well as British war propaganda that depicted him as tiny."
+      },
+      {
+        "topic": "Vikings Helmets",
+        "myth": "Viking warriors wore helmets with horns into battle.",
+        "fact": "There is absolutely zero historical or archaeological evidence that Vikings ever wore horned helmets.",
+        "explanation": "Horned helmets were invented by 19th-century costume designers during theatrical revivals of Norse legends."
+      }
+    ]
+  },
+  "templates": [
+    {
+      "name": "historical_event",
+      "display_name": "Forgotten History Event",
+      "duration_range": [25, 45],
+      "segment_count_range": [4, 6],
+      "visual_style": "stock_footage",
+      "topic_pool": "historical_events",
+      "system_prompt": "You generate high-retention history shorts. Describe the event with dramatic structure, starting with an unbelievable hook, explaining the crazy story, adding the fun fact, and asking viewers what they think.",
+      "user_prompt_template": "Create a script about the historical event: {topic}.\nYear: {year}\nLocation: {location}\nDescription: {description}\nFun Fact: {fun_fact}",
+      "title_template": "This Crazy Historical Event is 100% REAL! 🤯⏳",
+      "default_tags": ["forgotten history", "crazy facts", "history secrets"],
+      "hashtags": ["#HistorySecrets"]
+    },
+    {
+      "name": "quiz",
+      "display_name": "History Trivia Challenge",
+      "duration_range": [20, 30],
+      "segment_count_range": [4, 5],
+      "visual_style": "text_cards",
+      "topic_pool": "quiz_questions",
+      "system_prompt": "Create an interactive history trivia challenge. Ask the question, show options A, B, C, D, pause for answers, and reveal with details.",
+      "user_prompt_template": "Create a history trivia video script.\nQuestion: {question}\nOptions: {options}\nAnswer: {answer}\nDetail: {answer_detail}",
+      "title_template": "Only 5% of History Buffs Pass This! 🧠📜",
+      "default_tags": ["history quiz", "history trivia", "trivia challenge"],
+      "hashtags": ["#TriviaChallenge"]
+    },
+    {
+      "name": "myth_fact",
+      "display_name": "History Myths Debunked",
+      "duration_range": [25, 40],
+      "segment_count_range": [4, 6],
+      "visual_style": "mixed",
+      "topic_pool": "myth_fact",
+      "system_prompt": "Debunk a popular historical myth. Hook the viewer by stating the common belief, dramatically reveal why it is a lie, and explain the real truth.",
+      "user_prompt_template": "Create a myth debunking script.\nTopic: {topic}\nCommon Myth: {myth}\nActual Fact: {fact}\nExplanation: {explanation}",
+      "title_template": "This History Myth is a Complete LIE! ❌🤫",
+      "default_tags": ["myths debunked", "history myths", "lies in history"],
+      "hashtags": ["#MythsDebunked"]
+    }
+  ]
+}

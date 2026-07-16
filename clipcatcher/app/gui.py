@@ -1120,14 +1120,32 @@ class ClipCatcherApp:
 
         # ── Left Column Cards ──
 
-        # 1. API Configuration Card
+        # 1. Niche & API Configuration Card
         api_card = ctk.CTkFrame(left_col, fg_color=BG_CARD, border_width=1, border_color=BORDER_COLOR, corner_radius=12)
         api_card.pack(fill=tk.X, pady=(0, 15))
 
         ctk.CTkLabel(
-            api_card, text="API Keys Configuration",
+            api_card, text="Niche & API Configuration",
             font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold")
         ).pack(anchor=tk.W, padx=15, pady=(12, 8))
+
+        # Niche Selection Row
+        niche_row = ctk.CTkFrame(api_card, fg_color="transparent")
+        niche_row.pack(fill=tk.X, padx=15, pady=4)
+        ctk.CTkLabel(niche_row, text="Active Niche:", font=ctk.CTkFont(family="Segoe UI", size=12), width=90, anchor=tk.W).pack(side=tk.LEFT)
+        
+        from content_engine.niche_loader import list_niches
+        niche_options = list_niches()
+        
+        self.ce_niche_var = tk.StringVar(value=self.settings.get("ce_active_niche", "world_cup_2026"))
+        self.ce_niche_menu = ctk.CTkOptionMenu(
+            niche_row, variable=self.ce_niche_var, values=niche_options,
+            fg_color=BG_INPUT, button_color=BG_INPUT, button_hover_color=BORDER_COLOR,
+            dropdown_fg_color=BG_CARD, dropdown_hover_color=BORDER_COLOR,
+            height=28,
+            command=self._apply_ce_niche
+        )
+        self.ce_niche_menu.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
         # Gemini API Key Entry
         gemini_row = ctk.CTkFrame(api_card, fg_color="transparent")
@@ -1161,11 +1179,9 @@ class ClipCatcherApp:
         temp_row.pack(fill=tk.X, padx=15, pady=4)
         ctk.CTkLabel(temp_row, text="Select Template:", font=ctk.CTkFont(family="Segoe UI", size=12), width=110, anchor=tk.W).pack(side=tk.LEFT)
         self.ce_template_var = tk.StringVar(value="Auto-Pick")
-        temp_options = [
-            "Auto-Pick", "YouTube Inspiration", "Match Preview", "Player Profile", "Top 10", 
-            "Daily Recap", "Quiz", "History", "Squad Guide", "Controversy", "Facts",
-            "Transfer Quiz", "National Team Quiz"
-        ]
+        
+        from content_engine.content_templates import get_all_templates
+        temp_options = ["Auto-Pick"] + [t.name for t in get_all_templates()]
         self.ce_temp_menu = ctk.CTkOptionMenu(
             temp_row, variable=self.ce_template_var, values=temp_options,
             fg_color=BG_INPUT, button_color=BG_INPUT, button_hover_color=BORDER_COLOR,
@@ -1373,6 +1389,26 @@ class ClipCatcherApp:
 
         # Initial refresh
         self._refresh_ce_stats()
+
+    def _apply_ce_niche(self, name):
+        self.settings["ce_active_niche"] = name
+        self.settings.save()
+        
+        # Force dynamic reload of templates
+        import content_engine.content_templates as ct
+        ct._loaded_niche_name = None
+        ct._check_and_load_niche_templates()
+        
+        # Update template option menu
+        new_temps = ["Auto-Pick"] + [t.name for t in ct.get_all_templates()]
+        self.ce_temp_menu.configure(values=new_temps)
+        self.ce_template_var.set("Auto-Pick")
+        
+        self._append_ce_log(f"SYSTEM: Switched active niche to '{name}'")
+        
+        # Re-initialize content_engine if present
+        if hasattr(self, "content_engine"):
+            self.content_engine._init_modules()
 
     def _save_ce_api_keys(self):
         gem_key = self.ce_gemini_key_var.get().strip()

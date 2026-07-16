@@ -186,242 +186,29 @@ class ContentScheduler:
 
     def _get_topic_options(self, template_name: str, data: dict, produced: set) -> list:
         """
-        Generate topic options for a given template type from world cup data.
-
-        Returns list of (topic_str, topic_data_dict) tuples.
+        Generate topic options for a given template type from the active niche pack.
         """
-        from content_engine.world_cup_data import (
-            TEAMS, PLAYERS, SCHEDULE, HISTORICAL_FACTS,
-            QUIZ_QUESTIONS, CONTROVERSIES, TOP_10_TOPICS, FACTS_AND_RULES
-        )
-
-        options = []
-
-        if template_name == "breaking_news":
-            options = self._fetch_trending_news(data, produced)
-
-        elif template_name == "match_preview":
-            for match in SCHEDULE:
-                topic = f"{match['team_a']} vs {match['team_b']}"
-                t_a_data = TEAMS.get(match["team_a"], {})
-                t_b_data = TEAMS.get(match["team_b"], {})
+        from content_engine.niche_loader import get_active_niche_name, load_niche
+        
+        niche_name = get_active_niche_name()
+        niche = load_niche(niche_name)
+        
+        # Check topic refill if pool runs low
+        t_def = None
+        for t in niche.get_templates_data():
+            if t["name"] == template_name:
+                t_def = t
+                break
                 
-                match_details = f"Stage: {match.get('stage', 'Group Stage')}, Venue: {match.get('venue', '')}, Date: {match.get('date', '')}"
-                key_players = f"{match['team_a']}: {', '.join(t_a_data.get('key_players', []))} | {match['team_b']}: {', '.join(t_b_data.get('key_players', []))}"
-                recent_form = f"{match['team_a']}: Strong competitor, Coach: {t_a_data.get('coach', 'TBD')} | {match['team_b']}: Coach: {t_b_data.get('coach', 'TBD')}"
-                h2h = f"Both teams eager for victory. Best Finish - {match['team_a']}: {t_a_data.get('best_finish', 'TBD')} | {match['team_b']}: {t_b_data.get('best_finish', 'TBD')}"
-                stakes = f"Group stage battle. Fun Fact - {match['team_a']}: {t_a_data.get('fun_fact', '')}"
-
-                options.append((topic, {
-                    "team_a": match["team_a"],
-                    "team_b": match["team_b"],
-                    "match_details": match_details,
-                    "key_players": key_players,
-                    "recent_form": recent_form,
-                    "h2h": h2h,
-                    "stakes": stakes,
-                    "stage": match.get("stage", "Group Stage"),
-                    "venue": match.get("venue", ""),
-                    "match_date": match.get("date", ""),
-                    "team_a_data": t_a_data,
-                    "team_b_data": t_b_data,
-                }))
-
-        elif template_name == "player_profile":
-            for name, pdata in PLAYERS.items():
-                topic = name
-                stats_str = f"Age: {pdata.get('age', '')}, International Goals: {pdata.get('goals_international', '')}"
-                options.append((topic, {
-                    "player_name": name,
-                    "nationality": pdata.get("country", ""),
-                    "country": pdata.get("country", ""),  # Keep for backward compatibility
-                    "position": pdata.get("position", ""),
-                    "club": pdata.get("club", ""),
-                    "age": pdata.get("age", ""),
-                    "goals_international": pdata.get("goals_international", ""),
-                    "stats": stats_str,
-                    "fun_facts": pdata.get("fun_facts", []),
-                    "tournament_role": f"Talisman and key {pdata.get('position', 'player')} for {pdata.get('country', '')} at World Cup 2026",
-                }))
-
-        elif template_name == "top_10":
-            for item in TOP_10_TOPICS:
-                topic = item.get("title", "")
-                options.append((topic, {
-                    "topic": topic,
-                    "list_title": topic, # Keep for backward compatibility
-                    "context": f"A viral countdown of the most iconic moments: {topic}",
-                    "suggested_entries": "; ".join(item.get("items", [])),
-                    "items": item.get("items", []), # Keep for backward compatibility
-                }))
-
-        elif template_name == "daily_recap":
-            today = date.today()
-            yesterday = today - timedelta(days=1)
-            recap_matches = [
-                m for m in SCHEDULE 
-                if m.get("date") == str(today) or m.get("date") == str(yesterday)
-            ]
-            if recap_matches:
-                topic = f"Recap {today.isoformat()}"
-                results_list = []
-                for m in recap_matches:
-                    results_list.append(f"{m['team_a']} vs {m['team_b']} ({m.get('date', '')})")
-                results_str = "; ".join(results_list)
-                
-                options.append((topic, {
-                    "matchday": today.strftime("%B %d, %Y"),
-                    "results": results_str,
-                    "key_moments": "Standout tactical play, intense pressure, and game-changing goals.",
-                    "standout_performers": "Key squad leaders and standout performers.",
-                    "standings_impact": "Crucial impact on group stage standings and tournament progression.",
-                    "tomorrow_matches": "Upcoming matches scheduled to continue the tournament action.",
-                    "date": str(today),
-                    "matches": recap_matches,
-                    "results_summary": "Daily match summaries",
-                }))
-
-        elif template_name == "quiz":
-            for i, q in enumerate(QUIZ_QUESTIONS):
-                topic = f"Quiz #{i+1}: {q['question'][:50]}"
-                options.append((topic, {
-                    "topic": "World Cup Trivia",
-                    "difficulty": q.get("difficulty", "medium"),
-                    "specific_question": q["question"],
-                    "related_facts": f"Options: {', '.join(q['options'])}\nAnswer: {q['answer']}\nDetail: {q.get('answer_detail', '')}",
-                    "question": q["question"],
-                    "options": q["options"],
-                    "answer": q["answer"],
-                    "answer_detail": q.get("answer_detail", ""),
-                }))
-
-        elif template_name == "history":
-            today_mmdd = datetime.now().strftime("%m-%d")
-            for fact in HISTORICAL_FACTS:
-                topic = f"{fact.get('year', '')} - {fact.get('event', '')[:50]}"
-                options.append((topic, {
-                    "date": f"{fact.get('date', '')}, {fact.get('year', '')}",
-                    "event": fact.get("event", ""),
-                    "key_figures": "Legendary players, managers, and referees",
-                    "tournament_context": f"World Cup held in {fact.get('year', '')}",
-                    "legacy": "Iconic sports heritage and folklore",
-                    "year": fact.get("year", ""),
-                }))
-
-        elif template_name == "squad_guide":
-            for team_name, tdata in TEAMS.items():
-                topic = f"{team_name} Squad Guide"
-                star = tdata.get("key_players", ["TBD"])[0]
-                options.append((topic, {
-                    "country": team_name,
-                    "team_name": team_name, # Keep for backward compatibility
-                    "manager": tdata.get("coach", "TBD"),
-                    "coach": tdata.get("coach", "TBD"), # Keep for backward compatibility
-                    "playing_style": "High-intensity technical display",
-                    "star_player": star,
-                    "key_players": ", ".join(tdata.get("key_players", [])),
-                    "group": tdata.get("group", ""),
-                    "group_opponents": f"Teams in Group {tdata.get('group', '')}",
-                    "fifa_ranking": "Top global tier",
-                    "qualification_record": "Qualified successfully",
-                    "strengths": tdata.get("fun_fact", "Strong team spirit"),
-                    "weaknesses": "Tournament pressure",
-                    "flag": tdata.get("flag", ""),
-                    "titles": tdata.get("titles", 0),
-                    "best_finish": tdata.get("best_finish", ""),
-                    "fun_fact": tdata.get("fun_fact", ""),
-                }))
-
-        elif template_name == "controversy":
-            for item in CONTROVERSIES:
-                topic = item.get("title", "")
-                options.append((topic, {
-                    "event": item.get("title", ""),
-                    "title": topic, # Keep for backward compatibility
-                    "match": item.get("title", ""),
-                    "tournament": f"World Cup {item.get('year', '')}",
-                    "key_figures": "Players and referees involved in the incident",
-                    "what_happened": item.get("description", ""),
-                    "description": item.get("description", ""), # Keep for backward compatibility
-                    "controversy_reason": "Decisive decision sparking global debate",
-                    "aftermath": "Legendary tournament fallout and fan debate",
-                    "year": item.get("year", ""),
-                }))
-
-        elif template_name == "facts":
-            for item in FACTS_AND_RULES:
-                topic = item.get("title", "")
-                options.append((topic, {
-                    "topic": item.get("title", ""),
-                    "title": topic, # Keep for backward compatibility
-                    "category": "Rules and Knowledge",
-                    "details": item.get("explanation", ""),
-                    "explanation": item.get("explanation", ""), # Keep for backward compatibility
-                    "wc_connection": "Applies directly to World Cup 2026 regulations",
-                }))
-
-        elif template_name == "youtube_inspiration":
-            ideas = self.load_inspiration_ideas()
-            for idea in ideas:
-                topic = idea
-                options.append((topic, {
-                    "idea": idea,
-                    "topic": topic
-                }))
-
-        return options
-
-    def _fetch_trending_news(self, data: dict, produced: set) -> list:
-        """Fetch trending news from Google News RSS feed."""
-        import urllib.request
-        import xml.etree.ElementTree as ET
-        import re
-
-        options = []
-        url = "https://news.google.com/rss/search?q=world+cup+2026+soccer+OR+fifa+world+cup+2026&hl=en-US&gl=US&ceid=US:en"
-        try:
-            logger.info("Fetching trending World Cup 2026 news from Google News RSS...")
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req, timeout=8) as response:
-                xml_data = response.read()
-            root = ET.fromstring(xml_data)
-            items = root.findall('.//item')
-            
-            for item in items[:15]:  # Process top 15 news items
-                raw_title = item.find('title').text or ""
-                # Clean source suffix (e.g. "Title - The Athletic" -> "Title")
-                cleaned_title = raw_title.rsplit(" - ", 1)[0].strip()
-                if not cleaned_title:
-                    continue
-                
-                # Clean HTML from description if any
-                raw_desc = item.find('description').text or ""
-                cleaned_desc = re.sub(r'<[^>]*>', '', raw_desc).strip()
-                cleaned_desc = cleaned_desc[:250]  # limit length
-                
-                topic = f"News: {cleaned_title}"
-                
-                # Match entities
-                mentioned = []
-                title_lower = cleaned_title.lower()
-                for team_name in data.get("teams", {}):
-                    if team_name.lower() in title_lower:
-                        mentioned.append(team_name)
-                for player_name in data.get("players", {}):
-                    if player_name.lower() in title_lower:
-                        mentioned.append(player_name)
-                entities_str = ", ".join(mentioned) if mentioned else "World Cup 2026 players and squads"
-                
-                options.append((topic, {
-                    "headline": cleaned_title,
-                    "summary": cleaned_desc or cleaned_title,
-                    "entities": entities_str,
-                    "topic": topic
-                }))
-            logger.info(f"Successfully loaded {len(options)} news options from RSS.")
-        except Exception as e:
-            logger.warning(f"Failed to fetch trending news RSS: {e}")
-        return options
+        if t_def:
+            pool_name = t_def.get("topic_pool")
+            if pool_name and pool_name != "ideas":
+                if niche.is_pool_low(pool_name, produced):
+                    logger.info(f"Topic pool '{pool_name}' runs low. Attempting refill via Gemini...")
+                    api_key = self.settings.get("ce_gemini_api_key")
+                    niche.refill_pool(pool_name, api_key)
+                    
+        return niche.get_topic_options(template_name, produced)
 
     def log_production(self, content_type: str, topic: str,
                        video_path: str = "", video_url: str = "",

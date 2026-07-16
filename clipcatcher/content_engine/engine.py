@@ -88,6 +88,15 @@ class ContentEngine:
         from content_engine.scheduler import ContentScheduler
         from content_engine.content_templates import TEMPLATES
 
+        from content_engine.niche_loader import get_active_niche_name, load_niche
+        niche = load_niche(get_active_niche_name())
+        
+        brand_colors = niche.brand_colors
+        primary_color = tuple(brand_colors.get("primary", [20, 20, 40]))
+        secondary_color = tuple(brand_colors.get("secondary", [255, 215, 0]))
+        accent_color = tuple(brand_colors.get("accent", [0, 180, 255]))
+        thumb_accent_color = tuple(brand_colors.get("thumbnail_accent", [255, 50, 50]))
+
         self.script_gen = ScriptGenerator(api_key=self.gemini_key)
         self.voice_gen = VoiceGenerator(
             voice=self.settings.get("ce_tts_voice", "en-US-GuyNeural"),
@@ -96,10 +105,10 @@ class ContentEngine:
         self.visual_asm = VisualAssembler(
             pexels_api_key=self.pexels_key,
             brand_config={
-                "channel_name": self.settings.get("ce_channel_name", "World Cup Central"),
-                "primary_color": (20, 20, 40),
-                "secondary_color": (255, 215, 0),
-                "accent_color": (0, 180, 255),
+                "channel_name": niche.channel_name,
+                "primary_color": primary_color,
+                "secondary_color": secondary_color,
+                "accent_color": accent_color,
             }
         )
 
@@ -108,7 +117,7 @@ class ContentEngine:
             from content_engine.hyperframes_compiler import HyperframesCompiler
             self.video_comp = HyperframesCompiler(
                 brand_config={
-                    "channel_name": self.settings.get("ce_channel_name", "World Cup Central")
+                    "channel_name": niche.channel_name
                 }
             )
         else:
@@ -116,10 +125,10 @@ class ContentEngine:
 
         self.thumb_gen = ThumbnailGenerator(
             brand_config={
-                "channel_name": self.settings.get("ce_channel_name", "World Cup Central"),
-                "primary_color": (20, 20, 40),
-                "secondary_color": (255, 215, 0),
-                "accent_color": (255, 50, 50),
+                "channel_name": niche.channel_name,
+                "primary_color": primary_color,
+                "secondary_color": secondary_color,
+                "accent_color": thumb_accent_color,
             }
         )
         self.uploader = ContentUploader(self.settings)
@@ -144,7 +153,6 @@ class ContentEngine:
         self._init_modules()
 
         from content_engine.content_templates import TEMPLATES
-        import content_engine.world_cup_data as wc_data
 
         # ── Step 1: Pick content ──────────────────────────────────────
         self._status("📋 Step 1/6: Selecting content...")
@@ -164,14 +172,9 @@ class ContentEngine:
                 "topic_data": topic_data,
             }
         else:
-            wc_dict = {
-                "teams": wc_data.TEAMS,
-                "players": wc_data.PLAYERS,
-                "schedule": wc_data.SCHEDULE,
-            }
             content = self.scheduler.get_next_content(
                 templates=TEMPLATES,
-                world_cup_data=wc_dict,
+                world_cup_data=None,
                 template_name=template_name,
                 ignore_quota=ignore_quota
             )
