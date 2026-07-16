@@ -9,6 +9,10 @@ from typing import Any
 
 DEFAULT_SETTINGS = {
     "threshold": 8.0,
+    "detection_mode": "relative",
+    "hype_multiplier": 3.0,
+    "hype_min_floor": 2.0,
+    "hype_warmup": 60,
     "buf_before": 15,
     "buf_after": 10,
     "cooldown": 30,

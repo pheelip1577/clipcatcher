@@ -61,9 +61,10 @@ class TwitchChatMonitor:
     def get_rate(self) -> float:
         """Current message rate in messages per second (over RATE_WINDOW)."""
         cutoff = time.time() - self.RATE_WINDOW
-        while self._msg_times and self._msg_times[0] < cutoff:
+        while self._msg_times and self._msg_times[0][0] < cutoff:
             self._msg_times.popleft()
-        return len(self._msg_times) / self.RATE_WINDOW
+        total_weight = sum(item[1] for item in self._msg_times)
+        return total_weight / self.RATE_WINDOW
 
     # ── Internal ──────────────────────────────────────────────────────────
 
@@ -127,7 +128,15 @@ class TwitchChatMonitor:
             username = match.group(1)
             message = match.group(2)
             now = time.time()
-            self._msg_times.append(now)
+            
+            # Determine message weight (signal boost)
+            weight = 1.0
+            if re.search(r'\b(clip|lul|omegalul|w)\b', message, re.IGNORECASE):
+                weight = 1.5
+            elif any(w.isupper() and len(w) >= 6 for w in re.findall(r'\b[A-Za-z0-9_]+\b', message)):
+                weight = 1.5
+                
+            self._msg_times.append((now, weight))
 
             if self.on_message:
                 self.on_message(username, message)

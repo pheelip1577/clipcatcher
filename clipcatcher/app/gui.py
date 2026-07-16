@@ -225,7 +225,11 @@ class ClipCatcherApp:
         self.recorder = StreamRecorder(self.save_folder)
         self.detector = HypeDetector(
             threshold=self.settings["threshold"],
-            cooldown=self.settings["cooldown"]
+            cooldown=self.settings["cooldown"],
+            detection_mode=self.settings.get("detection_mode", "relative"),
+            multiplier=self.settings.get("hype_multiplier", 3.0),
+            min_floor=self.settings.get("hype_min_floor", 2.0),
+            warmup=float(self.settings.get("hype_warmup", 60))
         )
         self.detector.get_rate = self.chat.get_rate
 
@@ -236,7 +240,11 @@ class ClipCatcherApp:
             threshold=self.settings["threshold"],
             cooldown=self.settings["cooldown"] + 15,  # Slightly higher cooldown for grids
             sync_window=12.0,
-            min_sync_count=2
+            min_sync_count=2,
+            detection_mode=self.settings.get("detection_mode", "relative"),
+            multiplier=self.settings.get("hype_multiplier", 3.0),
+            min_floor=self.settings.get("hype_min_floor", 2.0),
+            warmup=float(self.settings.get("hype_warmup", 60))
         )
         self.multi_detector.get_rates = self.multi_chat.get_rates
 
@@ -879,23 +887,90 @@ class ClipCatcherApp:
             font=ctk.CTkFont(family="Segoe UI", size=15, weight="bold")
         ).pack(anchor=tk.W, padx=20, pady=(15, 10))
 
-        # Spike Sensitivity Slider
-        slider_frame = ctk.CTkFrame(hype_card, fg_color="transparent")
-        slider_frame.pack(fill=tk.X, padx=20, pady=5)
+        # Detection Mode Selection
+        mode_frame = ctk.CTkFrame(hype_card, fg_color="transparent")
+        mode_frame.pack(fill=tk.X, padx=20, pady=5)
+
+        ctk.CTkLabel(
+            mode_frame, text="Detection Mode:",
+            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
+        ).pack(side=tk.LEFT)
+
+        mode_menu = ctk.CTkOptionMenu(
+            mode_frame, values=["relative", "absolute"],
+            fg_color=BG_INPUT, button_color=COLOR_PURPLE,
+            button_hover_color=COLOR_PURPLE, dropdown_fg_color=BG_INPUT,
+            command=self._apply_detection_mode
+        )
+        mode_menu.set(self.settings.get("detection_mode", "relative"))
+        mode_menu.pack(side=tk.RIGHT)
+
+        # Container for parameters
+        self.sens_container = ctk.CTkFrame(hype_card, fg_color="transparent")
+        self.sens_container.pack(fill=tk.X, padx=20, pady=5)
+
+        # Spike Sensitivity Slider (Absolute Mode)
+        self.thresh_frame = ctk.CTkFrame(self.sens_container, fg_color="transparent")
 
         self.thresh_slider_lbl = ctk.CTkLabel(
-            slider_frame, text=f"Hype Trigger Threshold: {self.detector.threshold:.0f} msg/s",
+            self.thresh_frame, text=f"Hype Trigger Threshold: {self.detector.threshold:.0f} msg/s",
             font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
         )
         self.thresh_slider_lbl.pack(side=tk.LEFT)
 
         thresh_slider = ctk.CTkSlider(
-            slider_frame, from_=2, to=50, number_of_steps=48,
+            self.thresh_frame, from_=2, to=50, number_of_steps=48,
             progress_color=COLOR_PURPLE, button_color=COLOR_PURPLE,
             command=self._apply_threshold
         )
         thresh_slider.set(self.detector.threshold)
         thresh_slider.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(20, 0))
+
+        # Relative Parameters (Relative Mode)
+        self.relative_params_frame = ctk.CTkFrame(self.sens_container, fg_color="transparent")
+
+        # Multiplier Slider
+        mult_frame = ctk.CTkFrame(self.relative_params_frame, fg_color="transparent")
+        mult_frame.pack(fill=tk.X, pady=5)
+
+        self.mult_slider_lbl = ctk.CTkLabel(
+            mult_frame, text=f"Relative Multiplier: {self.settings.get('hype_multiplier', 3.0):.1f}x",
+            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
+        )
+        self.mult_slider_lbl.pack(side=tk.LEFT)
+
+        mult_slider = ctk.CTkSlider(
+            mult_frame, from_=1.5, to=10.0, number_of_steps=85,
+            progress_color=COLOR_PURPLE, button_color=COLOR_PURPLE,
+            command=self._apply_multiplier
+        )
+        mult_slider.set(self.settings.get("hype_multiplier", 3.0))
+        mult_slider.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(20, 0))
+
+        # Floor Slider
+        floor_frame = ctk.CTkFrame(self.relative_params_frame, fg_color="transparent")
+        floor_frame.pack(fill=tk.X, pady=5)
+
+        self.floor_slider_lbl = ctk.CTkLabel(
+            floor_frame, text=f"Min Chat Floor: {self.settings.get('hype_min_floor', 2.0):.1f} msg/s",
+            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
+        )
+        self.floor_slider_lbl.pack(side=tk.LEFT)
+
+        floor_slider = ctk.CTkSlider(
+            floor_frame, from_=0.5, to=15.0, number_of_steps=145,
+            progress_color=COLOR_PURPLE, button_color=COLOR_PURPLE,
+            command=self._apply_min_floor
+        )
+        floor_slider.set(self.settings.get("hype_min_floor", 2.0))
+        floor_slider.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(20, 0))
+
+        # Pack correct frame initially
+        current_mode = self.settings.get("detection_mode", "relative")
+        if current_mode == "relative":
+            self.relative_params_frame.pack(fill=tk.X)
+        else:
+            self.thresh_frame.pack(fill=tk.X)
 
         # Cooldown Slider
         cooldown_frame = ctk.CTkFrame(hype_card, fg_color="transparent")
@@ -1645,7 +1720,11 @@ class ClipCatcherApp:
 
         data = list(self._graph_data)
         n = len(data)
-        threshold = self.detector.threshold
+        threshold = self.detector.get_effective_threshold()
+        if self.detector.detection_mode == "relative":
+            self.single_threshold_lbl.configure(text=f"Clip Threshold: {threshold:.1f} msg/s (relative)")
+        else:
+            self.single_threshold_lbl.configure(text=f"Clip Threshold: {threshold:.0f} msg/s")
         mx = self.GRAPH_MAX_RATE
 
         # Draw Grid Lines
@@ -1827,7 +1906,11 @@ class ClipCatcherApp:
         if not active_channels:
             return
 
-        threshold = self.multi_detector.threshold
+        threshold = self.multi_detector.get_effective_threshold()
+        if self.multi_detector.detection_mode == "relative":
+            self.grid_threshold_lbl.configure(text=f"Correlated Threshold: {threshold:.1f} msg/s (relative)")
+        else:
+            self.grid_threshold_lbl.configure(text=f"Correlated Threshold: {threshold:.0f} msg/s")
         mx = self.GRAPH_MAX_RATE
 
         # Draw Grid Lines
@@ -2253,6 +2336,32 @@ class ClipCatcherApp:
         self.detector.cooldown = int(v)
         self.multi_detector.cooldown = int(v) + 15
         self.cooldown_slider_lbl.configure(text=f"Trigger Cooldown: {int(v)} seconds")
+
+    def _apply_detection_mode(self, mode):
+        self.settings["detection_mode"] = mode
+        self.detector.detection_mode = mode
+        self.multi_detector.detection_mode = mode
+        self._toggle_sens_ui(mode)
+
+    def _apply_multiplier(self, v):
+        self.settings["hype_multiplier"] = float(v)
+        self.detector.multiplier = float(v)
+        self.multi_detector.multiplier = float(v)
+        self.mult_slider_lbl.configure(text=f"Relative Multiplier: {float(v):.1f}x")
+
+    def _apply_min_floor(self, v):
+        self.settings["hype_min_floor"] = float(v)
+        self.detector.min_floor = float(v)
+        self.multi_detector.min_floor = float(v)
+        self.floor_slider_lbl.configure(text=f"Min Chat Floor: {float(v):.1f} msg/s")
+
+    def _toggle_sens_ui(self, mode):
+        if mode == "relative":
+            self.thresh_frame.pack_forget()
+            self.relative_params_frame.pack(fill=tk.X)
+        else:
+            self.relative_params_frame.pack_forget()
+            self.thresh_frame.pack(fill=tk.X)
 
     def _browse_folder(self):
         f = filedialog.askdirectory(initialdir=self.save_folder)

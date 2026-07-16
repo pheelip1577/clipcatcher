@@ -69,9 +69,10 @@ class MultiTwitchChatMonitor:
                 if times is None:
                     rates[ch] = 0.0
                     continue
-                while times and times[0] < cutoff:
+                while times and times[0][0] < cutoff:
                     times.popleft()
-                rates[ch] = len(times) / self.RATE_WINDOW
+                total_weight = sum(item[1] for item in times)
+                rates[ch] = total_weight / self.RATE_WINDOW
         return rates
 
     def get_rate(self, channel: str) -> float:
@@ -82,9 +83,10 @@ class MultiTwitchChatMonitor:
             times = self._msg_times.get(ch)
             if not times:
                 return 0.0
-            while times and times[0] < cutoff:
+            while times and times[0][0] < cutoff:
                 times.popleft()
-            return len(times) / self.RATE_WINDOW
+            total_weight = sum(item[1] for item in times)
+            return total_weight / self.RATE_WINDOW
 
     def _run(self):
         retry_delay = 2
@@ -150,9 +152,16 @@ class MultiTwitchChatMonitor:
             message = match.group(3)
             now = time.time()
 
+            # Determine message weight (signal boost)
+            weight = 1.0
+            if re.search(r'\b(clip|lul|omegalul|w)\b', message, re.IGNORECASE):
+                weight = 1.5
+            elif any(w.isupper() and len(w) >= 6 for w in re.findall(r'\b[A-Za-z0-9_]+\b', message)):
+                weight = 1.5
+
             with self._lock:
                 if channel in self._msg_times:
-                    self._msg_times[channel].append(now)
+                    self._msg_times[channel].append((now, weight))
 
             if self.on_message:
                 self.on_message(channel, username, message)
@@ -177,19 +186,31 @@ class MultiHypeDetector:
         sync_window: float = 12.0,      # window (secs) to correlate streamer spikes
         min_sync_count: int = 2,        # min number of streamers spiking to trigger clip
         check_interval: float = 0.5,    # rate checking interval
+        detection_mode: str = "relative",  # "relative" or "absolute"
+        multiplier: float = 3.0,
+        min_floor: float = 2.0,
+        warmup: float = 60.0,
     ):
         self.threshold = threshold
         self.cooldown = cooldown
         self.sync_window = sync_window
         self.min_sync_count = min_sync_count
         self.check_interval = check_interval
+        self.detection_mode = detection_mode
+        self.multiplier = multiplier
+        self.min_floor = min_floor
+        self.warmup = warmup
 
         self._running = False
         self._thread: Optional[threading.Thread] = None
         self._last_global_clip: float = 0.0
+        self._connect_time: float = 0.0
         
         # Track last individual spike time for each channel: {channel: timestamp}
         self._last_spikes: Dict[str, float] = {}
+        # Track EMA baselines per channel
+        self._baselines: Dict[str, float] = {}
+        self._ema_alpha: float = 0.0023
         
         # Callbacks
         self.on_global_clip_triggered: Optional[Callable[[Dict[str, float]], None]] = None  # {channel: rate}
@@ -198,6 +219,7 @@ class MultiHypeDetector:
 
     def start(self):
         self._running = True
+        self._connect_time = time.time()
         self._thread = threading.Thread(target=self._loop, daemon=True)
         self._thread.start()
 
@@ -215,6 +237,14 @@ class MultiHypeDetector:
         self._last_global_clip = 0.0
         self._last_spikes = {}
 
+    def get_effective_threshold(self, channel: str = None) -> float:
+        if self.detection_mode == "relative":
+            if channel and channel in self._baselines:
+                return max(self.min_floor, self.multiplier * self._baselines[channel])
+            avg_baseline = sum(self._baselines.values()) / len(self._baselines) if self._baselines else 0.0
+            return max(self.min_floor, self.multiplier * avg_baseline)
+        return self.threshold
+
     def _loop(self):
         while self._running:
             time.sleep(self.check_interval)
@@ -222,19 +252,31 @@ class MultiHypeDetector:
                 continue
 
             rates = self.get_rates()
-            if self.on_rates_change:
-                self.on_rates_change(rates, self.threshold)
 
-            # Do not process trigger if we are in global cooldown
+            # Update EMA baselines
+            for ch, rate in rates.items():
+                if ch not in self._baselines:
+                    self._baselines[ch] = rate
+                else:
+                    self._baselines[ch] = self._ema_alpha * rate + (1 - self._ema_alpha) * self._baselines[ch]
+
+            effective_threshold = self.get_effective_threshold()
+
+            if self.on_rates_change:
+                self.on_rates_change(rates, effective_threshold)
+
+            # Do not process trigger if we are in global cooldown or warmup
             if self.in_global_cooldown():
+                continue
+            if time.time() - self._connect_time < self.warmup:
                 continue
 
             now = time.time()
-            triggered_channels = {}
 
             # Update individual channel spikes
             for ch, rate in rates.items():
-                if rate >= self.threshold:
+                ch_threshold = self.get_effective_threshold(ch)
+                if rate >= ch_threshold:
                     self._last_spikes[ch] = now
 
             # Count how many channels spiked within the sync window
