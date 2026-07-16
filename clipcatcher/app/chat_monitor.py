@@ -14,12 +14,12 @@ from typing import Callable, Optional
 class TwitchChatMonitor:
     """
     Connects to Twitch IRC and monitors chat message rate.
-    Twitch IRC is accessible anonymously over plain TCP on port 6667.
+    Twitch IRC is accessible anonymously over SSL/TLS on port 6697.
     No OAuth token needed for read-only chat monitoring.
     """
 
     TWITCH_HOST = "irc.chat.twitch.tv"
-    TWITCH_PORT = 6667
+    TWITCH_PORT = 6697
     NICK = "justinfan83421"   # justinfan + any number = anonymous login
     RATE_WINDOW = 5           # seconds to measure message rate over
 
@@ -83,8 +83,11 @@ class TwitchChatMonitor:
                     retry_delay = min(retry_delay * 2, 30)
 
     def _connect_and_listen(self):
-        self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._sock.settimeout(10)
+        import ssl
+        raw_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        raw_sock.settimeout(10)
+        context = ssl.create_default_context()
+        self._sock = context.wrap_socket(raw_sock, server_hostname=self.TWITCH_HOST)
         self._sock.connect((self.TWITCH_HOST, self.TWITCH_PORT))
         self._sock.settimeout(None)
 

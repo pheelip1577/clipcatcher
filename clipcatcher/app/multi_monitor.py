@@ -14,11 +14,11 @@ from typing import Callable, Optional, List, Dict
 class MultiTwitchChatMonitor:
     """
     Connects to Twitch IRC and monitors chat message rates for multiple channels simultaneously.
-    Uses a single TCP socket connection and JOINs multiple channels.
+    Uses a single SSL/TLS socket connection and JOINs multiple channels.
     """
 
     TWITCH_HOST = "irc.chat.twitch.tv"
-    TWITCH_PORT = 6667
+    TWITCH_PORT = 6697
     NICK = "justinfan83421"  # Anonymous Nick
     RATE_WINDOW = 5          # seconds to measure rate over
 
@@ -103,8 +103,11 @@ class MultiTwitchChatMonitor:
                     retry_delay = min(retry_delay * 2, 30)
 
     def _connect_and_listen(self):
-        self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._sock.settimeout(10)
+        import ssl
+        raw_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        raw_sock.settimeout(10)
+        context = ssl.create_default_context()
+        self._sock = context.wrap_socket(raw_sock, server_hostname=self.TWITCH_HOST)
         self._sock.connect((self.TWITCH_HOST, self.TWITCH_PORT))
         self._sock.settimeout(None)
 

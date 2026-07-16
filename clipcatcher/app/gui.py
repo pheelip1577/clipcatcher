@@ -814,6 +814,17 @@ class ClipCatcherApp:
         )
         meta_lbl.pack(fill=tk.X, padx=15, pady=(0, 10))
 
+        # Polishing Status Label
+        polish_status = clip.get("polish_status", "")
+        if polish_status:
+            p_status_color = COLOR_GREEN if "polished" in polish_status.lower() else COLOR_AMBER
+            p_lbl = ctk.CTkLabel(
+                card, text=f"Polished Status: {polish_status}",
+                font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold", slant="italic"),
+                text_color=p_status_color, anchor=tk.W
+            )
+            p_lbl.pack(fill=tk.X, padx=15, pady=(0, 10))
+
         # YouTube Upload Status Label
         yt_status = clip.get("youtube_status", "")
         if yt_status:
@@ -848,6 +859,24 @@ class ClipCatcherApp:
                     actions, text="📱 TikTok Crop", fg_color=BG_CARD, hover_color=BORDER_COLOR,
                     width=110, height=28, font=ctk.CTkFont(size=12, weight="bold"),
                     command=lambda: self._export_tiktok(clip)
+                ).pack(side=tk.LEFT, padx=(0, 6))
+
+                # Polish -> Short Button
+                polish_status = clip.get("polish_status", "")
+                polish_btn_text = "✨ Polish → Short"
+                polish_btn_state = tk.NORMAL
+                if "polishing" in polish_status.lower():
+                    polish_btn_text = "Polishing..."
+                    polish_btn_state = tk.DISABLED
+                elif "polished" in polish_status.lower():
+                    polish_btn_text = "✓ Polished"
+                    polish_btn_state = tk.DISABLED
+                    
+                ctk.CTkButton(
+                    actions, text=polish_btn_text, fg_color=BG_CARD, hover_color=BORDER_COLOR,
+                    width=120, height=28, font=ctk.CTkFont(size=12, weight="bold"),
+                    state=polish_btn_state,
+                    command=lambda c=clip: self._manual_clip_polish(c)
                 ).pack(side=tk.LEFT, padx=(0, 6))
 
             # YouTube Upload Trigger
@@ -1063,6 +1092,16 @@ class ClipCatcherApp:
             command=lambda: self.settings.set("youtube_upload_shorts", self.yt_shorts_var.get())
         )
         shorts_chk.pack(anchor=tk.W, padx=20, pady=6)
+
+        self.yt_auto_polish_var = tk.BooleanVar(value=self.settings.get("auto_polish_clips", False))
+        auto_polish_chk = ctk.CTkCheckBox(
+            yt_card, text="Auto-Polish Twitch Clips (crops, transcribes, and highlights automatically using Gemini)",
+            variable=self.yt_auto_polish_var, checkbox_width=18, checkbox_height=18,
+            border_color=BORDER_COLOR, hover_color=COLOR_PURPLE, fg_color=COLOR_PURPLE,
+            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
+            command=lambda: self.settings.set("auto_polish_clips", self.yt_auto_polish_var.get())
+        )
+        auto_polish_chk.pack(anchor=tk.W, padx=20, pady=6)
 
         # Title Templates inputs
         tmpl_frame = ctk.CTkFrame(yt_card, fg_color="transparent")
@@ -2005,9 +2044,98 @@ class ClipCatcherApp:
         # Refresh clips list
         self._refresh_clips_page()
 
-        # Handle YouTube auto-upload
-        if self.settings["youtube_auto_upload"]:
+        # Handle Auto-Polish / Auto-Upload
+        if self.settings.get("auto_polish_clips", False):
+            self._trigger_auto_polish(clip)
+        elif self.settings["youtube_auto_upload"]:
             self._auto_youtube_upload(clip)
+
+    def _trigger_auto_polish(self, clip: dict):
+        if not self.settings.get("ce_gemini_api_key"):
+            logger.warning("Auto-polish skipped: Gemini API key not configured")
+            return
+            
+        clip["polish_status"] = "Polishing..."
+        self.root.after(0, self._refresh_clips_page)
+        
+        def run_polish():
+            try:
+                from content_engine.clip_polisher import ClipPolisher
+                polisher = ClipPolisher(self.settings)
+                
+                raw_path = Path(clip["path"])
+                review_dir = Path(self.settings.get("ce_polish_review_folder", str(Path.home() / "Videos" / "ClipCatcher" / "Polished")))
+                review_dir.mkdir(parents=True, exist_ok=True)
+                
+                output_name = f"polished_{raw_path.stem}.mp4"
+                output_path = review_dir / output_name
+                
+                result = polisher.polish_clip(raw_path, output_path)
+                
+                clip["polish_status"] = "Polished"
+                clip["polished_path"] = str(result["video_path"])
+                clip["ce_title"] = result["title"]
+                clip["ce_description"] = result["description"]
+                clip["ce_tags"] = result["tags"]
+                clip["is_ce_video"] = True
+                
+                self.root.after(0, lambda: (
+                    self._refresh_clips_page(),
+                    self._show_toast("✨ Clip Auto-Polished!")
+                ))
+                
+                # After successful auto-polishing, run auto-upload if enabled
+                if self.settings.get("youtube_auto_upload"):
+                    self.root.after(0, lambda: self._auto_youtube_upload(clip))
+            except Exception as e:
+                logger.error(f"Auto-polish failed: {e}", exc_info=True)
+                clip["polish_status"] = "Failed"
+                self.root.after(0, self._refresh_clips_page)
+                
+        threading.Thread(target=run_polish, daemon=True).start()
+
+    def _manual_clip_polish(self, clip: dict):
+        if not self.settings.get("ce_gemini_api_key"):
+            messagebox.showerror("Setup Error", "Gemini API key is required to polish clips.")
+            return
+            
+        clip["polish_status"] = "Polishing..."
+        self._refresh_clips_page()
+        
+        def run_polish():
+            try:
+                from content_engine.clip_polisher import ClipPolisher
+                polisher = ClipPolisher(self.settings)
+                
+                raw_path = Path(clip["path"])
+                review_dir = Path(self.settings.get("ce_polish_review_folder", str(Path.home() / "Videos" / "ClipCatcher" / "Polished")))
+                review_dir.mkdir(parents=True, exist_ok=True)
+                
+                output_name = f"polished_{raw_path.stem}.mp4"
+                output_path = review_dir / output_name
+                
+                result = polisher.polish_clip(raw_path, output_path)
+                
+                clip["polish_status"] = "Polished"
+                clip["polished_path"] = str(result["video_path"])
+                clip["ce_title"] = result["title"]
+                clip["ce_description"] = result["description"]
+                clip["ce_tags"] = result["tags"]
+                clip["is_ce_video"] = True
+                
+                self.root.after(0, lambda: (
+                    self._refresh_clips_page(),
+                    self._show_toast("✨ Clip Polished successfully!")
+                ))
+            except Exception as e:
+                logger.error(f"Failed to polish clip: {e}", exc_info=True)
+                clip["polish_status"] = "Failed"
+                self.root.after(0, lambda: (
+                    self._refresh_clips_page(),
+                    messagebox.showerror("Polishing Error", f"Failed to polish clip:\n{e}")
+                ))
+                
+        threading.Thread(target=run_polish, daemon=True).start()
 
     def _stop_monitoring(self):
         self._append_chat("SYSTEM", "Stopping capture engine and disconnecting monitors...", "system")
@@ -2201,7 +2329,7 @@ class ClipCatcherApp:
             messagebox.showwarning("Not Authorized", "Please link your YouTube account under Settings first.")
             return
 
-        filepath = clip.get("path")
+        filepath = clip.get("polished_path") or clip.get("path")
         if not filepath or not Path(filepath).exists():
             messagebox.showerror("Missing File", "Clip video file not found on disk.")
             return
@@ -2209,13 +2337,13 @@ class ClipCatcherApp:
         clip["youtube_status"] = "Preparing..."
         self._refresh_clips_page()
 
-        # ── Content Engine videos: use the AI-generated metadata ──────
-        if clip.get("is_ce_video") and clip.get("ce_title"):
+        # ── Content Engine or Polished videos: use the AI-generated metadata ──────
+        if (clip.get("is_ce_video") and clip.get("ce_title")) or (clip.get("polish_status") == "Polished" and clip.get("ce_title")):
             title = clip["ce_title"]
             description = clip.get("ce_description", "")
             ce_tags = clip.get("ce_tags", [])
             tags = ",".join(ce_tags) if isinstance(ce_tags, list) else ce_tags
-            visibility = self.settings.get("ce_upload_visibility", "public")
+            visibility = self.settings.get("ce_upload_visibility", "unlisted")
 
             # Ensure #Shorts is in title
             if "#shorts" not in title.lower():
@@ -2270,7 +2398,7 @@ class ClipCatcherApp:
             temp_file = None
 
             is_grid = "grid_" in str(filepath)
-            is_tiktok = "_tiktok" in str(filepath)
+            is_tiktok = "_tiktok" in str(filepath) or "polished" in str(filepath).lower()
 
             if self.settings["youtube_upload_shorts"] and not (is_grid or is_tiktok):
                 clip["youtube_status"] = "Processing Short..."

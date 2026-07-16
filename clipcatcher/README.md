@@ -109,18 +109,33 @@ Then upload that file directly to TikTok on desktop or phone.
 
 ---
 
-## File layout
+## Content Engine & Auto-Shorts Pipeline
+
+ClipCatcher includes a premium automated video generation subsystem called the **Content Engine**.
+
+### Features
+
+1. **Niche-Agnostic Content Engine**: Rotates templates, schedules, compiles 9:16 vertical shorts dynamically from niche JSON packs (`content_engine/niches/`).
+2. **Auto-Shorts Pipeline**: Automatically center-crops widescreen Twitch clips (16:9) to portrait (9:16), transcribes audio using Gemini, burns in word-by-word highlighted subtitles, and generates viral metadata.
+3. **Secure Connections**: Chat monitors connect anonymously to Twitch IRC using secure SSL/TLS sockets on port 6697.
+
+### File Layout
 
 ```
 clipcatcher/
 ├── main.py               ← entry point: python main.py
 ├── requirements.txt
 ├── README.md
-└── app/
-    ├── gui.py            ← main window (tkinter)
-    ├── chat_monitor.py   ← Twitch IRC over TCP socket
-    ├── recorder.py       ← streamlink + ffmpeg rolling buffer + clip cutting
-    ├── hype_detector.py  ← rate monitoring + threshold + cooldown
-    ├── twitch_utils.py   ← channel validation
-    └── settings.py       ← JSON config persistence
+├── app/
+│   ├── gui.py            ← main window (tkinter)
+│   ├── chat_monitor.py   ← Twitch IRC over secure SSL/TLS
+│   ├── recorder.py       ← streamlink + ffmpeg rolling buffer + clip cutting
+│   ├── hype_detector.py  ← rate monitoring + threshold + cooldown
+│   └── settings.py       ← JSON config persistence
+└── content_engine/
+    ├── niches/           ← JSON niche packs (World Cup 2026, History, Finance)
+    ├── niche_loader.py   ← dynamic niche loader & Gemini topic refilling
+    ├── clip_polisher.py  ← auto-shorts vertical cropper & Gemini transcriber
+    ├── engine.py         ← video pipeline coordinator
+    └── scheduler.py      ← production scheduler & history tracker
 ```

@@ -44,7 +44,7 @@ DEFAULT_SETTINGS = {
     "ce_tts_rate": "+18%",
     "ce_output_folder": str(Path.home() / "Videos" / "ContentEngine"),
     "ce_max_uploads_per_day": 6,
-    "ce_upload_visibility": "public",
+    "ce_upload_visibility": "unlisted",
     "ce_youtube_category": "17",
     "ce_channel_name": "World Cup Central",
     "ce_schedule_interval_hours": 4,
@@ -57,6 +57,8 @@ DEFAULT_SETTINGS = {
     "ce_subtitle_style": "word_highlight",
     "ce_auto_upload": True,
     "ce_compiler_type": "ffmpeg",
+    "auto_polish_clips": False,
+    "ce_polish_review_folder": str(Path.home() / "Videos" / "ClipCatcher" / "Polished"),
 }
 
 CONFIG_PATH = Path.home() / ".clipcatcher" / "settings.json"

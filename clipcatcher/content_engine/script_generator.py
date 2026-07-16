@@ -1,8 +1,7 @@
 """
 script_generator.py — AI Video Script Generator using Google Gemini API.
 
-Generates structured video scripts for World Cup YouTube Shorts using the
-google-generativeai SDK.
+Generates structured video scripts for YouTube Shorts using the new google-genai SDK.
 """
 
 from __future__ import annotations
@@ -12,8 +11,8 @@ import logging
 import re
 from typing import Any, Dict, Optional
 
-import google.generativeai as genai
-from google.generativeai.types import RequestOptions
+from google import genai
+from google.genai import types
 
 from content_engine.content_templates import ScriptSegment, VideoScript, ContentTemplate
 
@@ -27,19 +26,20 @@ class ScriptGeneratorError(RuntimeError):
 class ScriptGenerator:
     """Uses Google Gemini API to write YouTube Shorts scripts in JSON format."""
 
-    def __init__(self, api_key: str, model_name: str = "gemini-3.5-flash"):
+    def __init__(self, api_key: str, model_name: str = "gemini-2.5-flash"):
         """
         Parameters
         ----------
         api_key : str
             Google Gemini API key.
         model_name : str
-            Model to use (defaults to 'gemini-3.5-flash').
+            Model to use (defaults to 'gemini-2.5-flash').
         """
         self.api_key = api_key
         self.model_name = model_name
+        self.client = None
         if api_key:
-            genai.configure(api_key=api_key)
+            self.client = genai.Client(api_key=api_key)
         else:
             logger.warning("No Gemini API key provided. Generator will run in mock mode.")
 
@@ -60,49 +60,43 @@ class ScriptGenerator:
         -------
         VideoScript
         """
-        if not self.api_key:
+        if not self.api_key or not self.client:
             logger.info("Running in Mock Mode because API key is missing.")
             return self._generate_mock(template, topic_data, topic=topic)
 
         # 1. Format the user prompt
         try:
-            # Safe formatting that handles missing keys or extra keys gracefully
             user_prompt = self._safe_format(template.user_prompt_template, topic_data)
         except Exception as e:
             logger.error(f"Failed to format user prompt: {e}")
             raise ScriptGeneratorError(f"Prompt formatting failed: {e}") from e
 
-        # 2. Build model and send request
+        # 2. Build model and send request (non-mutating fallback model name)
         retries = 2
         last_error = None
+        current_model = self.model_name
 
         for attempt in range(retries + 1):
             try:
-                model = genai.GenerativeModel(
-                    model_name=self.model_name,
-                    system_instruction=template.system_prompt
-                )
-
-                logger.info(f"Sending prompt to Gemini (Attempt {attempt+1}/{retries+1}) using {self.model_name}...")
+                logger.info(f"Sending prompt to Gemini (Attempt {attempt+1}/{retries+1}) using {current_model}...")
                 
-                # Request JSON output
-                generation_config = {
-                    "response_mime_type": "application/json",
-                    "temperature": 0.7,
-                }
-
-                # Set timeout/retry options
-                response = model.generate_content(
-                    user_prompt,
-                    generation_config=generation_config,
-                    request_options=RequestOptions(timeout=30)
+                config = types.GenerateContentConfig(
+                    system_instruction=template.system_prompt,
+                    response_mime_type="application/json",
+                    temperature=0.7,
+                )
+                
+                response = self.client.models.generate_content(
+                    model=current_model,
+                    contents=user_prompt,
+                    config=config
                 )
 
                 if not response.text:
                     raise ScriptGeneratorError("Gemini returned an empty response.")
 
                 # 3. Parse and validate
-                actual_topic = topic if topic else topic_data.get("topic", "World Cup")
+                actual_topic = topic if topic else topic_data.get("topic", "Topic")
                 script = self._parse_response(response.text, template, actual_topic)
                 logger.info(f"Successfully generated script with {len(script.segments)} segments.")
                 return script
@@ -111,13 +105,16 @@ class ScriptGenerator:
                 logger.warning(f"Attempt {attempt+1} failed: {e}")
                 last_error = e
                 # Fallback model check on first failure
-                if attempt == 0 and "gemini-3.5-flash" in self.model_name:
+                if attempt == 0 and "gemini-3.5-flash" in current_model:
                     logger.info("Attempting fallback to 'gemini-2.5-flash'...")
-                    self.model_name = "gemini-2.5-flash"
-                elif attempt == 1 and "gemini-2.5-flash" in self.model_name:
-                    logger.info("Attempting fallback to 'gemini-flash-latest'...")
-                    self.model_name = "gemini-flash-latest"
-                elif attempt < retries:
+                    current_model = "gemini-2.5-flash"
+                elif attempt == 0 and "gemini-2.5-flash" in current_model:
+                    logger.info("Attempting fallback to 'gemini-2.5-flash'...") # stay or change
+                elif attempt == 1:
+                    logger.info("Attempting fallback to 'gemini-2.5-flash'...")
+                    current_model = "gemini-2.5-flash"
+                
+                if attempt < retries:
                     import time
                     time.sleep(2 ** attempt)
 
@@ -125,7 +122,6 @@ class ScriptGenerator:
 
     def _safe_format(self, template_str: str, data: Dict[str, Any]) -> str:
         """Helper to format string ignoring missing keys."""
-        # Use regex to find all {placeholder} elements
         placeholders = re.findall(r"\{([a-zA-Z0-9_]+)\}", template_str)
         formatted_data = {}
         for p in placeholders:
@@ -135,25 +131,20 @@ class ScriptGenerator:
     def _parse_response(self, response_text: str, template: ContentTemplate, topic: str) -> VideoScript:
         """Parses the JSON response from Gemini into a VideoScript object."""
         try:
-            # Clean response text if it has markdown block tags
             cleaned = response_text.strip()
             if cleaned.startswith("```"):
-                # strip code block formatting
                 cleaned = re.sub(r"^```(?:json)?\n", "", cleaned)
                 cleaned = re.sub(r"\n```$", "", cleaned)
                 cleaned = cleaned.strip()
 
             data = json.loads(cleaned)
 
-            # Map raw list of segments into ScriptSegment objects
             raw_segments = data.get("segments", [])
             segments = []
             
             for seg in raw_segments:
-                # Calculate default duration hint based on narration word count if not present
                 narration = seg.get("narration", "")
                 words = len(narration.split())
-                # Average speaking rate is ~130-150 words per minute (2-2.5 words per second)
                 default_duration = max(3.0, round(words / 2.3, 1))
                 
                 segments.append(
@@ -164,27 +155,21 @@ class ScriptGenerator:
                     )
                 )
 
-            # Set default title if empty
             title = data.get("title", "").strip()
             if not title:
-                title = template.title_template.format(topic=topic)
-            # Clip title to 100 characters (YouTube limit)
+                title = template.title_template.replace("{topic}", topic)
             title = title[:100]
 
-            # Merge generated tags with template defaults
             tags = data.get("tags", [])
             if not isinstance(tags, list):
                 tags = [tags] if tags else []
             all_tags = list(set(tags + template.default_tags))
-            # YouTube tags limit is 500 chars total, so keep list reasonably small
             all_tags = [t.strip() for t in all_tags if t][:20]
 
-            # Assemble description with hashtags
             desc = data.get("description", "").strip()
             if not desc:
-                desc = f"World Cup 2026 update on {topic}. AI generated sports short."
+                desc = f"Special update on {topic}. AI generated short."
             
-            # Append hashtags
             hashtags_str = " ".join(template.hashtags)
             if hashtags_str and hashtags_str not in desc:
                 desc = f"{desc}\n\n{hashtags_str}"
@@ -205,23 +190,33 @@ class ScriptGenerator:
 
     def _generate_mock(self, template: ContentTemplate, topic_data: Dict[str, Any], topic: Optional[str] = None) -> VideoScript:
         """Returns a high-quality mock script when API key is missing."""
-        actual_topic = topic if topic else topic_data.get("topic", "World Cup")
-        logger.info(f"Generating mock script for template: {template.name}, topic: {actual_topic}")
+        actual_topic = topic if topic else topic_data.get("topic", "Topic")
+        
+        from content_engine.niche_loader import get_active_niche_name, load_niche
+        try:
+            niche = load_niche(get_active_niche_name())
+            display_name = niche.display_name
+            cta = niche.subscribe_cta
+        except Exception:
+            display_name = "niche"
+            cta = "Subscribe for daily updates!"
+            
+        logger.info(f"Generating mock script for template: {template.name}, topic: {actual_topic} in niche: {display_name}")
  
         mock_segments = [
             ScriptSegment(
-                narration=f"Welcome to the ultimate update on {actual_topic}! Today we are breaking down the biggest news.",
-                visual_cue="cinematic soccer kick, stadium wide angle",
+                narration=f"Welcome to the ultimate update on {actual_topic}! Today we are breaking down the biggest secrets.",
+                visual_cue="cinematic opening shot, high dynamic range",
                 duration_hint=4.5
             ),
             ScriptSegment(
-                narration="Did you know that the 2026 World Cup is hosting 48 teams? That is the biggest tournament in history!",
-                visual_cue="animation of world map highlighting USA, Canada and Mexico",
+                narration=f"This is a game changer for our {display_name} community. Make sure to pay close attention to this tip.",
+                visual_cue="infographic showing statistics and charts",
                 duration_hint=5.0
             ),
             ScriptSegment(
-                narration="Subscribe for daily World Cup updates, predictions, and insane match highlights!",
-                visual_cue="channel branding watermark, smash subscribe button animation",
+                narration=f"{cta}",
+                visual_cue="watermark logo, hit subscribe animation",
                 duration_hint=4.0
             )
         ]
