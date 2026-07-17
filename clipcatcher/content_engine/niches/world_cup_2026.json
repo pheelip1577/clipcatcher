@@ -4350,6 +4350,66 @@
       {
         "title": "The Crossbar Challenge in Rules",
         "explanation": "If the crossbar or goalposts become displaced during a match, play is stopped. The match can only resume once the frame has been repaired to the referee's satisfaction."
+      },
+      {
+        "title": "The Drop Ball Rule",
+        "explanation": "When play is stopped by the referee for a reason not specified in the Laws of the Game (e.g., injury without foul, external interference), play is restarted with a drop ball. The ball is dropped for one player of the team that last touched the ball at the position where it was last touched, with all other players at least 4 meters away."
+      },
+      {
+        "title": "The Goal Kick Rule",
+        "explanation": "A goal kick is awarded when the whole of the ball passes over the goal line, having last touched a player of the attacking team, and a goal has not been scored. The ball is kicked from any point within the goal area by a player of the defending team. Opponents must remain outside the penalty area until the ball is in play."
+      },
+      {
+        "title": "The Kick-Off Rule",
+        "explanation": "The kick-off is the method of starting and restarting play. It begins a match, restarts after a goal, and starts the second half and any periods of extra time. All players must be in their own half, with the exception of the player taking the kick, and the ball must clearly move forward to be in play. A goal can be scored directly from a kick-off."
+      },
+      {
+        "title": "The Captain's Armband",
+        "explanation": "The captain's armband signifies the designated team captain on the field. While primarily a symbolic role, the captain is often the team's representative in discussions with the referee, though they hold no special privileges under the Laws of the Game beyond their teammates. They are expected to ensure their team conducts themselves responsibly."
+      },
+      {
+        "title": "The Official World Cup Match Ball",
+        "explanation": "Each FIFA World Cup features a unique official match ball, meticulously designed for optimal performance, aerodynamics, and visibility. These balls undergo rigorous testing to meet FIFA's stringent quality standards, often incorporating advanced technology to aid player control and tracking, which is updated for every tournament including 2026."
+      },
+      {
+        "title": "The 2026 World Cup Host City Selection",
+        "explanation": "The 2026 FIFA World Cup will be hosted by three nations: Canada, Mexico, and the United States. The selection of the 16 specific host cities across these countries involved a lengthy bidding process, assessing stadium infrastructure, transportation, accommodation, environmental protection, and human rights to ensure readiness for the expanded 48-team tournament."
+      },
+      {
+        "title": "The Role of the Fourth Official",
+        "explanation": "The Fourth Official assists the referee and assistant referees, primarily responsible for managing substitutions, checking player equipment, indicating the amount of added time, and overseeing the technical areas. They act as a liaison between the match officials and the teams, and can step in if any of the other officials are unable to continue."
+      },
+      {
+        "title": "Player Eligibility for National Teams",
+        "explanation": "FIFA rules govern which country a player can represent. Generally, a player must hold the nationality of the country they wish to represent. Specific criteria include birth in the country, having a parent or grandparent born there, or residing in the country for a defined period (e.g., five years) after turning 18, provided they haven't already represented another nation in a competitive senior match."
+      },
+      {
+        "title": "The Significance of the Referee's Whistle",
+        "explanation": "The referee's whistle is a crucial tool for controlling the game, used to start and stop play, signal fouls, award penalties, and confirm goals. Its distinct sound ensures clarity and authority in communicating decisions to players and spectators, establishing key moments in the flow of the match according to the Laws of the Game."
+      },
+      {
+        "title": "Hydration Breaks in Football Matches",
+        "explanation": "Hydration breaks, also known as cooling breaks, are mandatory stoppages in play implemented during matches when environmental conditions, particularly heat and humidity, pose a risk to player safety. These breaks typically occur mid-way through each half, allowing players to rehydrate and coaches to briefly confer, ensuring player welfare in extreme temperatures."
+      },
+      {
+        "title": "Disciplinary Committees and Post-Match Sanctions",
+        "explanation": "Beyond the immediate yellow and red cards issued by the referee, serious incidents, repeat offenses, or misconduct not fully addressed during a match are reviewed by FIFA's Disciplinary Committee. This body can impose further sanctions, including additional match bans, fines, or other penalties, to uphold the integrity and fair play of the tournament."
+      },
+      {
+        "title": "The FIFA World Cup Official Song Tradition",
+        "explanation": "A long-standing tradition of the FIFA World Cup is the official tournament song, often accompanied by an anthem. These musical pieces aim to capture the spirit, energy, and cultural essence of the host nation(s) and the global event itself, uniting fans worldwide through music and celebrating the excitement of international football."
+      },
+      {
+        "title": "World Cup Group Stage Tie-Breaking Rules",
+        "explanation": "If two or more teams finish with the same number of points in the World Cup group stage, a series of tie-breaking criteria are applied to determine their final ranking. These typically include goal difference, goals scored, head-to-head results between the tied teams, and eventually fair play points or even a drawing of lots, crucial for the new 48-team format."
+      },
+      {
+        "title": "The Symbolism of the World Cup Logo and Mascot",
+        "explanation": "Each FIFA World Cup unveils a unique official logo and mascot, serving as symbolic representations of the tournament's identity and the host nation's culture. The logo often incorporates iconic imagery or colors, while the mascot provides a friendly, memorable figure to engage fans, especially children, and promote the event globally."
+      },
+      {
+        "title": "The Role of Assistant Referees (Linesmen)",
+        "explanation": "Assistant Referees, formerly known as linesmen, patrol the touchlines and assist the main referee. Their responsibilities extend beyond indicating offside; they signal when the ball has gone out of play (for throw-ins, goal kicks, or corner kicks), indicate fouls that the referee may not have seen, and assist with penalty decisions, working as a crucial part of the officiating team."
       }
     ],
     "transfer_quizzes": [

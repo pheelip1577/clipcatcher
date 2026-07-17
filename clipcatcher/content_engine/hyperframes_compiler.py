@@ -176,7 +176,7 @@ class HyperframesCompiler:
             # Output goes to temporary render.mp4 in the same working directory
             temp_mp4 = work_dir / "render.mp4"
             cmd = [
-                "npx", "hyperframes", "render", ".",
+                "npx", "-y", "hyperframes", "render", ".",
                 "-o", "render.mp4"
             ]
 
