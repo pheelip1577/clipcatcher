@@ -2,18 +2,52 @@
   "name": "history_facts",
   "display_name": "History Uncovered 📜",
   "channel_name": "History Uncovered",
-  "hashtags": ["#HistoryFacts", "#History", "#DidYouKnow", "#UnsolvedMysteries", "#Shorts"],
-  "default_tags": ["history facts", "history channel", "did you know", "mysteries", "historical secrets", "shorts"],
+  "hashtags": [
+    "#HistoryFacts",
+    "#History",
+    "#DidYouKnow",
+    "#UnsolvedMysteries",
+    "#Shorts"
+  ],
+  "default_tags": [
+    "history facts",
+    "history channel",
+    "did you know",
+    "mysteries",
+    "historical secrets",
+    "shorts"
+  ],
   "brand_colors": {
-    "primary": [44, 24, 16],
-    "secondary": [218, 165, 32],
-    "accent": [160, 82, 45],
-    "thumbnail_accent": [178, 34, 34]
+    "primary": [
+      44,
+      24,
+      16
+    ],
+    "secondary": [
+      218,
+      165,
+      32
+    ],
+    "accent": [
+      160,
+      82,
+      45
+    ],
+    "thumbnail_accent": [
+      178,
+      34,
+      34
+    ]
   },
   "rss_search_query": "unbelievable+history+facts+OR+archaeology+discoveries",
   "visual_sources": {
     "sportsdb_enabled": false,
-    "pexels_default_terms": ["ancient ruins", "old books", "castle", "vintage map"],
+    "pexels_default_terms": [
+      "ancient ruins",
+      "old books",
+      "castle",
+      "vintage map"
+    ],
     "pexels_sport_term": "history"
   },
   "tone_preamble": "You are a charismatic, mysterious history content creator telling wild, verified secrets from the past for TikTok and YouTube Shorts. Your tone is mysterious, dramatic, and captivating. Hook the viewer instantly with an unbelievable claim that actually happened.",
@@ -52,17 +86,207 @@
     "quiz_questions": [
       {
         "question": "Which ancient civilization constructed the first known flushing toilets?",
-        "options": ["Indus Valley Civilization", "Ancient Egyptians", "Roman Empire", "Ancient Greeks"],
+        "options": [
+          "Indus Valley Civilization",
+          "Ancient Egyptians",
+          "Roman Empire",
+          "Ancient Greeks"
+        ],
         "answer": "Indus Valley Civilization",
         "answer_detail": "Dating back to 2500 BC, the Indus Valley cities had advanced subterranean sewage systems and flushing toilets in individual houses.",
         "difficulty": "medium"
       },
       {
         "question": "Which Roman Emperor famously declared war on Poseidon, God of the Sea, and ordered his soldiers to stab the water?",
-        "options": ["Caligula", "Nero", "Julius Caesar", "Commodus"],
+        "options": [
+          "Caligula",
+          "Nero",
+          "Julius Caesar",
+          "Commodus"
+        ],
         "answer": "Caligula",
         "answer_detail": "In 40 AD Caligula marched his army to the shore and ordered them to attack the waves, returning with seashells as war spoils.",
         "difficulty": "easy"
+      },
+      {
+        "question": "Which Roman Emperor famously appointed his horse, Incitatus, as a consul?",
+        "options": [
+          "Caligula",
+          "Nero",
+          "Commodus",
+          "Hadrian"
+        ],
+        "answer": "Caligula",
+        "answer_detail": "While debated, historical accounts suggest Emperor Caligula intended to make his favorite horse, Incitatus, a consul as a mockery of the Roman Senate.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "What was the primary ingredient used by ancient Egyptians for mummification besides natron?",
+        "options": [
+          "Honey",
+          "Sawdust",
+          "Resin",
+          "Linen bandages"
+        ],
+        "answer": "Resin",
+        "answer_detail": "After drying the body with natron, the Egyptians would often coat it in aromatic resins to preserve the tissues and provide a protective layer.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "During the Middle Ages, what unusual animal was sometimes put on trial for crimes in Europe?",
+        "options": [
+          "Cats",
+          "Pigs",
+          "Bears",
+          "Dogs"
+        ],
+        "answer": "Pigs",
+        "answer_detail": "Pigs were frequently tried and even executed for offenses like attacking children or destroying crops, often in formal court settings with lawyers.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which famous Renaissance artist was also an accomplished anatomist, dissecting over 30 human corpses?",
+        "options": [
+          "Michelangelo",
+          "Raphael",
+          "Leonardo da Vinci",
+          "Donatello"
+        ],
+        "answer": "Leonardo da Vinci",
+        "answer_detail": "Leonardo da Vinci made significant contributions to anatomy through his detailed dissections and drawings, greatly advancing scientific understanding of the human body.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "What innovative but ultimately unsuccessful 'Great Panjandrum' was developed by the British during WWII?",
+        "options": [
+          "A flying saucer prototype",
+          "A rocket-propelled wheeled bomb",
+          "An underwater breathing apparatus",
+          "An inflatable tank decoy"
+        ],
+        "answer": "A rocket-propelled wheeled bomb",
+        "answer_detail": "The Great Panjandrum was a massive, rocket-propelled device designed to breach sea walls during D-Day, but proved uncontrollable in trials.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "What unique material was first used by the ancient Chinese for paper currency?",
+        "options": [
+          "Silk",
+          "Bark",
+          "Bamboo",
+          "Mulberry tree fibers"
+        ],
+        "answer": "Mulberry tree fibers",
+        "answer_detail": "The earliest known paper money, originating in 7th century China during the Tang Dynasty, was made from the bark of mulberry trees.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "What complex astronomical concept were the Maya famously skilled at predicting?",
+        "options": [
+          "Solar flares",
+          "Comet trajectories",
+          "Lunar eclipses",
+          "Meteor showers"
+        ],
+        "answer": "Lunar eclipses",
+        "answer_detail": "The Maya developed highly accurate calendars and astronomical tables, allowing them to predict lunar and solar eclipses with remarkable precision.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Before becoming President of the United States, what unusual job did Abraham Lincoln briefly hold?",
+        "options": [
+          "Professional Wrestler",
+          "Riverboat Pilot",
+          "Blacksmith",
+          "Circus Performer"
+        ],
+        "answer": "Professional Wrestler",
+        "answer_detail": "Lincoln was known for his strength and was an accomplished wrestler in his youth, reportedly losing only one match out of approximately 300.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which ancient city, buried by volcanic ash, preserved daily life in stunning detail?",
+        "options": [
+          "Troy",
+          "Petra",
+          "Pompeii",
+          "Machu Picchu"
+        ],
+        "answer": "Pompeii",
+        "answer_detail": "The eruption of Mount Vesuvius in 79 AD buried Pompeii under meters of ash and pumice, preserving buildings, artifacts, and even human forms.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "Where was the world's first university, recognized by UNESCO, established?",
+        "options": [
+          "Bologna, Italy",
+          "Oxford, England",
+          "Fez, Morocco",
+          "Paris, France"
+        ],
+        "answer": "Fez, Morocco",
+        "answer_detail": "The University of Al-Qarawiyyin, founded in 859 AD in Fez, Morocco, is recognized by UNESCO and Guinness World Records as the oldest continuously operating degree-granting university in the world.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "In ancient Sparta, what was done with newborn infants deemed physically unfit?",
+        "options": [
+          "Sent to an orphanage",
+          "Abandoned in the wilderness",
+          "Given to slaves",
+          "Raised in isolation"
+        ],
+        "answer": "Abandoned in the wilderness",
+        "answer_detail": "Spartan elders would inspect newborns, and those considered weak or deformed were left on Mount Taygetus to die, a practice known as 'eugenics'.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which ancient kingdom, located in modern-day Sudan, rivaled Egypt in power and built more pyramids than the Egyptians?",
+        "options": [
+          "Aksumite Kingdom",
+          "Kingdom of Kush",
+          "Puntland",
+          "Carthage"
+        ],
+        "answer": "Kingdom of Kush",
+        "answer_detail": "The Kingdom of Kush (also known as Nubia) built over 200 pyramids, far more than Egypt, though generally smaller, to house their deceased royalty.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "Which famous explorer is often mistakenly credited with 'discovering' America?",
+        "options": [
+          "Amerigo Vespucci",
+          "Ferdinand Magellan",
+          "Leif Erikson",
+          "Christopher Columbus"
+        ],
+        "answer": "Christopher Columbus",
+        "answer_detail": "While Columbus's voyages were pivotal for European colonization, Norse explorer Leif Erikson landed in North America around 1000 AD, nearly 500 years earlier.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "What unique siege weapon, often featuring a 'turtle' like structure, was developed by the Assyrians?",
+        "options": [
+          "Ballista",
+          "Onager",
+          "Battering Ram (with a roof)",
+          "Catapult"
+        ],
+        "answer": "Battering Ram (with a roof)",
+        "answer_detail": "The Assyrians were masters of siege warfare, using sophisticated battering rams often covered with a protective 'turtle' shell to shield operators from projectiles.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "From which ancient civilization do we get the concept of leap years?",
+        "options": [
+          "Sumerians",
+          "Greeks",
+          "Romans",
+          "Babylonians"
+        ],
+        "answer": "Romans",
+        "answer_detail": "Julius Caesar introduced the Julian calendar in 45 BC, which included a leap day every four years to account for the Earth's orbit being slightly longer than 365 days.",
+        "difficulty": "medium"
       }
     ],
     "myth_fact": [
@@ -84,41 +308,77 @@
     {
       "name": "historical_event",
       "display_name": "Forgotten History Event",
-      "duration_range": [25, 45],
-      "segment_count_range": [4, 6],
+      "duration_range": [
+        25,
+        45
+      ],
+      "segment_count_range": [
+        4,
+        6
+      ],
       "visual_style": "stock_footage",
       "topic_pool": "historical_events",
       "system_prompt": "You generate high-retention history shorts. Describe the event with dramatic structure, starting with an unbelievable hook, explaining the crazy story, adding the fun fact, and asking viewers what they think.",
       "user_prompt_template": "Create a script about the historical event: {topic}.\nYear: {year}\nLocation: {location}\nDescription: {description}\nFun Fact: {fun_fact}",
       "title_template": "This Crazy Historical Event is 100% REAL! 🤯⏳",
-      "default_tags": ["forgotten history", "crazy facts", "history secrets"],
-      "hashtags": ["#HistorySecrets"]
+      "default_tags": [
+        "forgotten history",
+        "crazy facts",
+        "history secrets"
+      ],
+      "hashtags": [
+        "#HistorySecrets"
+      ]
     },
     {
       "name": "quiz",
       "display_name": "History Trivia Challenge",
-      "duration_range": [20, 30],
-      "segment_count_range": [4, 5],
+      "duration_range": [
+        20,
+        30
+      ],
+      "segment_count_range": [
+        4,
+        5
+      ],
       "visual_style": "text_cards",
       "topic_pool": "quiz_questions",
       "system_prompt": "Create an interactive history trivia challenge. Ask the question, show options A, B, C, D, pause for answers, and reveal with details.",
       "user_prompt_template": "Create a history trivia video script.\nQuestion: {question}\nOptions: {options}\nAnswer: {answer}\nDetail: {answer_detail}",
       "title_template": "Only 5% of History Buffs Pass This! 🧠📜",
-      "default_tags": ["history quiz", "history trivia", "trivia challenge"],
-      "hashtags": ["#TriviaChallenge"]
+      "default_tags": [
+        "history quiz",
+        "history trivia",
+        "trivia challenge"
+      ],
+      "hashtags": [
+        "#TriviaChallenge"
+      ]
     },
     {
       "name": "myth_fact",
       "display_name": "History Myths Debunked",
-      "duration_range": [25, 40],
-      "segment_count_range": [4, 6],
+      "duration_range": [
+        25,
+        40
+      ],
+      "segment_count_range": [
+        4,
+        6
+      ],
       "visual_style": "mixed",
       "topic_pool": "myth_fact",
       "system_prompt": "Debunk a popular historical myth. Hook the viewer by stating the common belief, dramatically reveal why it is a lie, and explain the real truth.",
       "user_prompt_template": "Create a myth debunking script.\nTopic: {topic}\nCommon Myth: {myth}\nActual Fact: {fact}\nExplanation: {explanation}",
       "title_template": "This History Myth is a Complete LIE! ❌🤫",
-      "default_tags": ["myths debunked", "history myths", "lies in history"],
-      "hashtags": ["#MythsDebunked"]
+      "default_tags": [
+        "myths debunked",
+        "history myths",
+        "lies in history"
+      ],
+      "hashtags": [
+        "#MythsDebunked"
+      ]
     }
   ]
 }

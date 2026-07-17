@@ -19,6 +19,27 @@ from content_engine.content_templates import ScriptSegment, VideoScript, Content
 logger = logging.getLogger(__name__)
 
 
+JSON_FORMAT_INSTRUCTIONS = """
+You MUST return ONLY valid JSON (no markdown fences, no commentary outside the JSON).
+The JSON must conform EXACTLY to this schema:
+{
+  "segments": [
+    {
+      "narration": "<string — what the TTS voice says>",
+      "visual_cue": "<string — description of the image, clip, or graphic to show>",
+      "duration_hint": <float — seconds this segment should last>
+    }
+  ],
+  "title": "<string — video title, max 100 chars, with emoji>",
+  "description": "<string — video description, 2-4 sentences + hashtags>",
+  "tags": ["<string>", "..."],
+  "thumbnail_text": "<string — 2-5 bold words for the thumbnail overlay>",
+  "content_type": "<string — the template name>",
+  "topic": "<string — the specific topic of this video>"
+}
+"""
+
+
 class ScriptGeneratorError(RuntimeError):
     """Raised when script generation fails."""
 
@@ -76,12 +97,17 @@ class ScriptGenerator:
         last_error = None
         current_model = self.model_name
 
+        # Prepare system instruction
+        system_instruction = template.system_prompt
+        if "schema" not in system_instruction.lower():
+            system_instruction = f"{system_instruction}\n\n{JSON_FORMAT_INSTRUCTIONS}"
+
         for attempt in range(retries + 1):
             try:
                 logger.info(f"Sending prompt to Gemini (Attempt {attempt+1}/{retries+1}) using {current_model}...")
                 
                 config = types.GenerateContentConfig(
-                    system_instruction=template.system_prompt,
+                    system_instruction=system_instruction,
                     response_mime_type="application/json",
                     temperature=0.7,
                 )

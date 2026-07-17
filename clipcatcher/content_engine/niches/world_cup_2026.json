@@ -2380,6 +2380,216 @@
         "team_b": "TBD",
         "stage": "Final",
         "venue": "MetLife Stadium, New York/New Jersey"
+      },
+      {
+        "date": "2026-06-11",
+        "team_a": "Mexico",
+        "team_b": "Chile",
+        "stage": "Group A – MD1",
+        "venue": "Estadio Azteca, Mexico City"
+      },
+      {
+        "date": "2026-06-12",
+        "team_a": "USA",
+        "team_b": "Ghana",
+        "stage": "Group B – MD1",
+        "venue": "SoFi Stadium, Los Angeles"
+      },
+      {
+        "date": "2026-06-13",
+        "team_a": "Canada",
+        "team_b": "Morocco",
+        "stage": "Group C – MD1",
+        "venue": "BC Place, Vancouver"
+      },
+      {
+        "date": "2026-06-14",
+        "team_a": "Argentina",
+        "team_b": "Poland",
+        "stage": "Group D – MD1",
+        "venue": "AT&T Stadium, Dallas"
+      },
+      {
+        "date": "2026-06-17",
+        "team_a": "Brazil",
+        "team_b": "Serbia",
+        "stage": "Group E – MD2",
+        "venue": "MetLife Stadium, New York/New Jersey"
+      },
+      {
+        "date": "2026-06-21",
+        "team_a": "England",
+        "team_b": "Senegal",
+        "stage": "Group F – MD2",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+      },
+      {
+        "date": "2026-06-25",
+        "team_a": "Germany",
+        "team_b": "Uruguay",
+        "stage": "Group G – MD3",
+        "venue": "Arrowhead Stadium, Kansas City"
+      },
+      {
+        "date": "2026-06-25",
+        "team_a": "Spain",
+        "team_b": "Japan",
+        "stage": "Group G – MD3",
+        "venue": "NRG Stadium, Houston"
+      },
+      {
+        "date": "2026-06-29",
+        "team_a": "Portugal",
+        "team_b": "South Korea",
+        "stage": "Round of 32",
+        "venue": "Levi's Stadium, Santa Clara"
+      },
+      {
+        "date": "2026-06-30",
+        "team_a": "Netherlands",
+        "team_b": "Australia",
+        "stage": "Round of 32",
+        "venue": "Estadio BBVA, Monterrey"
+      },
+      {
+        "date": "2026-07-04",
+        "team_a": "France",
+        "team_b": "Belgium",
+        "stage": "Round of 16",
+        "venue": "Lumen Field, Seattle"
+      },
+      {
+        "date": "2026-07-09",
+        "team_a": "USA",
+        "team_b": "Argentina",
+        "stage": "Quarter-final",
+        "venue": "Gillette Stadium, Boston"
+      },
+      {
+        "date": "2026-07-14",
+        "team_a": "Brazil",
+        "team_b": "France",
+        "stage": "Semi-final",
+        "venue": "Hard Rock Stadium, Miami"
+      },
+      {
+        "date": "2026-07-15",
+        "team_a": "England",
+        "team_b": "Germany",
+        "stage": "Semi-final",
+        "venue": "AT&T Stadium, Dallas"
+      },
+      {
+        "date": "2026-07-19",
+        "team_a": "Brazil",
+        "team_b": "Argentina",
+        "stage": "Final",
+        "venue": "MetLife Stadium, New York/New Jersey"
+      },
+      {
+        "date": "2026-06-12",
+        "team_a": "USA",
+        "team_b": "Ghana",
+        "stage": "Group B – MD1",
+        "venue": "SoFi Stadium, Inglewood"
+      },
+      {
+        "date": "2026-06-13",
+        "team_a": "Argentina",
+        "team_b": "Saudi Arabia",
+        "stage": "Group C – MD1",
+        "venue": "AT&T Stadium, Arlington"
+      },
+      {
+        "date": "2026-06-14",
+        "team_a": "Brazil",
+        "team_b": "Serbia",
+        "stage": "Group D – MD1",
+        "venue": "MetLife Stadium, East Rutherford"
+      },
+      {
+        "date": "2026-06-15",
+        "team_a": "Canada",
+        "team_b": "Morocco",
+        "stage": "Group E – MD1",
+        "venue": "BMO Field, Toronto"
+      },
+      {
+        "date": "2026-06-16",
+        "team_a": "Germany",
+        "team_b": "Japan",
+        "stage": "Group F – MD1",
+        "venue": "Mercedes-Benz Stadium, Atlanta"
+      },
+      {
+        "date": "2026-06-21",
+        "team_a": "Spain",
+        "team_b": "Italy",
+        "stage": "Group G – MD2",
+        "venue": "Hard Rock Stadium, Miami"
+      },
+      {
+        "date": "2026-06-25",
+        "team_a": "England",
+        "team_b": "USA",
+        "stage": "Group B – MD3",
+        "venue": "Gillette Stadium, Foxborough"
+      },
+      {
+        "date": "2026-07-03",
+        "team_a": "Mexico",
+        "team_b": "Ecuador",
+        "stage": "Round of 16",
+        "venue": "Estadio BBVA, Monterrey"
+      },
+      {
+        "date": "2026-07-04",
+        "team_a": "USA",
+        "team_b": "Senegal",
+        "stage": "Round of 16",
+        "venue": "BC Place, Vancouver"
+      },
+      {
+        "date": "2026-07-11",
+        "team_a": "France",
+        "team_b": "Portugal",
+        "stage": "Quarter-final",
+        "venue": "Arrowhead Stadium, Kansas City"
+      },
+      {
+        "date": "2026-07-12",
+        "team_a": "Brazil",
+        "team_b": "Germany",
+        "stage": "Quarter-final",
+        "venue": "Levi's Stadium, Santa Clara"
+      },
+      {
+        "date": "2026-07-15",
+        "team_a": "Argentina",
+        "team_b": "Spain",
+        "stage": "Semi-final",
+        "venue": "AT&T Stadium, Arlington"
+      },
+      {
+        "date": "2026-07-16",
+        "team_a": "England",
+        "team_b": "Brazil",
+        "stage": "Semi-final",
+        "venue": "MetLife Stadium, East Rutherford"
+      },
+      {
+        "date": "2026-07-18",
+        "team_a": "Spain",
+        "team_b": "England",
+        "stage": "Third Place Play-off",
+        "venue": "Hard Rock Stadium, Miami"
+      },
+      {
+        "date": "2026-07-19",
+        "team_a": "Argentina",
+        "team_b": "Brazil",
+        "stage": "Final",
+        "venue": "MetLife Stadium, East Rutherford"
       }
     ],
     "historical_facts": [
@@ -2882,6 +3092,81 @@
         "date": "07-09",
         "year": 2006,
         "event": "Fabio Cannavaro becomes only the third defender to win the Ballon d'Or, largely due to his 2006 World Cup performances."
+      },
+      {
+        "date": "06-10",
+        "year": 1934,
+        "event": "Italy wins its first FIFA World Cup title, defeating Czechoslovakia in extra time on home soil in Rome."
+      },
+      {
+        "date": "07-16",
+        "year": 1950,
+        "event": "The 'Maracanazo': Uruguay famously defeats host Brazil 2-1 in the final match of the World Cup at the Maracanã Stadium."
+      },
+      {
+        "date": "07-04",
+        "year": 1954,
+        "event": "The 'Miracle of Bern': West Germany, against all odds, upsets the mighty Hungarian 'Magical Magyars' 3-2 in the World Cup final."
+      },
+      {
+        "date": "06-29",
+        "year": 1958,
+        "event": "17-year-old Pelé scores a hat-trick in the semi-final and a brace in the final, leading Brazil to their first World Cup title in Sweden."
+      },
+      {
+        "date": "03-27",
+        "year": 1966,
+        "event": "The Jules Rimet trophy, stolen prior to the World Cup in England, is famously found by a dog named Pickles."
+      },
+      {
+        "date": "07-30",
+        "year": 1966,
+        "event": "England wins its only FIFA World Cup trophy, defeating West Germany 4-2 in extra time at Wembley Stadium."
+      },
+      {
+        "date": "05-31",
+        "year": 1970,
+        "event": "Red and yellow cards are introduced for the first time at a FIFA World Cup tournament in Mexico."
+      },
+      {
+        "date": "06-21",
+        "year": 1970,
+        "event": "Brazil's legendary team, featuring Pelé, Jairzinho, and Rivelino, secures their third World Cup title, permanently claiming the Jules Rimet trophy."
+      },
+      {
+        "date": "06-22",
+        "year": 1986,
+        "event": "Diego Maradona scores both the controversial 'Hand of God' goal and the 'Goal of the Century' against England in the quarter-finals."
+      },
+      {
+        "date": "07-08",
+        "year": 1990,
+        "event": "West Germany, led by Franz Beckenbauer, wins its third World Cup title, defeating Argentina in a rematch of the previous final."
+      },
+      {
+        "date": "07-17",
+        "year": 1994,
+        "event": "The World Cup final is decided by a penalty shootout for the first time ever, with Brazil defeating Italy in the USA."
+      },
+      {
+        "date": "07-12",
+        "year": 1998,
+        "event": "Zinedine Zidane scores two headers as host nation France triumphs over Brazil 3-0 to win their first-ever World Cup."
+      },
+      {
+        "date": "05-31",
+        "year": 2002,
+        "event": "The FIFA World Cup is co-hosted by two nations (South Korea and Japan) and held in Asia for the very first time."
+      },
+      {
+        "date": "06-11",
+        "year": 2010,
+        "event": "South Africa makes history by becoming the first African nation to host the FIFA World Cup."
+      },
+      {
+        "date": "07-08",
+        "year": 2014,
+        "event": "Germany delivers a stunning 7-1 defeat to host nation Brazil in the semi-finals, a record-breaking World Cup match."
       }
     ],
     "quiz_questions": [
@@ -3616,6 +3901,186 @@
         "answer": "Lionel Messi",
         "answer_detail": "Messi won the 2014 Golden Ball despite Argentina losing the final to Germany. He also won it in 2022, this time as the winner.",
         "difficulty": "hard"
+      },
+      {
+        "question": "Which three North American countries are co-hosting the FIFA World Cup 2026?",
+        "options": [
+          "USA, Canada, Mexico",
+          "USA, Canada, Brazil",
+          "Mexico, USA, Argentina",
+          "Canada, USA, England"
+        ],
+        "answer": "USA, Canada, Mexico",
+        "answer_detail": "The 2026 FIFA World Cup will be jointly hosted by Canada, Mexico, and the United States, marking the first time three nations share hosting duties.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "How many teams are projected to compete in the FIFA World Cup 2026, marking an expansion from previous tournaments?",
+        "options": [
+          "32",
+          "40",
+          "48",
+          "64"
+        ],
+        "answer": "48",
+        "answer_detail": "The 2026 World Cup will feature an expanded format with 48 teams, up from 32, leading to more matches and participating nations.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which of these Canadian cities is slated to host matches for the FIFA World Cup 2026?",
+        "options": [
+          "Vancouver",
+          "Montreal",
+          "Calgary",
+          "Edmonton"
+        ],
+        "answer": "Vancouver",
+        "answer_detail": "Vancouver and Toronto are the two Canadian cities selected to host games during the 2026 FIFA World Cup.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Mexico will become the first country to host the men's FIFA World Cup three times in 2026. Which of these Mexican cities is a host city?",
+        "options": [
+          "Guadalajara",
+          "Puebla",
+          "Tijuana",
+          "Leon"
+        ],
+        "answer": "Guadalajara",
+        "answer_detail": "Mexico City, Guadalajara, and Monterrey are the three Mexican host cities for the 2026 FIFA World Cup.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "Which nation holds the record for the most FIFA World Cup titles, potentially looking to extend their lead by 2026?",
+        "options": [
+          "Germany",
+          "Italy",
+          "Brazil",
+          "Argentina"
+        ],
+        "answer": "Brazil",
+        "answer_detail": "Brazil has won the FIFA World Cup a record five times (1958, 1962, 1970, 1994, 2002), more than any other nation.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "What is the proposed new format for the group stage of the 48-team FIFA World Cup 2026?",
+        "options": [
+          "16 groups of 3 teams",
+          "12 groups of 4 teams",
+          "8 groups of 6 teams",
+          "24 groups of 2 teams"
+        ],
+        "answer": "12 groups of 4 teams",
+        "answer_detail": "Initially planned as 16 groups of 3, FIFA later approved a change to 12 groups of 4 teams, with the top two and eight best third-placed teams advancing to a round of 32.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "Which legendary player is the all-time leading scorer in FIFA World Cup history, a record that could be challenged by 2026?",
+        "options": [
+          "Miroslav Klose",
+          "Ronaldo Nazário",
+          "Lionel Messi",
+          "Pelé"
+        ],
+        "answer": "Miroslav Klose",
+        "answer_detail": "Germany's Miroslav Klose holds the record for most World Cup goals with 16 goals across four tournaments (2002-2014).",
+        "difficulty": "medium"
+      },
+      {
+        "question": "What technology, first introduced at the 2014 World Cup, is now a standard tool to assist referees with goal-line decisions?",
+        "options": [
+          "Video Assistant Referee (VAR)",
+          "Goal-Line Technology (GLT)",
+          "Semi-Automated Offside Technology (SAOT)",
+          "Electronic Performance Tracking (EPT)"
+        ],
+        "answer": "Goal-Line Technology (GLT)",
+        "answer_detail": "Goal-Line Technology uses electronic devices to instantly determine if the ball has fully crossed the goal line, providing clear evidence for controversial goal decisions.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "Which stadium in the New York/New Jersey metropolitan area has been selected as a host venue for the FIFA World Cup 2026?",
+        "options": [
+          "MetLife Stadium",
+          "Yankee Stadium",
+          "Red Bull Arena",
+          "Citi Field"
+        ],
+        "answer": "MetLife Stadium",
+        "answer_detail": "MetLife Stadium, located in East Rutherford, New Jersey, is one of the major venues chosen to host matches for the 2026 FIFA World Cup.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "With the expansion to 48 teams, how many direct qualification spots has CONMEBOL (South America) been allocated for the 2026 World Cup?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "answer_detail": "CONMEBOL has been allocated 6 direct qualification spots for the 2026 World Cup, an increase from the previous 4.5 spots.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "How many host cities across the three co-hosting nations have been selected for the FIFA World Cup 2026?",
+        "options": [
+          "12",
+          "16",
+          "18",
+          "20"
+        ],
+        "answer": "16",
+        "answer_detail": "A total of 16 cities across Canada (2), Mexico (3), and the United States (11) will host matches for the 2026 FIFA World Cup.",
+        "difficulty": "medium"
+      },
+      {
+        "question": "What is the name of the trophy awarded to the winner of the FIFA World Cup?",
+        "options": [
+          "Jules Rimet Trophy",
+          "FIFA World Cup Trophy",
+          "FIFA Golden Cup",
+          "Copa Mundial"
+        ],
+        "answer": "FIFA World Cup Trophy",
+        "answer_detail": "The current FIFA World Cup Trophy, designed by Silvio Gazzaniga, has been in use since 1974, replacing the Jules Rimet Trophy.",
+        "difficulty": "easy"
+      },
+      {
+        "question": "What significant change was introduced to the FIFA World Cup match ball technology for Qatar 2022, which is expected to continue in 2026?",
+        "options": [
+          "GPS tracking for player speed",
+          "Sensor inside the ball for semi-automated offside calls",
+          "Pressure sensors for kick power",
+          "Integrated camera for player's perspective"
+        ],
+        "answer": "Sensor inside the ball for semi-automated offside calls",
+        "answer_detail": "The Al Rihla ball in 2022 contained an inertial measurement unit (IMU) sensor to provide precise ball data for semi-automated offside decisions, a feature likely to be refined and used in 2026.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "Only two nations have successfully defended the FIFA World Cup title. Which two are they?",
+        "options": [
+          "Brazil and Germany",
+          "Italy and Brazil",
+          "Argentina and France",
+          "Uruguay and Italy"
+        ],
+        "answer": "Italy and Brazil",
+        "answer_detail": "Italy won in 1934 and 1938, and Brazil won in 1958 and 1962, making them the only teams to win consecutive World Cup titles.",
+        "difficulty": "hard"
+      },
+      {
+        "question": "Which North American country will host World Cup matches for the first time in 2026?",
+        "options": [
+          "Mexico",
+          "United States",
+          "Canada",
+          "Costa Rica"
+        ],
+        "answer": "Canada",
+        "answer_detail": "While Mexico (1970, 1986) and the United States (1994) have hosted before, 2026 will mark Canada's debut as a men's FIFA World Cup host.",
+        "difficulty": "medium"
       }
     ],
     "controversies": [
