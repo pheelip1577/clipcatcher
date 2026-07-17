@@ -32,8 +32,8 @@ DEFAULT_SETTINGS = {
     "youtube_schedule_interval": 12.0,
     "youtube_last_scheduled_time": "",
     "wc_streamers": ["ishowspeed", "castro1021", "ibai", "davooeneize"],
-    "match_title": "WORLD CUP 2026",
-    "match_score": "LIVE REACTION",
+    "match_title": "",
+    "match_score": "",
     "youtube_wc_grid_template": "{streamer1} vs {streamer2} vs {streamer3} vs {streamer4} INSANE REACTION! #shorts #worldcup",
     # ─── ContentEngine settings ─────────────────────────────────────────
     "ce_active_niche": "world_cup_2026",

@@ -29,6 +29,13 @@ def test_get_topic_options():
 
 def test_is_pool_low():
     niche = load_niche("finance_tips")
+    niche.topic_pools = {
+        "finance_hacks": [
+            {"topic": "The Power of Compound Interest"},
+            {"topic": "High-Yield Savings Accounts"},
+            {"topic": "The 50/30/20 Budgeting Hack"}
+        ]
+    }
     assert niche.is_pool_low("finance_hacks", produced_set=set()) is True
     
     produced = {"wealth_hack:The Power of Compound Interest", 

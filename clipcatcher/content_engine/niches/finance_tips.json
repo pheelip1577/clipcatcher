@@ -2,18 +2,53 @@
   "name": "finance_tips",
   "display_name": "Money Minute 💸",
   "channel_name": "Money Minute",
-  "hashtags": ["#FinanceTips", "#Money", "#Wealth", "#Investing", "#PersonalFinance", "#Shorts"],
-  "default_tags": ["finance tips", "money management", "investing guide", "saving hacks", "financial freedom", "shorts"],
+  "hashtags": [
+    "#FinanceTips",
+    "#Money",
+    "#Wealth",
+    "#Investing",
+    "#PersonalFinance",
+    "#Shorts"
+  ],
+  "default_tags": [
+    "finance tips",
+    "money management",
+    "investing guide",
+    "saving hacks",
+    "financial freedom",
+    "shorts"
+  ],
   "brand_colors": {
-    "primary": [12, 44, 20],
-    "secondary": [50, 205, 50],
-    "accent": [255, 223, 0],
-    "thumbnail_accent": [255, 140, 0]
+    "primary": [
+      12,
+      44,
+      20
+    ],
+    "secondary": [
+      50,
+      205,
+      50
+    ],
+    "accent": [
+      255,
+      223,
+      0
+    ],
+    "thumbnail_accent": [
+      255,
+      140,
+      0
+    ]
   },
   "rss_search_query": "personal+finance+tips+OR+wealth+building+hacks",
   "visual_sources": {
     "sportsdb_enabled": false,
-    "pexels_default_terms": ["money", "piggy bank", "stock chart", "coins"],
+    "pexels_default_terms": [
+      "money",
+      "piggy bank",
+      "stock chart",
+      "coins"
+    ],
     "pexels_sport_term": "finance"
   },
   "tone_preamble": "You are a sharp, friendly personal finance advisor sharing wealth-building secrets and money hacks for TikTok and YouTube Shorts. Your tone is energetic, direct, and actionable. Avoid complex jargon—make money simple and exciting.",
@@ -40,6 +75,111 @@
         "tip": "Split your income into three buckets: 50% for Needs, 30% for Wants, and 20% for Savings and investing.",
         "example": "If you make $3,000 a month, spend $1,500 on rent and bills, keep $900 for eating out and fun, and auto-transfer $600 to investments.",
         "action_step": "Track your last month's spending and categorize it into these three buckets to see where you stand."
+      },
+      {
+        "topic": "Debt Snowball Method",
+        "title": "Conquer Your Debt Faster!",
+        "tip": "Pay off your smallest debt first to build momentum, then roll that payment into the next smallest debt.",
+        "example": "Imagine you have a $500 credit card debt and a $1500 personal loan. Pay off the credit card first, then take the money you were paying on it and add it to your personal loan payment.",
+        "action_step": "List all your debts from smallest to largest balance and commit to tackling the first one aggressively."
+      },
+      {
+        "topic": "Automating Your Savings",
+        "title": "Set It and Forget It!",
+        "tip": "Make saving automatic by setting up recurring transfers from your checking to your savings account right after payday.",
+        "example": "If you get paid bi-weekly, set up a $50 transfer to your savings every two weeks. You won't miss it, and you'll save $1300 a year!",
+        "action_step": "Log into your bank's online portal and set up an automatic transfer to your savings for your next payday."
+      },
+      {
+        "topic": "Boosting Your Credit Score",
+        "title": "Your Credit Score Supercharger",
+        "tip": "Pay your bills on time, keep credit utilization low (below 30%), and don't close old credit accounts.",
+        "example": "If your credit limit is $1000, try to keep your balance under $300. This signals responsible credit use and boosts your score.",
+        "action_step": "Check your credit report for free at AnnualCreditReport.com and identify one area to improve this month."
+      },
+      {
+        "topic": "The Subscription Audit",
+        "title": "Unsubscribe to Savings!",
+        "tip": "Review all your recurring subscriptions and cancel any you don't actively use or truly value.",
+        "example": "You might be paying for a streaming service you rarely watch or a gym membership you don't use. Canceling just three $10/month services saves you $360 a year.",
+        "action_step": "Check your bank statements for the last three months and list all recurring charges. Cancel one today!"
+      },
+      {
+        "topic": "Cashback Rewards and Apps",
+        "title": "Get Paid to Spend!",
+        "tip": "Use cashback credit cards, browser extensions, or shopping apps to earn money back on your everyday purchases.",
+        "example": "A 2% cashback card on $1500 in monthly spending earns you $30 back each month, or $360 per year, just for buying what you already need.",
+        "action_step": "Research cashback credit cards or download a reputable cashback app like Rakuten or Ibotta before your next shopping trip."
+      },
+      {
+        "topic": "Emergency Fund Basics",
+        "title": "Your Financial Safety Net",
+        "tip": "Build an emergency fund with 3-6 months of living expenses to cover unexpected costs like job loss or medical emergencies.",
+        "example": "If your monthly expenses are $2000, aim for $6000-$12,000 saved. This prevents debt when life throws a curveball.",
+        "action_step": "Decide on a small, achievable amount (e.g., $25) to transfer to a dedicated savings account for your emergency fund this week."
+      },
+      {
+        "topic": "Negotiating Your Bills",
+        "title": "Don't Pay Full Price!",
+        "tip": "Call your service providers (internet, cable, insurance) annually to ask for discounts, better rates, or to price match competitors.",
+        "example": "Many internet providers will offer a loyalty discount if you just ask, or match a competitor's lower rate, saving you $10-20 a month.",
+        "action_step": "Pick one bill (e.g., internet or phone) and call their customer service today to inquire about lower rates or special offers."
+      },
+      {
+        "topic": "The Power of Employer Match",
+        "title": "Free Money for Retirement!",
+        "tip": "If your employer offers a 401(k) or 403(b) match, contribute at least enough to get the full match – it's literally free money.",
+        "example": "If your company matches 50% of your contributions up to 6% of your salary, contributing $3000 gets you an extra $1500 for retirement.",
+        "action_step": "Check with your HR department or plan administrator to find out your company's matching policy and adjust your contributions if you're not getting the full match."
+      },
+      {
+        "topic": "Meal Prepping for Savings",
+        "title": "Cook Once, Eat Cheap All Week",
+        "tip": "Plan and prepare your meals in advance for the week to avoid expensive impulse buys, takeout, and food waste.",
+        "example": "Spending 2-3 hours on Sunday to prep lunches and dinners for the week can cut your food budget by $50-$100, saving you over $2000 a year.",
+        "action_step": "Choose one meal (e.g., lunch) to meal prep for next week and buy ingredients specifically for it."
+      },
+      {
+        "topic": "Student Loan Refinancing",
+        "title": "Slash Your Student Loan Payments",
+        "tip": "If you have good credit, consider refinancing private student loans to a lower interest rate, potentially saving thousands over the loan's life.",
+        "example": "Refinancing a $30,000 loan from 6.8% to 4.5% could save you over $3,000 in interest and lower your monthly payment by $25-$50.",
+        "action_step": "Research reputable student loan refinancing lenders and use an online calculator to see your potential savings."
+      },
+      {
+        "topic": "The 'Found Money' Jar",
+        "title": "Every Penny Counts",
+        "tip": "Collect all your loose change, small cash windfalls, or even $1 bills you find and put them into a dedicated savings jar.",
+        "example": "If you put just $2 a day into a jar from loose change or skipping a small indulgence, you'll save over $700 in a year without feeling a pinch.",
+        "action_step": "Find a jar or container and commit to dropping all your loose change or small unexpected cash into it daily."
+      },
+      {
+        "topic": "Price Matching & Comparison Shopping",
+        "title": "Never Pay More Than You Have To",
+        "tip": "Before making a significant purchase, quickly check competitors' prices or ask retailers if they offer price matching.",
+        "example": "Many big box stores will match an online competitor's price, saving you the hassle of driving around and ensuring you get the best deal.",
+        "action_step": "Before your next planned purchase over $50, spend 5 minutes checking at least two other retailers or online stores for a better price."
+      },
+      {
+        "topic": "The No-Spend Challenge",
+        "title": "Your Budget Reset Button",
+        "tip": "Challenge yourself to a period (e.g., a weekend, a week) where you only spend money on absolute necessities.",
+        "example": "A 'no-spend' weekend can save you $50-$200 that you might have otherwise spent on dining out, entertainment, or impulse shopping, helping you reset your spending habits.",
+        "action_step": "Plan a no-spend day this coming weekend. Prepare your meals, find free entertainment, and avoid non-essential purchases."
+      },
+      {
+        "topic": "Investing in Low-Cost Index Funds",
+        "title": "Simple Path to Wealth",
+        "tip": "Instead of picking individual stocks, invest in broad market index funds (like an S&P 500 fund) for diversification and lower fees.",
+        "example": "Over the long term, index funds have historically matched market returns (around 7-10% annually), often outperforming actively managed funds and significantly building wealth.",
+        "action_step": "Research a low-cost S&P 500 index fund or ETF (e.g., VOO, SPY) and consider opening an investment account to get started."
+      },
+      {
+        "topic": "The Debt Avalanche Method",
+        "title": "Crush High-Interest Debt First!",
+        "tip": "Focus on paying off debts with the highest interest rates first, saving you the most money on interest over time.",
+        "example": "If you have a credit card at 20% APR and a personal loan at 10% APR, paying extra on the credit card first will reduce your overall interest payments significantly faster.",
+        "action_step": "List all your debts by interest rate (highest to lowest) and direct any extra payments towards the debt at the top of your list."
       }
     ],
     "saving_tips": [
@@ -59,28 +199,52 @@
     {
       "name": "wealth_hack",
       "display_name": "Wealth Building Hack",
-      "duration_range": [25, 40],
-      "segment_count_range": [4, 6],
+      "duration_range": [
+        25,
+        40
+      ],
+      "segment_count_range": [
+        4,
+        6
+      ],
       "visual_style": "mixed",
       "topic_pool": "finance_hacks",
       "system_prompt": "Create an exciting wealth building hack. Start with a hook about how most people are losing money, present the concept, give a concrete mathematical example, and end with the action step.",
       "user_prompt_template": "Create a finance tip script about: {topic}.\nConcept: {tip}\nExample: {example}\nAction Step: {action_step}",
       "title_template": "How to Hack Compound Interest to Get Rich! 💸🚀",
-      "default_tags": ["wealth hacks", "investing tips", "personal finance"],
-      "hashtags": ["#WealthHacks"]
+      "default_tags": [
+        "wealth hacks",
+        "investing tips",
+        "personal finance"
+      ],
+      "hashtags": [
+        "#WealthHacks"
+      ]
     },
     {
       "name": "saving_tip",
       "display_name": "Money Saving Tip",
-      "duration_range": [20, 35],
-      "segment_count_range": [3, 5],
+      "duration_range": [
+        20,
+        35
+      ],
+      "segment_count_range": [
+        3,
+        5
+      ],
       "visual_style": "stock_footage",
       "topic_pool": "saving_tips",
       "system_prompt": "Deliver a punchy money saving tip. Start with a hook about saving money effortlessly, describe the rule/method, and explain the financial benefit.",
       "user_prompt_template": "Create a money saving script.\nTopic: {topic}\nDescription: {description}\nFinancial Benefit: {benefit}",
       "title_template": "This Simple Hack Will Save You THOUSANDS! 💰😲",
-      "default_tags": ["saving hacks", "frugal living", "money saving tips"],
-      "hashtags": ["#SavingTips"]
+      "default_tags": [
+        "saving hacks",
+        "frugal living",
+        "money saving tips"
+      ],
+      "hashtags": [
+        "#SavingTips"
+      ]
     }
   ]
 }

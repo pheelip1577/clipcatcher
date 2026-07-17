@@ -282,7 +282,7 @@ class ClipCatcherApp:
 
     def _build_window(self):
         self.root = ctk.CTk()
-        self.root.title("ClipCatcher - World Cup 2026 Edition")
+        self.root.title("ClipCatcher")
         self.root.geometry("1200x760")
         self.root.minsize(1000, 640)
         self.root.configure(fg_color=BG_MAIN)
@@ -1943,7 +1943,7 @@ class ClipCatcherApp:
         self._append_chat("SYSTEM", f"Synchronized spike on {ch_str}! Assembling HypeGrid...", "system")
 
         # Capture metadata values
-        title = self.match_title_ent.get().strip() or "WORLD CUP 2026"
+        title = self.match_title_ent.get().strip() or "HYPEGRID EVENT"
         score = self.match_score_ent.get().strip() or "LIVE REACTION"
 
         # Clip parameter
@@ -2207,11 +2207,11 @@ class ClipCatcherApp:
             return False
 
         top_text = self.settings.get("match_title", "").strip().upper()
-        if not top_text:
+        if not top_text or top_text == "WORLD CUP 2026":
             top_text = clip.get("channel", "STREAM").upper()
 
         bottom_text = self.settings.get("match_score", "").strip().upper()
-        if not bottom_text:
+        if not bottom_text or bottom_text == "LIVE REACTION":
             bottom_text = "HYPE MOMENT"
 
         font_arg = "font='Arial':"
