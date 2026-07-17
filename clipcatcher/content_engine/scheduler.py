@@ -140,20 +140,21 @@ class ContentScheduler:
 
         # Build set of teams/players playing soon (next 7 days)
         playing_soon = set()
-        for match in world_cup_data.get("schedule", []):
-            m_date = match.get("date", "")
-            try:
-                md = datetime.strptime(m_date, "%Y-%m-%d").date()
-                if 0 <= (md - today).days <= 7:
-                    playing_soon.add(match["team_a"])
-                    playing_soon.add(match["team_b"])
-                    # Get players
-                    t_a = world_cup_data.get("teams", {}).get(match["team_a"], {})
-                    t_b = world_cup_data.get("teams", {}).get(match["team_b"], {})
-                    for p in t_a.get("key_players", []) + t_b.get("key_players", []):
-                        playing_soon.add(p)
-            except Exception:
-                pass
+        if world_cup_data:
+            for match in world_cup_data.get("schedule", []):
+                m_date = match.get("date", "")
+                try:
+                    md = datetime.strptime(m_date, "%Y-%m-%d").date()
+                    if 0 <= (md - today).days <= 7:
+                        playing_soon.add(match["team_a"])
+                        playing_soon.add(match["team_b"])
+                        # Get players
+                        t_a = world_cup_data.get("teams", {}).get(match["team_a"], {})
+                        t_b = world_cup_data.get("teams", {}).get(match["team_b"], {})
+                        for p in t_a.get("key_players", []) + t_b.get("key_players", []):
+                            playing_soon.add(p)
+                except Exception:
+                    pass
 
         prioritized = []
         for c in candidates:
